@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 2019_02_08_223837) do
     t.string "avatar_link"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["pseudo"], name: "index_users_on_pseudo", unique: true
   end
 
 end
