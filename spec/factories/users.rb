@@ -7,12 +7,8 @@ FactoryBot.define do
     avatar_link { 'https://api.adorable.io/avatars/285/test@test.com.png' }
 
     factory :wrong_password_confirmation_user do
-      password_confirmation { 'passwordaze' }
+      password_confirmation { 'wrong' }
     end
 
-    factory :no_password_confirmation_user do
-      password_confirmation {}
-    end
   end
-
 end

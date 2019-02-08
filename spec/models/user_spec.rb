@@ -11,11 +11,6 @@ RSpec.describe User, type: :model do
     expect(user.save).to be false
   end
 
-  it 'should refuse the user because no password confirmation' do
-    user = build(:no_password_confirmation_user)
-    expect(user.save).to be false
-  end
-
   it 'should refuse the user because email already exists' do
     user = build(:user)
     user2 = build(:user)
