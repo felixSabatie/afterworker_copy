@@ -11,5 +11,11 @@ class CreateEvents < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
+    add_index :events, :hash, unique: true
+
+    create_table :events_users, id: false do |t|
+      t.belongs_to :event, index: true
+      t.belongs_to :user, index: true
+    end
   end
 end
