@@ -25,8 +25,8 @@ RSpec.describe DatePollOption, type: :model do
       user1 = create(:user)
       date_poll_option = create(:date_poll_option, event: @event)
       date_poll_option.voters << user1
-      date_poll_option.voters << user1
 
+      expect { date_poll_option.voters << user1 }.to raise_error(ActiveRecord::RecordNotUnique)
       expect(date_poll_option.voters.length).to eql(1)
     end
   end

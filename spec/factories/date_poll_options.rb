@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :date_poll_option do
-    date { "2019-02-09 15:35:58" }
+    date { Time.now + 10.days }
     event { nil }
   end
 end
