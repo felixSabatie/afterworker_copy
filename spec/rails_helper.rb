@@ -60,4 +60,9 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 
   require 'support/factory_bot'
+
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
 end
