@@ -27,4 +27,33 @@ RSpec.describe User, type: :model do
     user.save
     expect { user2.save }.to raise_error(ActiveRecord::RecordNotUnique)
   end
+
+  it 'should refuse the user because the email format is wrong' do
+    user = build(:user)
+    user.email = 'wrong@wrong'
+    expect(user.save).to be false
+    expect(user.errors.messages).to have_key(:email)
+
+    user.email = 'wrong'
+    expect(user.save).to be false
+    expect(user.errors.messages).to have_key(:email)
+
+    user.email = 'wrong.wrong.com'
+    expect(user.save).to be false
+    expect(user.errors.messages).to have_key(:email)
+  end
+
+  it 'should refuse password because too short' do
+    user = build(:user)
+    user.password = 'wrong'
+    expect(user.save).to be false
+    expect(user.errors.messages).to have_key(:password)
+  end
+
+  it 'should refuse password because too long' do
+    user = build(:user)
+    user.password = 'wrongwrongwrongwrongwrongwrongwrongwrongwrongwrong'
+    expect(user.save).to be false
+    expect(user.errors.messages).to have_key(:password)
+  end
 end
