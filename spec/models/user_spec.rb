@@ -17,7 +17,8 @@ RSpec.describe User, type: :model do
     user2 = build(:user)
     user2.email = user.email
     user.save
-    expect { user2.save }.to raise_error(ActiveRecord::RecordNotUnique)
+    expect(user2.save).to be false
+    expect(user2.errors.messages).to have_key(:email)
   end
 
   it 'should refuse the user because pseudo already exists' do
@@ -25,7 +26,8 @@ RSpec.describe User, type: :model do
     user2 = build(:user)
     user2.pseudo = user.pseudo
     user.save
-    expect { user2.save }.to raise_error(ActiveRecord::RecordNotUnique)
+    expect(user2.save).to be false
+    expect(user2.errors.messages).to have_key(:pseudo)
   end
 
   it 'should refuse the user because the email format is wrong' do
