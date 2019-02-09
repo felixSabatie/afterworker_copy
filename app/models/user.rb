@@ -6,5 +6,7 @@ class User < ApplicationRecord
 
   validates :password, presence: true, length: {within: 6..40}
 
+  has_and_belongs_to_many :events
+
   has_secure_password
 end
