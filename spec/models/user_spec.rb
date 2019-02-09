@@ -9,6 +9,7 @@ RSpec.describe User, type: :model do
   it 'should refuse the user because of wrong password confirmation' do
     user = build(:wrong_password_confirmation_user)
     expect(user.save).to be false
+    expect(user.errors.messages).to have_key(:password_confirmation)
   end
 
   it 'should refuse the user because email already exists' do
