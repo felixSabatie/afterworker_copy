@@ -16,7 +16,7 @@ RSpec.describe DatePollOption, type: :model do
       user1 = create(:user)
       user2 = create(:user)
       date_poll_option = create(:date_poll_option, event: @event)
-      date_poll_option.voters << [user1, user2]
+      date_poll_option.voters << user1 << user2
 
       expect(date_poll_option.voters.length).to eql(2)
     end
