@@ -10,7 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_08_223837) do
+ActiveRecord::Schema.define(version: 2019_02_09_190253) do
+
+  create_table "events", force: :cascade do |t|
+    t.string "name"
+    t.boolean "is_open_to_dates"
+    t.boolean "is_open_to_places"
+    t.string "event_hash"
+    t.boolean "has_date_poll"
+    t.boolean "has_place_poll"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_hash"], name: "index_events_on_event_hash", unique: true
+    t.index ["user_id"], name: "index_events_on_user_id"
+  end
+
+  create_table "events_users", id: false, force: :cascade do |t|
+    t.integer "event_id"
+    t.integer "user_id"
+    t.index ["event_id"], name: "index_events_users_on_event_id"
+    t.index ["user_id"], name: "index_events_users_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "pseudo"

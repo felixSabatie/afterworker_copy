@@ -1,11 +1,11 @@
 FactoryBot.define do
   factory :event do
-    name { "MyString" }
+    sequence(:name) { |i| "Event #{i}" }
     is_open_to_dates { false }
     is_open_to_places { false }
-    hash { "MyString" }
     has_date_poll { false }
     has_place_poll { false }
-    user { nil }
+    creator { nil }
+    event_hash { nil }
   end
 end
