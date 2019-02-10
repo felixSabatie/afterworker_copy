@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_10_160012) do
+ActiveRecord::Schema.define(version: 2019_02_10_163522) do
 
   create_table "date_poll_options", force: :cascade do |t|
     t.datetime "date"
@@ -39,8 +39,10 @@ ActiveRecord::Schema.define(version: 2019_02_10_160012) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "date_poll_option_id"
+    t.integer "place_poll_option_id"
     t.index ["date_poll_option_id"], name: "index_events_on_date_poll_option_id"
     t.index ["event_hash"], name: "index_events_on_event_hash", unique: true
+    t.index ["place_poll_option_id"], name: "index_events_on_place_poll_option_id"
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
@@ -49,6 +51,24 @@ ActiveRecord::Schema.define(version: 2019_02_10_160012) do
     t.integer "user_id"
     t.index ["event_id"], name: "index_events_users_on_event_id"
     t.index ["user_id"], name: "index_events_users_on_user_id"
+  end
+
+  create_table "place_poll_options", force: :cascade do |t|
+    t.string "name"
+    t.decimal "latitude", precision: 15, scale: 10, default: "0.0"
+    t.decimal "longitude", precision: 15, scale: 10, default: "0.0"
+    t.integer "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_place_poll_options_on_event_id"
+  end
+
+  create_table "place_poll_options_users", id: false, force: :cascade do |t|
+    t.integer "place_poll_option_id"
+    t.integer "user_id"
+    t.index ["place_poll_option_id", "user_id"], name: "unique_place_option_voter", unique: true
+    t.index ["place_poll_option_id"], name: "index_place_poll_options_users_on_place_poll_option_id"
+    t.index ["user_id"], name: "index_place_poll_options_users_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

@@ -4,8 +4,12 @@ class Event < ApplicationRecord
 
   belongs_to :creator, class_name: :User, foreign_key: 'user_id'
   has_and_belongs_to_many :participants, class_name: :User
+
   has_many :date_poll_options
   belongs_to :chosen_date, class_name: :DatePollOption, foreign_key: 'date_poll_option_id', optional: true
+
+  has_many :place_poll_options
+  belongs_to :chosen_place, class_name: :PlacePollOption, foreign_key: 'place_poll_option_id', optional: true
 
   validates :event_hash, uniqueness: true
   validates :name, presence: true
