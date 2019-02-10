@@ -21,23 +21,26 @@ RSpec.describe Api::UsersController, type: :controller do
 
     context 'already existing indexes' do
       before do
-        @user = create(:user)
+        user = build(:user)
+        @user = user.clone
+        user.save
       end
 
       it 'should refuse the user because email already exists' do
-        @user.email = "2${@user.email}"
-        post :create, params: {user: @user}
+        @user.pseudo += '2'
+        post :create, params: {user: @user.attributes}
         expect(response).to have_http_status(409)
         json = JSON.parse(response.body)
-        expect(json).to include('pseudo')
+        expect(json['errors']).to include('email')
       end
 
       it 'should refuse the user because pseudo already exists' do
-        @user.pseudo += '2'
-        post :create, params: {user: @user}
+
+        @user.email = "2#{@user.email}"
+        post :create, params: {user: @user.attributes}
         expect(response).to have_http_status(409)
         json = JSON.parse(response.body)
-        expect(json).to include('email')
+        expect(json['errors']).to include('pseudo')
       end
     end
 
