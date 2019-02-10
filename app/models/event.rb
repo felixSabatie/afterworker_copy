@@ -11,6 +11,8 @@ class Event < ApplicationRecord
   has_many :place_poll_options
   belongs_to :chosen_place, class_name: :PlacePollOption, foreign_key: 'place_poll_option_id', optional: true
 
+  has_many :invites
+
   validates :event_hash, uniqueness: true
   validates :name, presence: true
   validates :hash, presence: true

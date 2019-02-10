@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_10_163522) do
+ActiveRecord::Schema.define(version: 2019_02_10_163756) do
 
   create_table "date_poll_options", force: :cascade do |t|
     t.datetime "date"
@@ -51,6 +51,17 @@ ActiveRecord::Schema.define(version: 2019_02_10_163522) do
     t.integer "user_id"
     t.index ["event_id"], name: "index_events_users_on_event_id"
     t.index ["user_id"], name: "index_events_users_on_user_id"
+  end
+
+  create_table "invites", force: :cascade do |t|
+    t.string "token"
+    t.integer "event_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_invites_on_event_id"
+    t.index ["token"], name: "index_invites_on_token", unique: true
+    t.index ["user_id"], name: "index_invites_on_user_id"
   end
 
   create_table "place_poll_options", force: :cascade do |t|
