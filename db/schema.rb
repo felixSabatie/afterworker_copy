@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_09_203558) do
+ActiveRecord::Schema.define(version: 2019_02_10_160012) do
 
   create_table "date_poll_options", force: :cascade do |t|
     t.datetime "date"
@@ -38,6 +38,8 @@ ActiveRecord::Schema.define(version: 2019_02_09_203558) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "date_poll_option_id"
+    t.index ["date_poll_option_id"], name: "index_events_on_date_poll_option_id"
     t.index ["event_hash"], name: "index_events_on_event_hash", unique: true
     t.index ["user_id"], name: "index_events_on_user_id"
   end

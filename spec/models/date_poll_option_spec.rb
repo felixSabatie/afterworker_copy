@@ -11,9 +11,18 @@ RSpec.describe DatePollOption, type: :model do
     expect(date_poll_option.save).to be true
   end
 
-  it 'should add the date poll option to the event' do
-    create(:date_poll_option, event: @event)
-    expect(@event.date_poll_options.length).to eq(1)
+  context 'event relationships' do
+    it 'should add the date poll options to the event' do
+      create(:date_poll_option, event: @event)
+      create(:date_poll_option, event: @event)
+      expect(@event.date_poll_options.length).to eq(2)
+    end
+
+    it 'should set the date poll option as chosen date' do
+      date_poll_option = create(:date_poll_option, event: @event)
+      @event.chosen_date = date_poll_option
+      expect(@event.save).to be true
+    end
   end
 
   context 'voters' do
