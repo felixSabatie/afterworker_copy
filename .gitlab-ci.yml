@@ -25,6 +25,12 @@ deploy:
       - master
   variables:
     HEROKU_APP_NAME: afterworker
-  script:
+  before_script:
+    - echo "deb http://toolbelt.heroku.com/ubuntu ./" > /etc/apt/sources.list.d/heroku.list
+    - wget -O- https://toolbelt.heroku.com/apt/release.key | apt-key add -
+    - apt-get update
+    - apt-get install -y heroku-toolbelt
     - gem install dpl
+  script:
     - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_API_KEY
+    - heroku run rails db:migrate --exit-code --app afterworker
