@@ -15,8 +15,7 @@ test:
   script:
     - cd docker
     - docker-compose build
-    - env | sed '/^DOCKER_ENV_CI_SERVER_TLS_CA_FILE=/d' > .env
-    - docker-compose run --env_file=.env rails bash -c "echo "$MASTER_KEY" > config/master.key"
+    - docker-compose run -e MASTER_KEY rails bash -c "echo "$MASTER_KEY" > config/master.key"
     - docker-compose run rails rails db:migrate RAILS_ENV=test
     - docker-compose run rails rails credentials:edit
     - docker-compose run rails rspec
