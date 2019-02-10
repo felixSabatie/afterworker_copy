@@ -29,6 +29,3 @@
 # IDE
 .idea
 *.iml
-
-# Test database
-tmp_db
