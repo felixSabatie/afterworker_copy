@@ -15,7 +15,7 @@ test:
   script:
     - cd docker
     - docker-compose build
-    - bash -c "echo "$MASTER_KEY" > config/master.key"
+    - /bin/bash -c "echo "$MASTER_KEY" > config/master.key"
     - docker-compose run rails rails db:migrate RAILS_ENV=test
     - docker-compose run rails rails credentials:edit
     - docker-compose run rails rspec
