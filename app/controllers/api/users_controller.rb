@@ -48,6 +48,8 @@ module Api
           events: {
               include: [:chosen_place, :chosen_date]
           }
+      }, invites: {
+          include: [:event]
       }]
 
       if with_includes

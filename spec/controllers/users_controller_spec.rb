@@ -109,6 +109,7 @@ RSpec.describe Api::UsersController, type: :controller do
         event.chosen_place = chosen_place
         event.chosen_date = chosen_date
         event.save
+        create(:invite, user: user, event: event)
 
         add_authenticated_header(request, user)
         get :show, params: {id: user.id}
@@ -122,8 +123,16 @@ RSpec.describe Api::UsersController, type: :controller do
       it 'should return the user and his dependencies' do
         expect(@json).to include('user')
         expect(@json['user']).to include('events')
+        expect(@json['user']).to include('invites')
+      end
+
+      it "should return the event's nested dependencies" do
         expect(@json['user']['events'][0]['chosen_place']).to be_truthy
         expect(@json['user']['events'][0]['chosen_date']).to be_truthy
+      end
+
+      it "should return the invite' nested dependencies" do
+        expect(@json['user']['invites'][0]['event']).to be_truthy
       end
 
       it 'shouldn\'t return the user\'s password hash' do
@@ -169,6 +178,7 @@ RSpec.describe Api::UsersController, type: :controller do
       it 'should return the user without his dependencies' do
         expect(@json).to include('user')
         expect(@json['user']).not_to include('events')
+        expect(@json['user']).not_to include('invites')
       end
 
       it 'shouldn\'t return the user\'s password hash' do
