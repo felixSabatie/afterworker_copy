@@ -1,9 +1,10 @@
 @import 'colors';
 @import 'variables';
+@import 'forms';
 
 html, body {
   font-family: 'Open Sans', sans-serif;
-  font-size: 17px;
+  font-size: 16px;
   letter-spacing: .5px;
   background-color: $backgroundColor;
   height: 100%;
@@ -12,7 +13,6 @@ html, body {
   a {
     text-decoration: none;
     color: $accentColor;
-    font-size: 20px;
     transition: color $transitionsDuration;
 
     &:hover {
@@ -21,6 +21,7 @@ html, body {
   }
 
   .btn {
+    margin: 10px 0;
     border: 2px solid transparent;
     border-radius: 100px;
     color: $accentContrastColor;

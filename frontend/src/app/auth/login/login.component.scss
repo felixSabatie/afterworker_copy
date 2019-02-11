@@ -12,5 +12,19 @@
     background-color: $backgroundColor;
     padding: 20px;
     border-radius: 10px;
+    width: 500px;
+    max-width: 90%;
+
+    .form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
   }
 }
