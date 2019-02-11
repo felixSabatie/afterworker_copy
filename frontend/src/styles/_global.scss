@@ -19,4 +19,29 @@ html, body {
       color: $accentColorLight;
     }
   }
+
+  .btn {
+    border: 2px solid transparent;
+    border-radius: 100px;
+    color: $accentContrastColor;
+    background-color: $accentColorLight;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+
+    &.btn-clear {
+      border: 2px solid $accentColorLight;
+      background-color: transparent;
+      transition: $transitionsDuration;
+      color: $textColor;
+
+      &:hover {
+        background-color: $accentColorLight;
+        color: $accentContrastColor;
+      }
+    }
+  }
 }
