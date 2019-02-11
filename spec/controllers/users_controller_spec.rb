@@ -104,8 +104,11 @@ RSpec.describe Api::UsersController, type: :controller do
       before do
         user = create(:user)
         event = create(:event, creator: user)
-        create(:place_poll_option, event: event)
-        create(:date_poll_option, event: event)
+        chosen_place = create(:place_poll_option, event: event)
+        chosen_date = create(:date_poll_option, event: event)
+        event.chosen_place = chosen_place
+        event.chosen_date = chosen_date
+        event.save
 
         add_authenticated_header(request, user)
         get :show, params: {id: user.id}
