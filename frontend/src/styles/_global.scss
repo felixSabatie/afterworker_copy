@@ -1,6 +1,20 @@
+@import 'colors';
+@import 'variables';
+
 html, body {
   font-family: 'Open Sans', sans-serif;
   font-size: 17px;
   letter-spacing: .5px;
   background-color: $backgroundColor;
+
+  a {
+    text-decoration: none;
+    color: $accentColor;
+    font-size: 20px;
+    transition: color $transitionsDuration;
+
+    &:hover {
+      color: $accentColorLight;
+    }
+  }
 }
