@@ -16,7 +16,7 @@ html, body {
     transition: color $transitionsDuration;
 
     &:hover {
-      color: $accentColorLight;
+      color: $accentColorDark;
     }
   }
 
@@ -32,11 +32,15 @@ html, body {
     display: inline-block;
     font-size: 16px;
     cursor: pointer;
+    transition: $transitionsDuration;
+
+    &:hover {
+      background-color: $accentColor;
+    }
 
     &.btn-clear {
       border: 2px solid $accentColorLight;
       background-color: transparent;
-      transition: $transitionsDuration;
       color: $textColor;
 
       &:hover {
