@@ -68,6 +68,8 @@ RSpec.configure do |config|
 
   require 'support/factory_bot'
 
+  require 'support/api_helper'
+
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)

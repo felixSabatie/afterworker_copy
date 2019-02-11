@@ -1,0 +1,63 @@
+module Api
+  class UsersController < ApplicationController
+    before_action :authenticate_user, except: [:create]
+    before_action :set_user, only: [:show]
+
+    def create
+      user_params = params.require(:user).permit(:pseudo, :email, :password, :password_confirmation)
+      user = User.new(user_params)
+      already_exists = false
+      errors = []
+
+      if User.find_by(pseudo: user.pseudo) != nil
+        already_exists = true
+        errors << 'pseudo'
+      end
+      if User.find_by(email: user.email) != nil
+        already_exists = true
+        errors << 'email'
+      end
+
+      if already_exists
+        render status: 409, json: {errors: errors}
+      else
+        if user.save
+          render_json(user, true)
+        else
+          render status: 422, json: user.errors.messages
+        end
+      end
+    end
+
+    def show
+      if current_user.id === @user.id
+        render_json(@user, true)
+      else
+        render_json(@user)
+      end
+    end
+
+    private
+
+    def set_user
+      @user = User.find(params[:id])
+    end
+
+    def render_json(user, with_includes = false)
+      includes = [{
+          events: {
+              include: [:chosen_place, :chosen_date]
+          }
+      }, invites: {
+          include: [:event]
+      }]
+
+      if with_includes
+        render json: {user: user}, include: includes, except: [:password_digest]
+      else
+        render json: {user: user}, except: [:password_digest]
+      end
+    end
+
+  end
+end
