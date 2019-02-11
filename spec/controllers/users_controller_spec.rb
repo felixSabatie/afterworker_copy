@@ -98,4 +98,79 @@ RSpec.describe Api::UsersController, type: :controller do
       end
     end
   end
+
+  describe 'GET #show' do
+    context 'valid request' do
+      before do
+        user = create(:user)
+        event = create(:event, creator: user)
+        create(:place_poll_option, event: event)
+        create(:date_poll_option, event: event)
+
+        add_authenticated_header(request, user)
+        get :show, params: {id: user.id}
+        @json = JSON.parse(response.body)
+      end
+
+      it 'should return a 200 code' do
+        expect(response).to have_http_status(200)
+      end
+
+      it 'should return the user and his dependencies' do
+        expect(@json).to include('user')
+        expect(@json['user']).to include('events')
+        expect(@json['user']['events'][0]['chosen_place']).to be_truthy
+        expect(@json['user']['events'][0]['chosen_date']).to be_truthy
+      end
+
+      it 'shouldn\'t return the user\'s password hash' do
+        expect(@json['user']).not_to include('password_hash')
+      end
+    end
+
+    context 'wrong request' do
+      it 'should return 404' do
+        user = create(:user)
+        add_authenticated_header(request, user)
+        get :show, params: {id: user.id + 1}
+        expect(response).to have_http_status(404)
+      end
+    end
+
+    context 'unauthorized' do
+      it 'should return 401 unauthorized' do
+        user = create(:user)
+        get :show, params: {id: user.id}
+        expect(response).to have_http_status(401)
+      end
+    end
+
+    context 'getting another user' do
+
+      before do
+        user = create(:user)
+        user2 = create(:user)
+        event = create(:event, creator: user)
+        create(:place_poll_option, event: event)
+        create(:date_poll_option, event: event)
+
+        add_authenticated_header(request, user2)
+        get :show, params: {id: user.id}
+        @json = JSON.parse(response.body)
+      end
+
+      it 'should return a 200 code' do
+        expect(response).to have_http_status(200)
+      end
+
+      it 'should return the user without his dependencies' do
+        expect(@json).to include('user')
+        expect(@json['user']).not_to include('events')
+      end
+
+      it 'shouldn\'t return the user\'s password hash' do
+        expect(@json['user']).not_to include('password_hash')
+      end
+    end
+  end
 end
