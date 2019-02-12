@@ -11,7 +11,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   getToken(userInfos: Object): Observable<any> {
-    return this.http.post(environment.baseUrl + '/user_token', {auth: userInfos});
+    return this.http.post(environment.baseUrl + '/user_token', {auth: userInfos})
   }
 
 }
