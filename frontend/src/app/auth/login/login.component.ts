@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { faUser, faKey } from "@fortawesome/free-solid-svg-icons";
+import {faKey, faAt} from "@fortawesome/free-solid-svg-icons";
 import {AuthService} from "../auth.service";
 import {finalize} from "rxjs/operators";
 
@@ -14,8 +14,8 @@ export class LoginComponent implements OnInit {
   userInfos: FormGroup;
   submitted = false;
   errors: string[] = [];
-  faUser = faUser;
   faKey = faKey;
+  faAt = faAt;
   waitingForResponse = false;
 
   constructor(private fb: FormBuilder, private authService: AuthService) {

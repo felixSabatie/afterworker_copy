@@ -3,7 +3,7 @@
   <form (ngSubmit)="submitForm()" class="form" [formGroup]="userInfos">
     <div class="input">
       <div class="input-with-icon">
-        <fa-icon class="icon" [icon]="faUser"></fa-icon>
+        <fa-icon class="icon" [icon]="faAt"></fa-icon>
         <input type="email" placeholder="email" formControlName="email" required>
       </div>
       <div class="input-errors" *ngIf="submitted && userInfos.controls.email.errors">
