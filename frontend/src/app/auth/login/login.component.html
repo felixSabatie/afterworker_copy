@@ -27,7 +27,7 @@
 
     <div class="actions">
       <a routerLink="/register">Create an account</a>
-      <button class="btn submit-button">
+      <button class="btn submit-button" [disabled]="waitingForResponse">
         <app-spinner *ngIf="waitingForResponse"></app-spinner>
         <span *ngIf="!waitingForResponse">Submit</span>
       </button>
