@@ -29,15 +29,17 @@
       </div>
       <div class="input-errors" *ngIf="submitted && userInfos.controls.password.errors">
         <div class="input-error" *ngIf="userInfos.controls.password.errors.required">This field is required</div>
+        <div class="input-error" *ngIf="userInfos.controls.password.errors.minlength">The password must have at least 6 characters</div>
       </div>
     </div>
     <div class="input">
       <div class="input-with-icon">
         <fa-icon class="icon" [icon]="faKey"></fa-icon>
-        <input type="password" placeholder="confirm password" formControlName="password_confirmation" required>
+        <input type="password" placeholder="confirm your password" formControlName="password_confirmation" required>
       </div>
       <div class="input-errors" *ngIf="submitted && userInfos.controls.password_confirmation.errors">
         <div class="input-error" *ngIf="userInfos.controls.password_confirmation.errors.required">This field is required</div>
+        <div class="input-error" *ngIf="userInfos.controls.password_confirmation.errors.confirm">The passwords don't match</div>
       </div>
     </div>
 

@@ -31,8 +31,8 @@ export class RegisterComponent implements OnInit {
       email: ['', Validators.pattern(/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i)],
       username: [''],
       password: ['', Validators.minLength(6)],
-      password_confirmation: ['', Validators.minLength(6)],
-    });
+      password_confirmation: [''],
+    }, { validator: RegisterComponent.checkPasswordConfirmation });
 
     this.userInfos.valueChanges.subscribe(data => {
       if(this.alreadyTakenErrors) {
@@ -41,6 +41,14 @@ export class RegisterComponent implements OnInit {
         this.alreadyTakenErrors = false;
       }
     });
+  }
+
+  static checkPasswordConfirmation(formGroup: FormGroup) {
+    const valid = formGroup.value.password === formGroup.value.password_confirmation;
+    if(!valid) {
+      formGroup.controls.password_confirmation.setErrors({confirm: true})
+    }
+    return valid;
   }
 
   submitForm() {
@@ -55,9 +63,9 @@ export class RegisterComponent implements OnInit {
             this.waitingForResponse = false;
           }))
           .subscribe(response => {
-            console.log(response)
+            console.log(response);
+            // TODO get and store token and redirect
           }, err => {
-            // this.userInfos.controls.email.setErrors({email: true});    TODO remove example
             if (err.status === 409 && err.error.errors) {
               this.alreadyTakenErrors = true;
               if(err.error.errors.email) {
@@ -67,7 +75,11 @@ export class RegisterComponent implements OnInit {
                 this.userInfos.controls.username.setErrors({taken: true});
               }
             } else if (err.status === 422){
-              this.errors.push('Fill the required fields');
+              if(err.error.password_confirmation) {
+                this.errors.push("The passwords don't match");
+              } else {
+                this.errors.push('Fill the required fields');
+              }
             }
           });
       }
