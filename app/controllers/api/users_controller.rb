@@ -7,15 +7,18 @@ module Api
       user_params = params.require(:user).permit(:username, :email, :password, :password_confirmation)
       user = User.new(user_params)
       already_exists = false
-      errors = []
+      errors = {
+          username: false,
+          email: false
+      }
 
       if User.find_by(username: user.username) != nil
         already_exists = true
-        errors << 'username'
+        errors[:username] = true
       end
       if User.find_by(email: user.email) != nil
         already_exists = true
-        errors << 'email'
+        errors[:email] = true
       end
 
       if already_exists
