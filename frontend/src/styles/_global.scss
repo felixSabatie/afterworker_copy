@@ -48,5 +48,14 @@ html, body {
         color: $accentContrastColor;
       }
     }
+
+    &:disabled {
+      background-color: $borderColor;
+      color: $textColor;
+
+      &:hover {
+        background-color: $borderColor;
+      }
+    }
   }
 }
