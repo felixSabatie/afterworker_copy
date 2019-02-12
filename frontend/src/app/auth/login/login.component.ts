@@ -3,6 +3,11 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {faKey, faAt} from "@fortawesome/free-solid-svg-icons";
 import {AuthService} from "../auth.service";
 import {finalize} from "rxjs/operators";
+import {Router} from "@angular/router";
+import {Store} from '@ngrx/store';
+import {AppState} from "../../ngrx/app.state";
+import * as UserActions from '../../ngrx/actions/user.actions';
+import {User} from "../../models/user.model";
 
 @Component({
   selector: 'app-login',
@@ -18,7 +23,7 @@ export class LoginComponent implements OnInit {
   faAt = faAt;
   waitingForResponse = false;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private store: Store<AppState>) {
     this.buildForm();
   }
 
@@ -43,8 +48,8 @@ export class LoginComponent implements OnInit {
             this.waitingForResponse = false;
           }))
           .subscribe(response => {
-            console.log(response)
-            // TODO store the token and the user
+            const token = response.jwt;
+            this.storeAndRedirect(response.data);
           }, err => {
             if(err.status === 404) {
               this.errors.push('Your informations are incorrect, please try again');
@@ -54,6 +59,11 @@ export class LoginComponent implements OnInit {
           });
       }
     }
+  }
+
+  storeAndRedirect(user: User) {
+    this.store.dispatch(new UserActions.SetUser({username: 'billy', email: 'aze@aze.fr', avatar_link: ''}));
+    this.router.navigate(['home']);
   }
 
 }

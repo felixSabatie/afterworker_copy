@@ -15,6 +15,9 @@ import { AuthComponent } from './auth/auth.component';
 
 import {StoreModule} from '@ngrx/store';
 import * as reducers from "./ngrx/reducers";
+import { HomeComponent } from './home/home.component';
+import {StoreDevtoolsModule} from "@ngrx/store-devtools";
+import {environment} from "../environments/environment";
 
 @NgModule({
   declarations: [
@@ -22,7 +25,8 @@ import * as reducers from "./ngrx/reducers";
     LoginComponent,
     SpinnerComponent,
     RegisterComponent,
-    AuthComponent
+    AuthComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -32,6 +36,9 @@ import * as reducers from "./ngrx/reducers";
     HttpClientModule,
     StoreModule.forRoot({
       user: reducers.userReducer
+    }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
     })
   ],
   providers: [],
