@@ -1,5 +1,5 @@
 import { userReducer } from './user.reducer';
 
-export {
-  userReducer
-}
+export const reducers = {
+  user: userReducer
+};
