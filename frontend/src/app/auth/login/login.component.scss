@@ -19,13 +19,13 @@
     .form {
       display: flex;
       flex-direction: column;
-    }
 
-    .actions {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
+      .actions {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
     }
   }
 }
