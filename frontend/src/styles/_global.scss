@@ -4,7 +4,7 @@
 
 html, body {
   font-family: 'Open Sans', sans-serif;
-  font-size: 16px;
+  font-size: $fontSize;
   letter-spacing: .5px;
   background-color: $backgroundColor;
   height: 100%;
@@ -30,7 +30,7 @@ html, body {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: $fontSize;
     cursor: pointer;
     transition: $transitionsDuration;
 
