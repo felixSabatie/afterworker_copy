@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
           }))
           .subscribe(response => {
             const token = response.jwt;
-            this.storeAndRedirect(response.data);
+            this.storeTokenAndGetUser(token);
           }, err => {
             if(err.status === 404) {
               this.errors.push('Your informations are incorrect, please try again');
@@ -59,6 +59,10 @@ export class LoginComponent implements OnInit {
           });
       }
     }
+  }
+
+  storeTokenAndGetUser(token: string) {
+
   }
 
   storeAndRedirect(user: User) {

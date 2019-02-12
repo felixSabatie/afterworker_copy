@@ -7,7 +7,7 @@ export function userReducer(state: User, action: Action) {
     case UserActions.ActionTypes.SetUser:
       return (action as UserActions.SetUser).payload;
     case UserActions.ActionTypes.DestroyUser:
-      return [state, null];
+      return null;
     default:
       return state;
   }
