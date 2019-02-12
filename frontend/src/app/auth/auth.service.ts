@@ -14,4 +14,9 @@ export class AuthService {
     return this.http.post(environment.baseUrl + '/user_token', {auth: userInfos})
   }
 
+  register(userInfos: Object): Observable<any> {
+    console.log('executing');
+    return this.http.post(environment.baseUrl + '/users', {user: userInfos})
+  }
+
 }

@@ -43,8 +43,8 @@ export class LoginComponent implements OnInit {
         }))
         .subscribe(response => {
           console.log(response)
+          // TODO store the token and the user
         }, err => {
-          // this.userInfos.controls.email.setErrors({email: true});    TODO remove example
           if(err.status === 404) {
             this.errors.push('Your informations are incorrect, please try again');
           } else if (err.status === 422){

@@ -9,6 +9,7 @@
       <div class="input-errors" *ngIf="submitted && userInfos.controls.email.errors">
         <div class="input-error" *ngIf="userInfos.controls.email.errors.pattern">Please enter a valid email</div>
         <div class="input-error" *ngIf="userInfos.controls.email.errors.required">This field is required</div>
+        <div class="input-error" *ngIf="userInfos.controls.email.errors.taken">This email has already been used</div>
       </div>
     </div>
     <div class="input">
@@ -18,6 +19,7 @@
       </div>
       <div class="input-errors" *ngIf="submitted && userInfos.controls.username.errors">
         <div class="input-error" *ngIf="userInfos.controls.username.errors.required">This field is required</div>
+        <div class="input-error" *ngIf="userInfos.controls.username.errors.taken">This username is already taken</div>
       </div>
     </div>
     <div class="input">
@@ -45,7 +47,7 @@
 
     <div class="actions">
       <a routerLink="/login">Already have an account ? Log in</a>
-      <button class="btn submit-button">
+      <button class="btn submit-button" [disabled]="waitingForResponse">
         <app-spinner *ngIf="waitingForResponse"></app-spinner>
         <span *ngIf="!waitingForResponse">Submit</span>
       </button>
