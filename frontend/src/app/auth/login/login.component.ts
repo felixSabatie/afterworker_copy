@@ -7,13 +7,15 @@ import {Router} from "@angular/router";
 import {Store} from '@ngrx/store';
 import {AppState} from "../../ngrx/app.state";
 import * as UserActions from '../../ngrx/actions/user.actions';
+import * as TokenActions from '../../ngrx/actions/token.actions';
 import {User} from "../../models/user.model";
+import {UserService} from "../../shared-services/user.service";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  providers: [AuthService],
+  providers: [AuthService, UserService],
 })
 export class LoginComponent implements OnInit {
   userInfos: FormGroup;
@@ -23,7 +25,12 @@ export class LoginComponent implements OnInit {
   faAt = faAt;
   waitingForResponse = false;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private store: Store<AppState>) {
+  constructor(private fb: FormBuilder,
+              private authService: AuthService,
+              private router: Router,
+              private store: Store<AppState>,
+              private userService: UserService
+  ) {
     this.buildForm();
   }
 
@@ -62,11 +69,14 @@ export class LoginComponent implements OnInit {
   }
 
   storeTokenAndGetUser(token: string) {
-
+    this.store.dispatch(new TokenActions.SetToken(token));
+    this.userService.getCurrentUser().subscribe((user: User) => {
+      this.storeAndRedirect(user);
+    });
   }
 
   storeAndRedirect(user: User) {
-    this.store.dispatch(new UserActions.SetUser({username: 'billy', email: 'aze@aze.fr', avatar_link: ''}));
+    this.store.dispatch(new UserActions.SetUser(user));
     this.router.navigate(['home']);
   }
 

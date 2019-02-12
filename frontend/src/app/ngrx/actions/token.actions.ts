@@ -6,11 +6,11 @@ export enum ActionTypes {
 }
 
 export class SetToken implements Action {
-  type: ActionTypes.SetToken;
+  readonly type = ActionTypes.SetToken;
 
   constructor(public payload: string) { }
 }
 
 export class DestroyToken implements Action {
-  type: ActionTypes.DestroyToken;
+  readonly type = ActionTypes.DestroyToken;
 }
