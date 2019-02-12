@@ -1,31 +1,13 @@
 @import '../../../styles/colors';
 
-.login {
-  height: 100%;
-  width: 100%;
+.form {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: $accentColor;
+  flex-direction: column;
 
-  .login-card {
-    background-color: $backgroundColor;
-    padding: 20px;
-    border-radius: 10px;
-    width: 500px;
-    max-width: 90%;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, .4);
-
-    .form {
-      display: flex;
-      flex-direction: column;
-
-      .actions {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-      }
-    }
+  .actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
   }
 }
