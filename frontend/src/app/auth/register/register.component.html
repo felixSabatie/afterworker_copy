@@ -7,7 +7,7 @@
         <input type="email" placeholder="email" formControlName="email" required>
       </div>
       <div class="input-errors" *ngIf="submitted && userInfos.controls.email.errors">
-        <div class="input-error" *ngIf="userInfos.controls.email.errors.email">Please enter a valid email</div>
+        <div class="input-error" *ngIf="userInfos.controls.email.errors.pattern">Please enter a valid email</div>
         <div class="input-error" *ngIf="userInfos.controls.email.errors.required">This field is required</div>
       </div>
     </div>
