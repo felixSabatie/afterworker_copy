@@ -13,6 +13,9 @@ import { SpinnerComponent } from './spinner/spinner.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { AuthComponent } from './auth/auth.component';
 
+import {StoreModule} from '@ngrx/store';
+import * as reducers from "./ngrx/reducers";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +29,10 @@ import { AuthComponent } from './auth/auth.component';
     AppRoutingModule,
     ReactiveFormsModule,
     FontAwesomeModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot({
+      user: reducers.userReducer
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
