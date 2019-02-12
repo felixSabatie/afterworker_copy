@@ -4,6 +4,7 @@
     <h1>Log in</h1>
     <form (ngSubmit)="submitForm()" class="form" [formGroup]="userInfos">
       <div class="input">
+        <fa-icon class="icon" [icon]="faUser"></fa-icon>
         <input type="email" placeholder="email" formControlName="email" required>
         <div class="errors" *ngIf="submitted && userInfos.controls.email.errors">
           <div class="error" *ngIf="userInfos.controls.email.errors.email">Please enter a valid email</div>
@@ -11,6 +12,7 @@
         </div>
       </div>
       <div class="input">
+        <fa-icon class="icon" [icon]="faKey"></fa-icon>
         <input type="password" placeholder="password" formControlName="password" required>
         <div class="errors" *ngIf="submitted && userInfos.controls.password.errors">
           <div class="error" *ngIf="userInfos.controls.password.errors.required">This field is required</div>
