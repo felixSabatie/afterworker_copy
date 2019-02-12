@@ -4,14 +4,14 @@ module Api
     before_action :set_user, only: [:show]
 
     def create
-      user_params = params.require(:user).permit(:pseudo, :email, :password, :password_confirmation)
+      user_params = params.require(:user).permit(:username, :email, :password, :password_confirmation)
       user = User.new(user_params)
       already_exists = false
       errors = []
 
-      if User.find_by(pseudo: user.pseudo) != nil
+      if User.find_by(username: user.username) != nil
         already_exists = true
-        errors << 'pseudo'
+        errors << 'username'
       end
       if User.find_by(email: user.email) != nil
         already_exists = true

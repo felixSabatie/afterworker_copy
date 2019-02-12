@@ -27,25 +27,25 @@ RSpec.describe Api::UsersController, type: :controller do
       end
 
       it 'should refuse the user because email already exists' do
-        @user.pseudo += '2'
+        @user.username += '2'
         post :create, params: {user: @user.attributes}
         expect(response).to have_http_status(409)
         json = JSON.parse(response.body)
         expect(json['errors']).to include('email')
       end
 
-      it 'should refuse the user because pseudo already exists' do
+      it 'should refuse the user because username already exists' do
 
         @user.email = "2#{@user.email}"
         post :create, params: {user: @user.attributes}
         expect(response).to have_http_status(409)
         json = JSON.parse(response.body)
-        expect(json['errors']).to include('pseudo')
+        expect(json['errors']).to include('username')
       end
     end
 
     context 'wrong params' do
-      it 'should return 422 because pseudo is missing' do
+      it 'should return 422 because username is missing' do
         user = build(:user)
         post :create, params: {
             user: {
@@ -62,7 +62,7 @@ RSpec.describe Api::UsersController, type: :controller do
         user = build(:user)
         post :create, params: {
             user: {
-                pseudo: user.pseudo,
+                username: user.username,
                 password: user.password,
                 password_confirmation: user.password
             }
@@ -76,7 +76,7 @@ RSpec.describe Api::UsersController, type: :controller do
         post :create, params: {
             user: {
                 email: user.email,
-                pseudo: user.pseudo,
+                username: user.username,
             }
         }
 
@@ -88,7 +88,7 @@ RSpec.describe Api::UsersController, type: :controller do
         post :create, params: {
             user: {
                 email: user.email,
-                pseudo: user.pseudo,
+                username: user.username,
                 password: user.password,
                 password_confirmation: user.password + 'wrong'
             }
