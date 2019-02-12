@@ -4,9 +4,9 @@ import {User} from "../../models/user.model";
 
 export function userReducer(state: User, action: Action) {
   switch(action.type) {
-    case UserActions.SET_USER:
+    case UserActions.ActionTypes.SetUser:
       return (action as UserActions.SetUser).payload;
-    case UserActions.DESTROY_USER:
+    case UserActions.ActionTypes.DestroyUser:
       return [state, null];
     default:
       return state;
