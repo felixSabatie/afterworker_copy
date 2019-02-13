@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {faAt, faKey, faUser} from "@fortawesome/free-solid-svg-icons";
 import {AuthService} from "../auth.service";
 import {finalize} from "rxjs/operators";
+import {UserService} from "../../shared-services/user.service";
 
 @Component({
   selector: 'app-register',
@@ -19,7 +20,7 @@ export class RegisterComponent implements OnInit {
   waitingForResponse = false;
   alreadyTakenErrors = false;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private userService: UserService) {
     this.buildForm();
   }
 
@@ -58,7 +59,7 @@ export class RegisterComponent implements OnInit {
 
       if(this.userInfos.valid) {
         this.waitingForResponse = true;
-        this.authService.register(this.userInfos.value)
+        this.userService.register(this.userInfos.value)
           .pipe(finalize(() => {
             this.waitingForResponse = false;
           }))
