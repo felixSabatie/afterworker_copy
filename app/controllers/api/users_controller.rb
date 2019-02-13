@@ -37,7 +37,6 @@ module Api
     end
 
     def current
-      p 'azeazeaze\n\n\n'
       render_json(current_user, true)
     end
 

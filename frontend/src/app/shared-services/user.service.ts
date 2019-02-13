@@ -13,7 +13,7 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getCurrentUser(): Observable<User> {
-    return this.http.get<Response<User>>(environment.baseUrl + '/users/current')
+    return this.http.get<any>(environment.baseUrl + '/users/current')
       .pipe(map(response => response.user));
   }
 
