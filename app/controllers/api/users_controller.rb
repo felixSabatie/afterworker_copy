@@ -33,11 +33,11 @@ module Api
     end
 
     def show
-      if current_user.id === @user.id
-        render_json(@user, true)
-      else
-        render_json(@user)
-      end
+      render_json(@user)
+    end
+
+    def current
+      render_json(current_user, true)
     end
 
     private
