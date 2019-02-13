@@ -4,6 +4,12 @@ import {faAt, faKey, faUser} from "@fortawesome/free-solid-svg-icons";
 import {AuthService} from "../auth.service";
 import {finalize} from "rxjs/operators";
 import {UserService} from "../../shared-services/user.service";
+import {User} from "../../models/user.model";
+import {Store} from "@ngrx/store";
+import {AppState} from "../../ngrx/app.state";
+import {Router} from "@angular/router";
+import * as TokenActions from "../../ngrx/actions/token.actions";
+import * as UserActions from "../../ngrx/actions/user.actions";
 
 @Component({
   selector: 'app-register',
@@ -20,7 +26,12 @@ export class RegisterComponent implements OnInit {
   waitingForResponse = false;
   alreadyTakenErrors = false;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private userService: UserService) {
+  constructor(private fb: FormBuilder,
+              private authService: AuthService,
+              private userService: UserService,
+              private store: Store<AppState>,
+              private router: Router,
+  ) {
     this.buildForm();
   }
 
@@ -59,13 +70,10 @@ export class RegisterComponent implements OnInit {
 
       if(this.userInfos.valid) {
         this.waitingForResponse = true;
-        this.userService.register(this.userInfos.value)
-          .pipe(finalize(() => {
-            this.waitingForResponse = false;
-          }))
-          .subscribe(response => {
-            console.log(response);
-            // TODO get and store token and redirect
+        const userInfosValue = this.userInfos.value;
+        this.userService.register(userInfosValue)
+          .subscribe(user => {
+            this.storeUserAndGetToken(user, userInfosValue);
           }, err => {
             if (err.status === 409 && err.error.errors) {
               this.alreadyTakenErrors = true;
@@ -85,5 +93,22 @@ export class RegisterComponent implements OnInit {
           });
       }
     }
+  }
+
+  storeUserAndGetToken(user: User, userInfosValue: Object) {
+    this.store.dispatch(new UserActions.SetUser(user));
+
+    this.authService.getToken(userInfosValue)
+      .pipe(finalize(() => {
+        this.waitingForResponse = false;
+      }))
+      .subscribe(response => {
+        this.storeTokenAndRedirect(response.jwt);
+      });
+  }
+
+  storeTokenAndRedirect(token: string) {
+    this.store.dispatch(new TokenActions.SetToken(token));
+    this.router.navigate(['home']);
   }
 }

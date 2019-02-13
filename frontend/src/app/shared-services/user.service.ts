@@ -17,8 +17,9 @@ export class UserService {
       .pipe(map(response => response.user));
   }
 
-  register(userInfos: Object): Observable<any> {
-    return this.http.post(environment.baseUrl + '/users', {user: userInfos})
+  register(userInfos: Object): Observable<User> {
+    return this.http.post<any>(environment.baseUrl + '/users', {user: userInfos})
+      .pipe(map(response => response.user));
   }
 
 }
