@@ -72,6 +72,9 @@ export class RegisterComponent implements OnInit {
         this.waitingForResponse = true;
         const userInfosValue = this.userInfos.value;
         this.userService.register(userInfosValue)
+          .pipe(finalize(() => {
+            this.waitingForResponse = false;
+          }))
           .subscribe(user => {
             this.storeUserAndGetToken(user, userInfosValue);
           }, err => {
@@ -99,9 +102,6 @@ export class RegisterComponent implements OnInit {
     this.store.dispatch(new UserActions.SetUser(user));
 
     this.authService.getToken(userInfosValue)
-      .pipe(finalize(() => {
-        this.waitingForResponse = false;
-      }))
       .subscribe(response => {
         this.storeTokenAndRedirect(response.jwt);
       });
