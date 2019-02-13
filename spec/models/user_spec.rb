@@ -21,13 +21,13 @@ RSpec.describe User, type: :model do
     expect(user2.errors.messages).to have_key(:email)
   end
 
-  it 'should refuse the user because pseudo already exists' do
+  it 'should refuse the user because username already exists' do
     user = build(:user)
     user2 = build(:user)
-    user2.pseudo = user.pseudo
+    user2.username = user.username
     user.save
     expect(user2.save).to be false
-    expect(user2.errors.messages).to have_key(:pseudo)
+    expect(user2.errors.messages).to have_key(:username)
   end
 
   it 'should refuse the user because the email format is wrong' do

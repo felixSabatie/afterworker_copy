@@ -1,0 +1,61 @@
+@import 'colors';
+@import 'variables';
+@import 'forms';
+
+html, body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: $fontSize;
+  letter-spacing: .5px;
+  background-color: $backgroundColor;
+  height: 100%;
+  margin: 0;
+
+  a {
+    text-decoration: none;
+    color: $accentColor;
+    transition: color $transitionsDuration;
+
+    &:hover {
+      color: $accentColorDark;
+    }
+  }
+
+  .btn {
+    margin: 10px 0;
+    border: 2px solid transparent;
+    border-radius: 100px;
+    color: $accentContrastColor;
+    background-color: $accentColorLight;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: $fontSize;
+    cursor: pointer;
+    transition: $transitionsDuration;
+
+    &:hover {
+      background-color: $accentColor;
+    }
+
+    &.btn-clear {
+      border: 2px solid $accentColorLight;
+      background-color: transparent;
+      color: $textColor;
+
+      &:hover {
+        background-color: $accentColorLight;
+        color: $accentContrastColor;
+      }
+    }
+
+    &:disabled {
+      background-color: $borderColor;
+      color: $textColor;
+
+      &:hover {
+        background-color: $borderColor;
+      }
+    }
+  }
+}

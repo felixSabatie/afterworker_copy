@@ -27,25 +27,25 @@ RSpec.describe Api::UsersController, type: :controller do
       end
 
       it 'should refuse the user because email already exists' do
-        @user.pseudo += '2'
+        @user.username += '2'
         post :create, params: {user: @user.attributes}
         expect(response).to have_http_status(409)
         json = JSON.parse(response.body)
         expect(json['errors']).to include('email')
       end
 
-      it 'should refuse the user because pseudo already exists' do
+      it 'should refuse the user because username already exists' do
 
         @user.email = "2#{@user.email}"
         post :create, params: {user: @user.attributes}
         expect(response).to have_http_status(409)
         json = JSON.parse(response.body)
-        expect(json['errors']).to include('pseudo')
+        expect(json['errors']).to include('username')
       end
     end
 
     context 'wrong params' do
-      it 'should return 422 because pseudo is missing' do
+      it 'should return 422 because username is missing' do
         user = build(:user)
         post :create, params: {
             user: {
@@ -62,7 +62,7 @@ RSpec.describe Api::UsersController, type: :controller do
         user = build(:user)
         post :create, params: {
             user: {
-                pseudo: user.pseudo,
+                username: user.username,
                 password: user.password,
                 password_confirmation: user.password
             }
@@ -76,7 +76,7 @@ RSpec.describe Api::UsersController, type: :controller do
         post :create, params: {
             user: {
                 email: user.email,
-                pseudo: user.pseudo,
+                username: user.username,
             }
         }
 
@@ -88,7 +88,7 @@ RSpec.describe Api::UsersController, type: :controller do
         post :create, params: {
             user: {
                 email: user.email,
-                pseudo: user.pseudo,
+                username: user.username,
                 password: user.password,
                 password_confirmation: user.password + 'wrong'
             }
@@ -101,64 +101,6 @@ RSpec.describe Api::UsersController, type: :controller do
 
   describe 'GET #show' do
     context 'valid request' do
-      before do
-        user = create(:user)
-        event = create(:event, creator: user)
-        chosen_place = create(:place_poll_option, event: event)
-        chosen_date = create(:date_poll_option, event: event)
-        event.chosen_place = chosen_place
-        event.chosen_date = chosen_date
-        event.save
-        create(:invite, user: user, event: event)
-
-        add_authenticated_header(request, user)
-        get :show, params: {id: user.id}
-        @json = JSON.parse(response.body)
-      end
-
-      it 'should return a 200 code' do
-        expect(response).to have_http_status(200)
-      end
-
-      it 'should return the user and his dependencies' do
-        expect(@json).to include('user')
-        expect(@json['user']).to include('events')
-        expect(@json['user']).to include('invites')
-      end
-
-      it "should return the event's nested dependencies" do
-        expect(@json['user']['events'][0]['chosen_place']).to be_truthy
-        expect(@json['user']['events'][0]['chosen_date']).to be_truthy
-      end
-
-      it "should return the invite' nested dependencies" do
-        expect(@json['user']['invites'][0]['event']).to be_truthy
-      end
-
-      it 'shouldn\'t return the user\'s password hash' do
-        expect(@json['user']).not_to include('password_hash')
-      end
-    end
-
-    context 'wrong request' do
-      it 'should return 404' do
-        user = create(:user)
-        add_authenticated_header(request, user)
-        get :show, params: {id: user.id + 1}
-        expect(response).to have_http_status(404)
-      end
-    end
-
-    context 'unauthorized' do
-      it 'should return 401 unauthorized' do
-        user = create(:user)
-        get :show, params: {id: user.id}
-        expect(response).to have_http_status(401)
-      end
-    end
-
-    context 'getting another user' do
-
       before do
         user = create(:user)
         user2 = create(:user)
@@ -183,6 +125,73 @@ RSpec.describe Api::UsersController, type: :controller do
 
       it 'shouldn\'t return the user\'s password hash' do
         expect(@json['user']).not_to include('password_hash')
+      end
+    end
+
+    context 'wrong request' do
+      it 'should return 404' do
+        user = create(:user)
+        add_authenticated_header(request, user)
+        get :show, params: {id: user.id + 1}
+        expect(response).to have_http_status(404)
+      end
+    end
+
+    context 'unauthorized' do
+      it 'should return 401 unauthorized' do
+        user = create(:user)
+        get :show, params: {id: user.id}
+        expect(response).to have_http_status(401)
+      end
+    end
+  end
+
+  describe 'GET #current' do
+    context 'valid request' do
+      before do
+        user = create(:user)
+        event = create(:event, creator: user)
+        chosen_place = create(:place_poll_option, event: event)
+        chosen_date = create(:date_poll_option, event: event)
+        event.chosen_place = chosen_place
+        event.chosen_date = chosen_date
+        event.save
+        create(:invite, user: user, event: event)
+
+        add_authenticated_header(request, user)
+        get :current
+        @json = JSON.parse(response.body)
+      end
+
+      it 'should return a 200 code' do
+        expect(response).to have_http_status(200)
+      end
+
+      it 'should return the user' do
+        expect(@json).to include('user')
+        expect(@json['user']).to include('events')
+        expect(@json['user']).to include('invites')
+      end
+
+      it "should return the event's nested dependencies" do
+        expect(@json['user']['events'][0]['chosen_place']).to be_truthy
+        expect(@json['user']['events'][0]['chosen_date']).to be_truthy
+      end
+
+      it "should return the invite' nested dependencies" do
+        expect(@json['user']['invites'][0]['event']).to be_truthy
+      end
+
+      it 'shouldn\'t return the user\'s password hash' do
+        expect(@json['user']).not_to include('password_hash')
+      end
+    end
+
+    context 'unauthorized' do
+      it 'should return 401 unauthorized' do
+        create(:user)
+        get :current
+        expect(response).to have_http_status(401)
       end
     end
   end

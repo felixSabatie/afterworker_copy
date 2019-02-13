@@ -4,18 +4,21 @@ module Api
     before_action :set_user, only: [:show]
 
     def create
-      user_params = params.require(:user).permit(:pseudo, :email, :password, :password_confirmation)
+      user_params = params.require(:user).permit(:username, :email, :password, :password_confirmation)
       user = User.new(user_params)
       already_exists = false
-      errors = []
+      errors = {
+          username: false,
+          email: false
+      }
 
-      if User.find_by(pseudo: user.pseudo) != nil
+      if User.find_by(username: user.username) != nil
         already_exists = true
-        errors << 'pseudo'
+        errors[:username] = true
       end
       if User.find_by(email: user.email) != nil
         already_exists = true
-        errors << 'email'
+        errors[:email] = true
       end
 
       if already_exists
@@ -30,11 +33,11 @@ module Api
     end
 
     def show
-      if current_user.id === @user.id
-        render_json(@user, true)
-      else
-        render_json(@user)
-      end
+      render_json(@user)
+    end
+
+    def current
+      render_json(current_user, true)
     end
 
     private

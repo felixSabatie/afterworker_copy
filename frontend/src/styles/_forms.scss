@@ -1,0 +1,67 @@
+@import 'colors';
+@import 'variables';
+
+.form {
+  .errors {
+    color: $accentContrastColor;
+    font-size: $fontSize;
+    background-color: $accentColor;
+    padding: 15px 20px;
+    border-radius: 5px;
+
+    .error {
+      margin-top: 5px;
+    }
+  }
+}
+
+.input {
+  margin: 10px 0;
+
+  input[type=text], input[type=password], input[type=email] {
+    width: 100%;
+    padding: 15px 20px;
+    margin: 0;
+    box-sizing: border-box;
+    font-size: $fontSize;
+    line-height: $fontSize;
+    color: $textColor;
+    border: 1px solid $borderColor;
+    border-radius: 100px;
+    transition: $transitionsDuration;
+
+    &::placeholder {
+      color: $greyTextColor;
+    }
+
+    &:focus {
+      border: 1px solid $accentColorLight;
+      outline: none;
+    }
+  }
+
+  .input-errors {
+    color: $errorTextColor;
+    font-size: 14px;
+
+    .input-error {
+      margin: 5px 0 0 20px;
+    }
+  }
+
+  .input-with-icon {
+    position: relative;
+    .icon {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 20px;
+      color: $textColor;
+      font-size: $fontSize;
+
+      & + input {
+        padding-left: 50px;
+      }
+    }
+  }
+}

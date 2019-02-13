@@ -1,0 +1,36 @@
+<app-auth>
+  <h1>Log in</h1>
+  <form (ngSubmit)="submitForm()" class="form" [formGroup]="userInfos">
+    <div class="input">
+      <div class="input-with-icon">
+        <fa-icon class="icon" [icon]="faAt"></fa-icon>
+        <input type="email" placeholder="email" formControlName="email" required>
+      </div>
+      <div class="input-errors" *ngIf="submitted && userInfos.controls.email.errors">
+        <div class="input-error" *ngIf="userInfos.controls.email.errors.pattern">Please enter a valid email</div>
+        <div class="input-error" *ngIf="userInfos.controls.email.errors.required">This field is required</div>
+      </div>
+    </div>
+    <div class="input">
+      <div class="input-with-icon">
+        <fa-icon class="icon" [icon]="faKey"></fa-icon>
+        <input type="password" placeholder="password" formControlName="password" required>
+      </div>
+      <div class="input-errors" *ngIf="submitted && userInfos.controls.password.errors">
+        <div class="input-error" *ngIf="userInfos.controls.password.errors.required">This field is required</div>
+      </div>
+    </div>
+
+    <div class="errors" *ngIf="errors.length > 0">
+      <div class="error" *ngFor="let error of errors">{{ error }}</div>
+    </div>
+
+    <div class="actions">
+      <a routerLink="/register">Create an account</a>
+      <button class="btn submit-button" [disabled]="waitingForResponse">
+        <app-spinner *ngIf="waitingForResponse"></app-spinner>
+        <span *ngIf="!waitingForResponse">Submit</span>
+      </button>
+    </div>
+  </form>
+</app-auth>
