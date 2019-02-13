@@ -46,24 +46,26 @@ export class LoginComponent implements OnInit {
 
   submitForm() {
     if(!this.waitingForResponse) {
-      this.errors = [];
       this.submitted = true;
-      this.waitingForResponse = true;
-      if(!this.userInfos.invalid) {
-        this.authService.getToken(this.userInfos.value)
-          .pipe(finalize(() => {
-            this.waitingForResponse = false;
-          }))
-          .subscribe(response => {
-            const token = response.jwt;
-            this.storeTokenAndGetUser(token);
-          }, err => {
-            if(err.status === 404) {
-              this.errors.push('Your informations are incorrect, please try again');
-            } else if (err.status === 422){
-              this.errors.push('Fill the required fields');
-            }
-          });
+      if(this.userInfos.valid) {
+        this.errors = [];
+        this.waitingForResponse = true;
+        if(!this.userInfos.invalid) {
+          this.authService.getToken(this.userInfos.value)
+            .pipe(finalize(() => {
+              this.waitingForResponse = false;
+            }))
+            .subscribe(response => {
+              const token = response.jwt;
+              this.storeTokenAndGetUser(token);
+            }, err => {
+              if(err.status === 404) {
+                this.errors.push('Your informations are incorrect, please try again');
+              } else if (err.status === 422){
+                this.errors.push('Fill the required fields');
+              }
+            });
+        }
       }
     }
   }
