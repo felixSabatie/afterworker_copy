@@ -11,10 +11,13 @@
   align-items: center;
   justify-content: space-between;
 
+  a, img {
+    padding: 0 15px;
+  }
+
   a {
     color: $accentContrastColor;
     height: $navbarHeight;
-    padding: 0 15px;
     display: flex;
     align-items: center;
     transition: background-color $transitionsDuration;
@@ -26,5 +29,12 @@
 
   .logo {
     font-size: 24px;
+  }
+
+  .user-avatar {
+    width: 35px;
+    height: 35px;
+    background-color: $accentContrastColor;
+    border-radius: 50%;
   }
 }
