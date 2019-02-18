@@ -19,6 +19,7 @@ import {StoreModule} from '@ngrx/store';
 import {reducers} from "./ngrx/reducers";
 import { HomeComponent } from './home/home.component';
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {StoreDevtoolsModule} from "@ngrx/store-devtools";
     SpinnerComponent,
     RegisterComponent,
     AuthComponent,
-    HomeComponent
+    HomeComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
