@@ -24,6 +24,7 @@ module Api
       if already_exists
         render status: 409, json: {errors: errors}
       else
+        user.avatar_link = "https://avatars.dicebear.com/v2/gridy/#{user.username}.svg"
         if user.save
           render_json(user, true)
         else

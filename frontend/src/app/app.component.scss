@@ -1,0 +1,11 @@
+@import '../styles/variables';
+
+.app {
+  height: 100%;
+  display: grid;
+  grid-template-rows: 50px auto;
+
+  .app-content-wrapper {
+    overflow: auto;
+  }
+}
