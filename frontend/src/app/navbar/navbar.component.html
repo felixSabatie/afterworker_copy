@@ -1,17 +1,19 @@
 <nav class="navbar">
   <div class="left">
     <div class="logo">
-      <a routerLink="/">Afterworker</a>
+      <a routerLink="/" class="nav-item">Afterworker</a>
     </div>
   </div>
 
   <div class="right">
     <div *ngIf="user === undefined">
-      <a routerLink="/login">Log in</a>
+      <a routerLink="/login" class="nav-item">Log in</a>
     </div>
 
     <div *ngIf="user !== undefined">
-      <img [src]="user.avatar_link" alt="user avatar" class="user-avatar">
+      <div class="user-avatar-container nav-item">
+        <img [src]="user.avatar_link" alt="user avatar" class="user-avatar">
+      </div>
     </div>
   </div>
 </nav>
