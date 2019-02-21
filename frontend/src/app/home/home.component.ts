@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   user: Observable<User>;
 
   constructor(private store: Store<AppState>, private router: Router) {
+    // TODO change to an http 401 event catcher
     this.user = store.select('user');
     this.user.subscribe(user => {
       if(user === undefined) {
