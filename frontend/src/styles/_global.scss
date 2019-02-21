@@ -58,4 +58,8 @@ html, body {
       }
     }
   }
+
+  .box-shadow {
+    box-shadow: $lightBoxShadow;
+  }
 }
