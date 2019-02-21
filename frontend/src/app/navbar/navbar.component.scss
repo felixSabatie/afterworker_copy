@@ -48,6 +48,17 @@
     top: 100%;
     padding-top: 10px;
     right: 10px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-5px);
+    transition: opacity $transitionsDuration, transform $transitionsDuration, visibility 0s $transitionsDuration;
+
+    &.show {
+      transform: translateY(0px);
+      opacity: 1;
+      visibility: visible;
+      transition-delay: 0s;
+    }
 
     .dropdown-menu {
       background-color: $backgroundColor;

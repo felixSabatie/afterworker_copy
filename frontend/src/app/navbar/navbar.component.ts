@@ -12,6 +12,7 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 export class NavbarComponent implements OnInit {
   user: User = undefined;
   faSignOutAlt = faSignOutAlt;
+  showDropDown = false;
 
   constructor(private store: Store<AppState>) {
     store.select('user').subscribe(user => {
@@ -20,6 +21,11 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  private toggleShowDropdown() {
+    this.showDropDown = !this.showDropDown;
+    // TODO click outside to close : https://github.com/ng-bootstrap/ng-bootstrap/issues/933#issuecomment-272656499
   }
 
 }
