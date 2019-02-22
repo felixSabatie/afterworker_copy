@@ -1,24 +1,22 @@
-# README
+# Afterworker
+## Simple installation
+Requirements :
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+- Docker
+- Docker-compose
 
-Things you may want to cover:
+To run the project, go to the `docker` folder and run the following command :
+- `docker-compose build && docker-compose up`
 
-* Ruby version
+Additionally, if you don't have a `master.key` file in the config folder, or if 
+the server has a 500 error when trying to create an account or log in, run the following command :
+-  `docker exec -e EDITOR="nano" docker_rails rails credentials:edit`
 
-* System dependencies
+It should create a `master.key` file and update the `credentials.yml.enc` file in the config folder. 
+Please don't push this new credentials file, or it will break the gitlab and heroku servers.
 
-* Configuration
+If no errors are shown, you shoud be able to access the website at `localhost:3000`.
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## App architecture
+- The unit tests for the ruby on rails API are located in the `spec` folder
+- The angular client is located in the `frontend folder`
