@@ -40,7 +40,7 @@ export class RegisterComponent implements OnInit {
 
   buildForm() {
     this.userInfos = this.fb.group({
-      email: ['', Validators.pattern(/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i)],
+      email: ['', Validators.pattern(/^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i)],
       username: [''],
       password: ['', Validators.minLength(6)],
       password_confirmation: [''],
