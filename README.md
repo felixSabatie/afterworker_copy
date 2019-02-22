@@ -9,8 +9,10 @@ To run the project, go to the `docker` folder and run the following command :
 - `docker-compose build && docker-compose up`
 
 Additionally, if you don't have a `master.key` file in the config folder, or if 
-the server has a 500 error when trying to create an account or log in, run the following command :
--  `docker exec -e EDITOR="nano" docker_rails rails credentials:edit`
+the server has a 500 error when trying to create an account or log in, do the following steps :
+- delete the `config/credentials.yml.enc` file
+- run `docker exec -e EDITOR="nano" docker_rails rails credentials:edit` while the docker containers are still running
+- stop and rerun the docker containers by running `docker-compose up` in the docker folder
 
 It should create a `master.key` file and update the `credentials.yml.enc` file in the config folder. 
 Please don't push this new credentials file, or it will break the gitlab and heroku servers.
