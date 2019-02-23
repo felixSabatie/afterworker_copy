@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Api::EventsControllerController, type: :controller do
+RSpec.describe Api::EventsController, type: :controller do
   describe 'GET #index' do
     context 'valid authentication' do
       before do
@@ -21,10 +21,11 @@ RSpec.describe Api::EventsControllerController, type: :controller do
         chosen_date2 = create(:date_poll_option_old, event: event2)
         event2.chosen_place = chosen_place2
         event2.chosen_date = chosen_date2
-        event.participants << user2
+        event2.participants << user2
         event2.save
 
         get :index
+        @json = JSON.parse(response.body)
       end
 
       it 'should return http code 200' do
@@ -32,18 +33,18 @@ RSpec.describe Api::EventsControllerController, type: :controller do
       end
 
       it "should return the events" do
-        expect(@json['user']['events'].length).to eql(2)
+        expect(@json['events'].length).to eql(2)
       end
 
       it "should return the event's nested dependencies" do
-        expect(@json['user']['events'][0]['chosen_place']).to be_truthy
-        expect(@json['user']['events'][0]['chosen_date']).to be_truthy
-        expect(@json['user']['events'][0]['participants']).to be_truthy
-        expect(@json['user']['events'][0]['participants'].length).to eql(2)
+        expect(@json['events'][0]['chosen_place']).to be_truthy
+        expect(@json['events'][0]['chosen_date']).to be_truthy
+        expect(@json['events'][0]['participants']).to be_truthy
+        expect(@json['events'][0]['participants'].length).to eql(2)
       end
 
       it "shouldn't show the user's password hash" do
-        expect(@json['user']['events'][0]['participants'][0]).not_to include('password_hash')
+        expect(@json['events'][0]['participants'][0]).not_to include('password_hash')
       end
     end
 
