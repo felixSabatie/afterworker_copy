@@ -1,7 +1,11 @@
 <div class="home">
-  <section *ngIf="fetchingEvents" class="section container">
+  <section *ngIf="fetchingEvents" class="container">
     <app-spinner class="loading-component"></app-spinner>
   </section>
 
-  
+  <div *ngIf="!fetchingEvents">
+    <section *ngIf="events && events.length === 0" class="container">
+      It appears you don't have any events... Create one now !
+    </section>
+  </div>
 </div>
