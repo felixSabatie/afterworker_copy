@@ -1,5 +1,20 @@
 @import '../../../styles/colors';
+@import '../../../styles/variables';
 
 .event {
   background-color: $appBackgroundColor;
+  margin: 15px 30px 15px 0;
+  width: 330px;
+  padding: 20px 35px;
+  border-radius: 10px;
+  transition: background-color $transitionsDuration;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $darkerAppBackgroundColor;
+  }
+  
+  .event-info {
+    margin-top: 15px;
+  }
 }

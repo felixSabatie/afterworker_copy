@@ -1,8 +1,8 @@
 <div class="event">
-  <h3 class="name">
+  <h3 class="name event-title">
     {{ event.name }}
   </h3>
-  <div class="date">
+  <div class="date event-info">
     <span *ngIf="event.chosen_date && differentYear">
       {{ event.chosen_date.date | date: 'LLL dd yyyy, HH:mm' }}
     </span>
@@ -13,7 +13,7 @@
       Date TBD
     </span>
   </div>
-  <div class="place">
+  <div class="place event-info">
     <span *ngIf="event.chosen_place">
       {{ event.chosen_place.name }}
     </span>
@@ -21,7 +21,7 @@
       Place TBD
     </span>
   </div>
-  <div class="participants">
+  <div class="participants event-info">
     <app-users-logos [users]="event.participants" [maxAvatars]="3"></app-users-logos>
   </div>
 </div>

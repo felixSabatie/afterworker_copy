@@ -1,4 +1,4 @@
 <div class="users-avatars">
   <img *ngFor="let user of usersToDisplay" [src]="user.avatar_link" [alt]="user.username" [title]="user.username" class="avatar">
-  <span *ngIf="usersLeft > 0">... and {{ usersLeft }} more</span>
+  <span class="users-left" *ngIf="usersLeft > 0">... and {{ usersLeft }} more coming</span>
 </div>

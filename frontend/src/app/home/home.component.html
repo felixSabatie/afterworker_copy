@@ -11,12 +11,16 @@
     <div *ngIf="hasEvents">
       <section class="container" *ngIf="upcomingEvents.length > 0">
         <h2>Upcoming events</h2>
-        <app-event *ngFor="let event of upcomingEvents" [event]="event"></app-event>
+        <div class="events">
+          <app-event *ngFor="let event of upcomingEvents" [event]="event"></app-event>
+        </div>
       </section>
 
       <section class="container" *ngIf="pastEvents.length > 0">
         <h2>Past events</h2>
-        <app-event *ngFor="let event of pastEvents" [event]="event"></app-event>
+        <div class="events">
+          <app-event *ngFor="let event of pastEvents" [event]="event"></app-event>
+        </div>
       </section>
     </div>
   </div>
