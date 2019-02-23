@@ -31,6 +31,11 @@ export class LoginComponent implements OnInit {
               private store: Store<AppState>,
               private userService: UserService
   ) {
+    store.select('token').subscribe(token => {
+      if(token !== undefined) {
+        this.getUserAndRedirect();
+      }
+    });
     this.buildForm();
   }
 
@@ -72,14 +77,14 @@ export class LoginComponent implements OnInit {
 
   storeTokenAndGetUser(token: string) {
     this.store.dispatch(new TokenActions.SetToken(token));
-    this.userService.getCurrentUser().subscribe((user: User) => {
-      this.storeAndRedirect(user);
-    });
+    this.getUserAndRedirect();
   }
 
-  storeAndRedirect(user: User) {
-    this.store.dispatch(new UserActions.SetUser(user));
-    this.router.navigate(['home']);
+  getUserAndRedirect() {
+    this.userService.getCurrentUser().subscribe((user: User) => {
+      this.store.dispatch(new UserActions.SetUser(user));
+      this.router.navigate(['home']);
+    });
   }
 
 }

@@ -32,6 +32,11 @@ export class RegisterComponent implements OnInit {
               private store: Store<AppState>,
               private router: Router,
   ) {
+    store.select('token').subscribe(token => {
+      if(token !== undefined) {
+        this.getUserAndRedirect();
+      }
+    });
     this.buildForm();
   }
 
@@ -110,5 +115,12 @@ export class RegisterComponent implements OnInit {
   storeTokenAndRedirect(token: string) {
     this.store.dispatch(new TokenActions.SetToken(token));
     this.router.navigate(['home']);
+  }
+
+  getUserAndRedirect() {
+    this.userService.getCurrentUser().subscribe((user: User) => {
+      this.store.dispatch(new UserActions.SetUser(user));
+      this.router.navigate(['home']);
+    });
   }
 }
