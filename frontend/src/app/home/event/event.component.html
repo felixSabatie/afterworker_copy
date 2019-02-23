@@ -1,3 +1,27 @@
-<p>
-  {{event.name}}
-</p>
+<div class="event">
+  <h3 class="name">
+    {{ event.name }}
+  </h3>
+  <div class="date">
+    <span *ngIf="event.chosen_date && differentYear">
+      {{ event.chosen_date.date | date: 'LLL dd yyyy, HH:mm' }}
+    </span>
+    <span *ngIf="event.chosen_date && !differentYear">
+      {{ event.chosen_date.date | date: 'LLL dd, HH:mm' }}
+    </span>
+    <span *ngIf="!event.chosen_date">
+      Date TBD
+    </span>
+  </div>
+  <div class="place">
+    <span *ngIf="event.chosen_place">
+      {{ event.chosen_place.name }}
+    </span>
+    <span *ngIf="!event.chosen_place">
+      Place TBD
+    </span>
+  </div>
+  <div class="participants">
+
+  </div>
+</div>

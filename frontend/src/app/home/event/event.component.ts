@@ -8,10 +8,14 @@ import {Event} from "../../models/event.model";
 })
 export class EventComponent implements OnInit {
   @Input() event: Event;
+  differentYear: boolean = false;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
+    this.differentYear = this.event.chosen_date !== undefined
+      && new Date(this.event.chosen_date.date).getFullYear() !== new Date().getFullYear();
   }
 
 }
