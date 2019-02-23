@@ -3,15 +3,13 @@
 
 .spinner-container {
   display: inline-block;
-  width: $fontSize;
-  height: $fontSize;
   animation: 1.7s spin ease-in-out infinite;
 
-  .spinner {
-    width: $fontSize;
-    height: $fontSize;
-    font-size: $fontSize;
-  }
+    .spinner {
+      ::ng-deep svg {
+        display: block;
+      }
+    }
 }
 
 @keyframes spin {

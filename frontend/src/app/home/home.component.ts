@@ -12,6 +12,7 @@ import {EventService} from "../shared-services/event.service";
 })
 export class HomeComponent implements OnInit {
   events: Event[];
+  fetchingEvents = true;
 
   constructor(private store: Store<AppState>, private router: Router, private eventService: EventService) {
     // TODO change to an http 401 event catcher
@@ -22,7 +23,7 @@ export class HomeComponent implements OnInit {
     });
 
     eventService.getEvents().subscribe(events => {
-      console.log(events);
+      this.fetchingEvents = false;
       this.events = events;
     });
   }

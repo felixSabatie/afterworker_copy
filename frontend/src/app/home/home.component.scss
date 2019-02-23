@@ -1,0 +1,24 @@
+@import '../../styles/colors';
+
+.home {
+  padding-bottom: 50px;
+  .section {
+    background-color: $backgroundColor;
+    padding: 30px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+
+    &:nth-of-type(1) {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+
+    .loading-component {
+      color: $textColor;
+      font-size: 32px;
+      text-align: center;
+      display: block;
+    }
+  }
+
+}
