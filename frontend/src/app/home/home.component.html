@@ -4,8 +4,20 @@
   </section>
 
   <div *ngIf="!fetchingEvents">
-    <section *ngIf="events && events.length === 0" class="container">
+    <section *ngIf="!hasEvents" class="container">
       It appears you don't have any events... Create one now !
     </section>
+
+    <div *ngIf="hasEvents">
+      <section class="container" *ngIf="upcomingEvents.length > 0">
+        <h2>Upcoming events</h2>
+        <app-event *ngFor="let event of upcomingEvents" [event]="event"></app-event>
+      </section>
+
+      <section class="container" *ngIf="pastEvents.length > 0">
+        <h2>Past events</h2>
+        <app-event *ngFor="let event of pastEvents" [event]="event"></app-event>
+      </section>
+    </div>
   </div>
 </div>

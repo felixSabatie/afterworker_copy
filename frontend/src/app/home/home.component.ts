@@ -11,7 +11,9 @@ import {EventService} from "../shared-services/event.service";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  events: Event[];
+  hasEvents: boolean;
+  upcomingEvents: Event[] = [];
+  pastEvents: Event[] = [];
   fetchingEvents = true;
 
   constructor(private store: Store<AppState>, private router: Router, private eventService: EventService) {
@@ -24,7 +26,14 @@ export class HomeComponent implements OnInit {
 
     eventService.getEvents().subscribe(events => {
       this.fetchingEvents = false;
-      this.events = events;
+      this.hasEvents = events.length > 0;
+      events.forEach(event => {
+        if (event.chosen_date === undefined || new Date(event.chosen_date.date) > new Date()) {
+          this.upcomingEvents.push(event);
+        } else {
+          this.pastEvents.push(event);
+        }
+      });
     });
   }
 
