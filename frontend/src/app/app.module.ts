@@ -22,7 +22,7 @@ import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import { NavbarComponent } from './navbar/navbar.component';
 import {localStorageSync} from "ngrx-store-localstorage";
 import { EventComponent } from './home/event/event.component';
-import { UsersLogosComponent } from './shared-components/users-logos/users-logos.component';
+import { UsersAvatarsComponent } from './shared-components/users-logos/users-avatars.component';
 
 const STORE_KEYS_TO_PERSIST = ['token', 'user'];
 
@@ -46,7 +46,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     HomeComponent,
     NavbarComponent,
     EventComponent,
-    UsersLogosComponent
+    UsersAvatarsComponent
   ],
   imports: [
     BrowserModule,
