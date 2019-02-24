@@ -32,8 +32,8 @@
     transform: translateY(-10px);
     background-color: $backgroundColor;
     overflow: auto;
-    max-width: 90%;
-    padding: 30px;
+    max-width: 80%;
+    padding: 25px;
     border-radius: 10px;
     position: relative;
     transition: transform $transitionsDuration;
@@ -42,7 +42,7 @@
       position: absolute;
       top: 0;
       right: 0;
-      padding: 10px;
+      padding: 10px 15px;
       font-size: 20px;
       color: $greyTextColor;
       cursor: pointer;
