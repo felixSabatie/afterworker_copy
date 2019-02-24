@@ -1,6 +1,6 @@
 <div class="event">
   <h3 class="name event-title">
-    {{ event.name }}
+    <a [routerLink]="'events/' + event.event_hash">{{ event.name }}</a>
   </h3>
   <div class="date event-info">
     <span *ngIf="event.chosen_date && differentYear">

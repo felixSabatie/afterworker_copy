@@ -5,7 +5,7 @@ import {Invite} from "./invite.model";
 
 export interface Event {
   id: number;
-  hash: string;
+  event_hash: string;
   name: string;
   is_open_to_dates: boolean;
   is_open_to_places: boolean;

@@ -15,6 +15,7 @@ html, body {
     text-decoration: none;
     color: $accentColor;
     transition: color $transitionsDuration;
+    cursor: pointer;
 
     &:hover {
       color: $accentColorDark;
@@ -81,5 +82,12 @@ html, body {
 
   h1, h2, h3, h4 {
     margin: 0;
+  }
+
+  h2 {
+    font-size: 26px;
+  }
+  h3 {
+    font-size: 22px;
   }
 }
