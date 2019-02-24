@@ -1,4 +1,5 @@
 @import '../../styles/colors';
+@import '../../styles/variables';
 
 .home {
   padding-bottom: 50px;
@@ -26,6 +27,14 @@
       justify-content: flex-start;
       align-items: flex-start;
       flex-wrap: wrap;
+
+      @media (max-width: $smallScreenSize) {
+        flex-direction: column;
+
+        .event-wrapper {
+          width: 100%;
+        }
+      }
     }
   }
 
