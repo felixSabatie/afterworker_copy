@@ -1,5 +1,9 @@
-<div class="modal-wrapper">
-  <div class="modal">
+<div class="modal-wrapper" [class.show]="show" (click)="closeModal()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <div class="close-button" (click)="closeModal()">
+      <fa-icon [icon]="faTimes"></fa-icon>
+    </div>
+
     <div class="title" *ngIf="title">
       <h2>{{ title }}</h2>
     </div>

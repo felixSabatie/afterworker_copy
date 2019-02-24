@@ -1,4 +1,5 @@
 @import "../../../styles/colors";
+@import "../../../styles/variables";
 
 .modal-wrapper {
   position: fixed;
@@ -11,15 +12,41 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
   background-color: rgba(0, 0, 0, .2);
 
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity $transitionsDuration, visibility 0s $transitionsDuration;
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0s;
+
+    .modal {
+      transform: translateY(0px);
+    }
+  }
+
   .modal {
+    transform: translateY(-10px);
     background-color: $backgroundColor;
     overflow: auto;
     max-width: 90%;
     padding: 30px;
     border-radius: 10px;
+    position: relative;
+    transition: transform $transitionsDuration;
+
+    .close-button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 10px;
+      font-size: 20px;
+      color: $greyTextColor;
+      cursor: pointer;
+    }
 
     .title {
       margin-bottom: 30px;
