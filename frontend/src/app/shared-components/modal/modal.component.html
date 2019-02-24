@@ -1,3 +1,10 @@
-<p>
-  modal works!
-</p>
+<div class="modal-wrapper">
+  <div class="modal">
+    <div class="title" *ngIf="title">
+      <h2>{{ title }}</h2>
+    </div>
+    <div class="content">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>
