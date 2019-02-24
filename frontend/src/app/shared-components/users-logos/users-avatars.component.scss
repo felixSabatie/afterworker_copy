@@ -1,0 +1,19 @@
+@import "../../../styles/colors";
+
+.users-avatars {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  .avatar {
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+  }
+}
+
+.users-list {
+  width: 500px;
+  max-width: 100%;
+  display: block;
+}

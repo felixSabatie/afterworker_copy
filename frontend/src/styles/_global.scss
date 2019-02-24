@@ -7,6 +7,7 @@ html, body {
   font-size: $fontSize;
   letter-spacing: .5px;
   background-color: $appBackgroundColor;
+  color: $textColor;
   height: 100%;
   margin: 0;
 
@@ -14,6 +15,7 @@ html, body {
     text-decoration: none;
     color: $accentColor;
     transition: color $transitionsDuration;
+    cursor: pointer;
 
     &:hover {
       color: $accentColorDark;
@@ -61,5 +63,33 @@ html, body {
 
   .box-shadow {
     box-shadow: $lightBoxShadow;
+  }
+
+  .container {
+    margin: 0 auto;
+    padding: 10px;
+    box-sizing: border-box;
+    max-width: 100%;
+
+    @media (min-width: $smallScreenSize) {
+      width: 750px;
+    }
+    @media (min-width: $mediumScreenSize) {
+      width: 970px;
+    }
+    @media (min-width: $largeScreenSize) {
+      width: 1170px;
+    }
+  }
+
+  h1, h2, h3, h4 {
+    margin: 0;
+  }
+
+  h2 {
+    font-size: 26px;
+  }
+  h3 {
+    font-size: 22px;
   }
 }

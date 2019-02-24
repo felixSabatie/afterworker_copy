@@ -3,6 +3,8 @@ Rails.application.routes.draw do
     post 'user_token' => 'user_token#create'
     get '/users/current' => 'users#current'
     resources :users, only: [:create, :show]
+
+    resources :events, only: [:index]
   end
 
   root to: 'static_files#index'

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {Observable} from "rxjs";
-import {User} from "../models/user.model";
+import {Event} from "../models/event.model";
 import {AppState} from "../ngrx/app.state";
 import {Store} from '@ngrx/store';
 import {Router} from "@angular/router";
+import {EventService} from "../shared-services/event.service";
 
 @Component({
   selector: 'app-home',
@@ -11,16 +11,29 @@ import {Router} from "@angular/router";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  hasEvents: boolean;
+  upcomingEvents: Event[] = [];
+  pastEvents: Event[] = [];
+  fetchingEvents = true;
 
-  user: Observable<User>;
-
-  constructor(private store: Store<AppState>, private router: Router) {
+  constructor(private store: Store<AppState>, private router: Router, private eventService: EventService) {
     // TODO change to an http 401 event catcher
-    this.user = store.select('user');
-    this.user.subscribe(user => {
+    store.select('user').subscribe(user => {
       if(user === undefined) {
         router.navigate(['login']);
       }
+    });
+
+    eventService.getEvents().subscribe(events => {
+      this.fetchingEvents = false;
+      this.hasEvents = events.length > 0;
+      events.forEach(event => {
+        if (event.chosen_date === undefined || new Date(event.chosen_date.date) > new Date()) {
+          this.upcomingEvents.push(event);
+        } else {
+          this.pastEvents.push(event);
+        }
+      });
     });
   }
 

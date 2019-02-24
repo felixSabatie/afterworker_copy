@@ -1,7 +1,4 @@
 class Event < ApplicationRecord
-  before_create :generate_hash
-  after_create :add_creator_to_participants
-
   belongs_to :creator, class_name: :User, foreign_key: 'user_id'
   has_and_belongs_to_many :participants, class_name: :User
 
@@ -16,6 +13,9 @@ class Event < ApplicationRecord
   validates :event_hash, uniqueness: true
   validates :name, presence: true
   validates :hash, presence: true
+
+  before_create :generate_hash
+  after_create :add_creator_to_participants
 
   private
 

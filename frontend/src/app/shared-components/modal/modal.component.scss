@@ -1,0 +1,62 @@
+@import "../../../styles/colors";
+@import "../../../styles/variables";
+
+.modal-wrapper {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 998;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, .2);
+
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity $transitionsDuration, visibility 0s $transitionsDuration;
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0s;
+
+    .modal {
+      transform: translateY(0px);
+    }
+  }
+
+  .modal {
+    transform: translateY(-10px);
+    background-color: $backgroundColor;
+    box-sizing: border-box;
+    max-width: 90%;
+    max-height: 90%;
+    padding: 25px;
+    border-radius: 10px;
+    position: relative;
+    transition: transform $transitionsDuration;
+    display: flex;
+    flex-direction: column;
+
+    .close-button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 10px 15px;
+      font-size: 20px;
+      color: $greyTextColor;
+      cursor: pointer;
+    }
+
+    .title {
+      margin-bottom: 30px;
+    }
+
+    .content-wrapper {
+      overflow: auto;
+    }
+  }
+}
