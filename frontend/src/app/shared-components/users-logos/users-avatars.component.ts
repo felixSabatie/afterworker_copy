@@ -11,6 +11,7 @@ export class UsersAvatarsComponent implements OnInit {
   @Input() maxAvatars: number;
   usersToDisplay: User[] = [];
   usersLeft = 0;
+  showModal = false;
 
   constructor() { }
 
@@ -22,7 +23,11 @@ export class UsersAvatarsComponent implements OnInit {
   }
 
   openModal() {
-    // TODO http://jasonwatmore.com/post/2018/05/25/angular-6-custom-modal-window-dialog-box
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.showModal = false;
   }
 
 }
