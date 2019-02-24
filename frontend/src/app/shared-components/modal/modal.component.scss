@@ -31,12 +31,15 @@
   .modal {
     transform: translateY(-10px);
     background-color: $backgroundColor;
-    overflow: auto;
-    max-width: 80%;
+    box-sizing: border-box;
+    max-width: 90%;
+    max-height: 90%;
     padding: 25px;
     border-radius: 10px;
     position: relative;
     transition: transform $transitionsDuration;
+    display: flex;
+    flex-direction: column;
 
     .close-button {
       position: absolute;
@@ -50,6 +53,10 @@
 
     .title {
       margin-bottom: 30px;
+    }
+
+    .content-wrapper {
+      overflow: auto;
     }
   }
 }
