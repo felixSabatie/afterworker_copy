@@ -28,6 +28,12 @@
 
   .logo {
     font-size: 24px;
+
+    img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+    }
   }
 
   .user-avatar-container {
