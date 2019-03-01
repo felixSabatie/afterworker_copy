@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-event-form',
@@ -6,10 +7,29 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./event-form.component.scss']
 })
 export class EventFormComponent implements OnInit {
+  eventInfos: FormGroup;
+  submitted = false;
+  waitingForResponse = false;
+  errors: string[] = [];
 
-  constructor() { }
+  constructor(private fb: FormBuilder) {
+    this.eventInfos = this.fb.group({
+      name: [''],
+      has_date_poll: [true],
+      has_place_poll: [true],
+      is_open_to_dates: [true],
+      is_open_to_places: [true],
+      place: ['']
+    });
+  }
 
   ngOnInit() {
+  }
+
+  submitForm() {
+    this.submitted = true;
+    this.waitingForResponse = true;
+    console.log(this.eventInfos.value);
   }
 
 }

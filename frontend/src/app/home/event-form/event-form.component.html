@@ -1,3 +1,62 @@
-<p>
-  event-form works!
-</p>
+<div class="event-form">
+  <form (ngSubmit)="submitForm()" [formGroup]="eventInfos">
+    <div class="input">
+      <input type="text" placeholder="the event's name" formControlName="name" required>
+      <div class="input-errors" *ngIf="submitted && eventInfos.controls.name.errors">
+        <div class="input-error" *ngIf="eventInfos.controls.name.errors.required">This field is required</div>
+      </div>
+    </div>
+
+    <div class="input">
+      <div class="switch-container">
+        <label class="switch">
+          <input type="checkbox" formControlName="has_date_poll">
+          <span class="slider"></span>
+        </label>
+        <span>Add a poll for the date</span>
+      </div>
+    </div>
+
+    <div class="input indented" *ngIf="eventInfos.value.has_date_poll">
+      <div class="switch-container">
+        <label class="switch">
+          <input type="checkbox" formControlName="is_open_to_dates">
+          <span class="slider"></span>
+        </label>
+        <span>Allow the guests to suggest a date</span>
+      </div>
+    </div>
+
+    <div class="input">
+      <div class="switch-container">
+        <label class="switch">
+          <input type="checkbox" formControlName="has_place_poll">
+          <span class="slider"></span>
+        </label>
+        <span>Add a poll for the place</span>
+      </div>
+    </div>
+
+    <div class="input indented" *ngIf="eventInfos.value.has_place_poll">
+      <div class="switch-container">
+        <label class="switch">
+          <input type="checkbox" formControlName="is_open_to_places">
+          <span class="slider"></span>
+        </label>
+        <span>Allow the guests to suggest a place</span>
+      </div>
+    </div>
+
+    <div class="input indented" *ngIf="!eventInfos.value.has_place_poll">
+      <input type="text" placeholder="the event's place" formControlName="place" required>
+      <div class="input-errors" *ngIf="submitted && eventInfos.controls.place.errors">
+        <div class="input-error" *ngIf="eventInfos.controls.place.errors.required">This field is required</div>
+      </div>
+    </div>
+
+    <button class="btn submit-button" [disabled]="waitingForResponse">
+      <app-spinner *ngIf="waitingForResponse"></app-spinner>
+      <span *ngIf="!waitingForResponse">Create the event</span>
+    </button>
+  </form>
+</div>

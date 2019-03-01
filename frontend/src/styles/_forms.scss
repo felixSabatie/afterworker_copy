@@ -50,7 +50,7 @@
       $sliderSize: calc(#{$switchHeight} - 8px);
 
       position: relative;
-      width: $switchWidth;
+      min-width: $switchWidth;
       height: $switchHeight;
       display: inline-block;
       margin-right: 20px;
