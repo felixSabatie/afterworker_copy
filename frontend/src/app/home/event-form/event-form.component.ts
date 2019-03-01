@@ -21,6 +21,8 @@ export class EventFormComponent implements OnInit {
       is_open_to_places: [true],
       place: ['']
     });
+
+    // TODO integrate https://www.npmjs.com/package/ng-pick-datetime
   }
 
   ngOnInit() {
