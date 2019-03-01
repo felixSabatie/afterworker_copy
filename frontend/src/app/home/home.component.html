@@ -5,7 +5,7 @@
 
   <div *ngIf="!fetchingEvents">
     <section *ngIf="!hasEvents" class="container">
-      It appears you don't have any events... Create one now !
+      It appears you don't have any events... <span class="link" (click)="openCreateModal()">Create one now !</span>
     </section>
 
     <div *ngIf="hasEvents">
@@ -25,7 +25,11 @@
     </div>
   </div>
 
-  <div class="fab box-shadow">
+  <div class="fab box-shadow" (click)="openCreateModal()">
     <fa-icon [icon]="faPlus"></fa-icon>
   </div>
+
+  <app-modal title="Create an event" [show]="showCreateModal" (close)="closeCreateModal()">
+    <app-event-form></app-event-form>
+  </app-modal>
 </div>

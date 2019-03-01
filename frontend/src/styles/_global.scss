@@ -11,7 +11,7 @@ html, body {
   height: 100%;
   margin: 0;
 
-  a {
+  a, .link {
     text-decoration: none;
     color: $accentColor;
     transition: color $transitionsDuration;

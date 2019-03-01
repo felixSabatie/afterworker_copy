@@ -26,6 +26,7 @@ import { UsersAvatarsComponent } from './shared-components/users-logos/users-ava
 import { ModalComponent } from './shared-components/modal/modal.component';
 import { UsersListComponent } from './shared-components/users-list/users-list.component';
 import { UsersListItemComponent } from './shared-components/users-list/users-list-item/users-list-item.component';
+import { EventFormComponent } from './home/event-form/event-form.component';
 
 const STORE_KEYS_TO_PERSIST = ['token', 'user'];
 
@@ -52,7 +53,8 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     UsersAvatarsComponent,
     ModalComponent,
     UsersListComponent,
-    UsersListItemComponent
+    UsersListItemComponent,
+    EventFormComponent
   ],
   imports: [
     BrowserModule,

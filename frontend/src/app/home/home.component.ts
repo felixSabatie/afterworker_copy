@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
   upcomingEvents: Event[] = [];
   pastEvents: Event[] = [];
   fetchingEvents = true;
+  showCreateModal = false;
 
   faPlus = faPlus;
 
@@ -41,6 +42,14 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  openCreateModal() {
+    this.showCreateModal = true;
+  }
+
+  closeCreateModal() {
+    this.showCreateModal = false;
   }
 
 }
