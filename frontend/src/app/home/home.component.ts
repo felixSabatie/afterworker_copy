@@ -4,6 +4,7 @@ import {AppState} from "../ngrx/app.state";
 import {Store} from '@ngrx/store';
 import {Router} from "@angular/router";
 import {EventService} from "../shared-services/event.service";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-home',
@@ -15,6 +16,8 @@ export class HomeComponent implements OnInit {
   upcomingEvents: Event[] = [];
   pastEvents: Event[] = [];
   fetchingEvents = true;
+
+  faPlus = faPlus;
 
   constructor(private store: Store<AppState>, private router: Router, private eventService: EventService) {
     // TODO change to an http 401 event catcher
