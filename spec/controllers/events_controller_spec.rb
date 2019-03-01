@@ -57,4 +57,159 @@ RSpec.describe Api::EventsController, type: :controller do
       end
     end
   end
+
+  describe 'POST #create' do
+    context 'valid basic event' do
+      before do
+        @user = create(:user)
+        add_authenticated_header(request, @user)
+        post :create, params: {event: attributes_for(:event)}
+        @json = JSON.parse(response.body)
+      end
+
+      it 'should create the event' do
+        expect(response).to have_http_status(200)
+        expect(Event.count).to eq(1)
+      end
+
+      it 'should return the event' do
+        expect(@json).to include('event')
+      end
+
+      it 'should set the current user as the event\'s creator' do
+        expect(@json['event']['creator']['id']).to eql(@user.id)
+      end
+    end
+
+    context 'valid event with place set' do
+      before do
+        @user = create(:user)
+        add_authenticated_header(request, @user)
+        event = build(:event)
+        event.has_place_poll = false
+        post :create, params: {event: event, place: attributes_for(:place_poll_option)}
+        @json = JSON.parse(response.body)
+      end
+
+      it 'should create the event' do
+        expect(response).to have_http_status(200)
+        expect(Event.count).to eq(1)
+      end
+
+      it 'should create the place poll option' do
+        expect(PlacePollOption.count).to eq(1)
+      end
+
+      it 'should return the event' do
+        expect(@json).to include('event')
+      end
+
+      it 'should return the event\'s chosen place' do
+        expect(@json['event']['chosen_place']).to be_truthy
+      end
+    end
+
+    context 'valid event with date set' do
+      before do
+        @user = create(:user)
+        add_authenticated_header(request, @user)
+        event = build(:event)
+        event.has_date_poll = false
+        post :create, params: {event: event, date: attributes_for(:date_poll_option)}
+        @json = JSON.parse(response.body)
+      end
+
+      it 'should create the event' do
+        expect(response).to have_http_status(200)
+        expect(Event.count).to eq(1)
+      end
+
+      it 'should create the date poll option' do
+        expect(DatePollOption.count).to eq(1)
+      end
+
+      it 'should return the event' do
+        expect(@json).to include('event')
+      end
+
+      it 'should return the event\'s chosen date' do
+        expect(@json['event']['chosen_date']).to be_truthy
+      end
+    end
+
+    context 'valid event with place and date set' do
+      before do
+        @user = create(:user)
+        add_authenticated_header(request, @user)
+        event = build(:event)
+        event.has_date_poll = false
+        event.has_place_poll = false
+        post :create, params: {event: event, date: attributes_for(:date_poll_option), place: attributes_for(:place_poll_option)}
+        @json = JSON.parse(response.body)
+      end
+
+      it 'should create the event' do
+        expect(response).to have_http_status(200)
+        expect(Event.count).to eq(1)
+      end
+
+      it 'should create the date poll option' do
+        expect(DatePollOption.count).to eq(1)
+      end
+
+      it 'should create the place poll option' do
+        expect(PlacePollOption.count).to eq(1)
+      end
+
+      it 'should return the event' do
+        expect(@json).to include('event')
+      end
+
+      it 'should return the event\'s chosen date' do
+        expect(@json['event']['chosen_date']).to be_truthy
+      end
+
+      it 'should return the event\'s chosen place' do
+        expect(@json['event']['chosen_place']).to be_truthy
+      end
+    end
+
+    context 'invalid event with missing place' do
+      before do
+        @user = create(:user)
+        add_authenticated_header(request, @user)
+        event = build(:event)
+        event.has_place_poll = false
+        post :create, params: {event: event}
+      end
+
+      it 'should return 422' do
+        expect(response).to have_http_status(202)
+      end
+    end
+
+    context 'invalid event with missing date' do
+      before do
+        @user = create(:user)
+        add_authenticated_header(request, @user)
+        event = build(:event)
+        event.has_date_poll = false
+        post :create, params: {event: event}
+      end
+
+      it 'should return 422' do
+        expect(response).to have_http_status(202)
+      end
+    end
+
+    context 'unauthorized' do
+      it 'should return 401 unauthorized' do
+        @user = create(:user)
+        add_authenticated_header(request, @user)
+        post :create, params: {event: attributes_for(:event)}
+
+        expect(response).to have_http_status(401)
+      end
+    end
+  end
 end
