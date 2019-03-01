@@ -87,7 +87,7 @@ RSpec.describe Api::EventsController, type: :controller do
         add_authenticated_header(request, @user)
         event = build(:event)
         event.has_place_poll = false
-        post :create, params: {event: event, place: attributes_for(:place_poll_option)}
+        post :create, params: {event: event.attributes, place: attributes_for(:place_poll_option)}
         @json = JSON.parse(response.body)
       end
 
@@ -115,7 +115,7 @@ RSpec.describe Api::EventsController, type: :controller do
         add_authenticated_header(request, @user)
         event = build(:event)
         event.has_date_poll = false
-        post :create, params: {event: event, date: attributes_for(:date_poll_option)}
+        post :create, params: {event: event.attributes, date: attributes_for(:date_poll_option)}
         @json = JSON.parse(response.body)
       end
 
@@ -144,7 +144,7 @@ RSpec.describe Api::EventsController, type: :controller do
         event = build(:event)
         event.has_date_poll = false
         event.has_place_poll = false
-        post :create, params: {event: event, date: attributes_for(:date_poll_option), place: attributes_for(:place_poll_option)}
+        post :create, params: {event: event.attributes, date: attributes_for(:date_poll_option), place: attributes_for(:place_poll_option)}
         @json = JSON.parse(response.body)
       end
 
@@ -174,38 +174,31 @@ RSpec.describe Api::EventsController, type: :controller do
       end
     end
 
-    context 'invalid event with missing place' do
-      before do
-        @user = create(:user)
-        add_authenticated_header(request, @user)
-        event = build(:event)
-        event.has_place_poll = false
-        post :create, params: {event: event}
-      end
-
-      it 'should return 422' do
-        expect(response).to have_http_status(202)
-      end
-    end
-
-    context 'invalid event with missing date' do
-      before do
+    context 'invalid event' do
+      it 'should return a 422 error because missing date' do
         @user = create(:user)
         add_authenticated_header(request, @user)
         event = build(:event)
         event.has_date_poll = false
-        post :create, params: {event: event}
+        post :create, params: {event: event.attributes}
+
+        expect(response).to have_http_status(422)
       end
 
-      it 'should return 422' do
-        expect(response).to have_http_status(202)
+      it 'should return a 422 error because missing place' do
+        @user = create(:user)
+        add_authenticated_header(request, @user)
+        event = build(:event)
+        event.has_place_poll = false
+        post :create, params: {event: event.attributes}
+
+        expect(response).to have_http_status(422)
       end
     end
 
     context 'unauthorized' do
       it 'should return 401 unauthorized' do
         @user = create(:user)
-        add_authenticated_header(request, @user)
         post :create, params: {event: attributes_for(:event)}
 
         expect(response).to have_http_status(401)
