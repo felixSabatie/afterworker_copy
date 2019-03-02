@@ -29,6 +29,7 @@ import { UsersListComponent } from './shared-components/users-list/users-list.co
 import { UsersListItemComponent } from './shared-components/users-list/users-list-item/users-list-item.component';
 import { EventFormComponent } from './home/event-form/event-form.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { DashboardComponent } from './event/dashboard/dashboard.component';
 
 const STORE_KEYS_TO_PERSIST = ['token', 'user'];
 
@@ -57,6 +58,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     UsersListComponent,
     UsersListItemComponent,
     EventFormComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
