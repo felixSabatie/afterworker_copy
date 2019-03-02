@@ -27,6 +27,14 @@
       </div>
     </div>
 
+    <div class="input indented" *ngIf="!eventInfos.value.has_date_poll">
+      <input type="text" placeholder="the event's date" formControlName="date" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" required>
+      <owl-date-time stepMinute="5" [startAt]="startAt" #dt1></owl-date-time>
+      <div class="input-errors" *ngIf="submitted && eventInfos.controls.date.errors">
+        <div class="input-error" *ngIf="eventInfos.controls.date.errors.required">This field is required</div>
+      </div>
+    </div>
+
     <div class="input">
       <div class="switch-container">
         <label class="switch">
