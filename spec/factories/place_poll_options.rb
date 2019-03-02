@@ -3,6 +3,5 @@ FactoryBot.define do
     name { "UQAC" }
     latitude { "48.420770" }
     longitude { "-71.052617" }
-    event { nil }
   end
 end

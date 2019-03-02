@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import {HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
 
@@ -26,6 +27,9 @@ import { UsersAvatarsComponent } from './shared-components/users-logos/users-ava
 import { ModalComponent } from './shared-components/modal/modal.component';
 import { UsersListComponent } from './shared-components/users-list/users-list.component';
 import { UsersListItemComponent } from './shared-components/users-list/users-list-item/users-list-item.component';
+import { EventFormComponent } from './home/event-form/event-form.component';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { DashboardComponent } from './event/dashboard/dashboard.component';
 
 const STORE_KEYS_TO_PERSIST = ['token', 'user'];
 
@@ -52,10 +56,13 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     UsersAvatarsComponent,
     ModalComponent,
     UsersListComponent,
-    UsersListItemComponent
+    UsersListItemComponent,
+    EventFormComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FontAwesomeModule,
@@ -63,7 +70,9 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     StoreModule.forRoot(reducers, {metaReducers}),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
-    })
+    }),
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true

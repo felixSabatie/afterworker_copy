@@ -3,6 +3,6 @@
   <span class="users-left" *ngIf="usersLeft > 0">... and {{ usersLeft }} more coming</span>
 </div>
 
-<app-modal title="Participants" [show]="showModal" (close)="closeModal()">
+<app-modal modalTitle="Participants" [show]="showModal" (close)="closeModal()">
   <app-users-list class="users-list" [users]="users"></app-users-list>
 </app-modal>

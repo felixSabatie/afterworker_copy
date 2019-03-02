@@ -11,7 +11,7 @@ html, body {
   height: 100%;
   margin: 0;
 
-  a {
+  a, .link {
     text-decoration: none;
     color: $accentColor;
     transition: color $transitionsDuration;
@@ -58,6 +58,31 @@ html, body {
       &:hover {
         background-color: $borderColor;
       }
+    }
+  }
+
+  .fab {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+
+    width: $fab-size;
+    height: $fab-size;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 24px;
+    color: white;
+    background-color: $accentColor;
+    border-radius: 50%;
+    z-index: 10;
+
+    cursor: pointer;
+    transition: background-color $transitionsDuration;
+
+    &:hover {
+      background-color: $accentColorDark;
     }
   }
 

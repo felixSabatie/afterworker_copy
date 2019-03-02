@@ -3,8 +3,8 @@
     <div class="close-button" (click)="closeModal()">
       <fa-icon [icon]="faTimes"></fa-icon>
     </div>
-    <div class="title" *ngIf="title">
-      <h2>{{ title }}</h2>
+    <div class="title" *ngIf="modalTitle">
+      <h2>{{ modalTitle }}</h2>
     </div>
     <div class="content-wrapper">
       <div class="content">

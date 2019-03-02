@@ -16,7 +16,7 @@
 }
 
 .input {
-  margin: 10px 0;
+  padding: 10px 0;
 
   input[type=text], input[type=password], input[type=email] {
     width: 100%;
@@ -38,6 +38,62 @@
       border: 1px solid $accentColorLight;
       outline: none;
     }
+  }
+
+  .switch-container {
+    display: flex;
+    align-items: center;
+
+    .switch {
+      $switchWidth: 40px;
+      $switchHeight: 24px;
+      $sliderSize: calc(#{$switchHeight} - 8px);
+
+      position: relative;
+      min-width: $switchWidth;
+      height: $switchHeight;
+      display: inline-block;
+      margin-right: 20px;
+
+      input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+
+        &:checked + .slider {
+          background-color: $accentColor;
+        }
+
+        &:checked + .slider:before {
+          transform: translateX(calc(#{$switchWidth} - #{$sliderSize} - 8px));
+        }
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: $darkerAppBackgroundColor;
+        transition: $transitionsDuration;
+        border-radius: $switchHeight;
+
+        &:before {
+          position: absolute;
+          content: "";
+          height: $sliderSize;
+          width: $sliderSize;
+          left: 4px;
+          bottom: 4px;
+          background-color: $backgroundColor;
+          transition: $transitionsDuration;
+          border-radius: 50%;
+        }
+      }
+    }
+
   }
 
   .input-errors {

@@ -7,7 +7,7 @@ import {faTimes} from "@fortawesome/free-solid-svg-icons";
   styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent implements OnInit {
-  @Input() title: string;
+  @Input() modalTitle: string;
   @Input() show: boolean = false;
   faTimes = faTimes;
 

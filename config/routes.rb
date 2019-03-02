@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     get '/users/current' => 'users#current'
     resources :users, only: [:create, :show]
 
-    resources :events, only: [:index]
+    resources :events, only: [:index, :create]
   end
 
   root to: 'static_files#index'
