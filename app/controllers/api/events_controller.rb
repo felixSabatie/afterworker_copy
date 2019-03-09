@@ -1,6 +1,7 @@
 module Api
   class EventsController < ApplicationController
     before_action :authenticate_user
+    before_action :set_event, only: [:show]
 
     def index
       render json: {events: current_user.events}, include: get_includes
@@ -48,6 +49,18 @@ module Api
       end
     end
 
+    def show
+      if @event === nil
+        render status: 404
+      else
+        if @event.participants.any? {|user| user.id === current_user.id}
+          render json: {event: @event}, include: get_includes
+        else
+          render status: 401
+        end
+      end
+    end
+
     private
 
     def get_includes
@@ -62,6 +75,10 @@ module Api
        :chosen_date,
        :creator,
       ]
+    end
+
+    def set_event
+      @event = Event.includes(:participants).find_by(event_hash: params[:hash])
     end
 
   end

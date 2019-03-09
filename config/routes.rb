@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resources :users, only: [:create, :show]
 
     resources :events, only: [:index, :create]
+    get '/events/:hash' => 'events#show'
   end
 
   root to: 'static_files#index'
