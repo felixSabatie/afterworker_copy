@@ -1,0 +1,11 @@
+@import '../../../styles/colors';
+
+.dashboard {
+  .loading-component {
+    color: $textColor;
+    font-size: 32px;
+    text-align: center;
+    display: block;
+    margin-top: 50px;
+  }
+}

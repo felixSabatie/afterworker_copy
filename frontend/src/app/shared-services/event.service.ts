@@ -23,4 +23,9 @@ export class EventService {
     return this.http.post<any>(environment.baseUrl + '/events', {event, place, date})
       .pipe(map(response => response.event));
   }
+
+  getEvent(hash: string): Observable<Event> {
+    return this.http.get<any>(`${environment.baseUrl}/events/${hash}`)
+      .pipe(map(response => response.event));
+  }
 }
