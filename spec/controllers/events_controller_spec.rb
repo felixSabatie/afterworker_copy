@@ -16,12 +16,12 @@ RSpec.describe Api::EventsController, type: :controller do
         event.participants << user2
         event.save
 
-        event2 = create(:event, creator: user)
+        event2 = create(:event, creator: user2)
         chosen_place2 = create(:place_poll_option, event: event2)
         chosen_date2 = create(:date_poll_option_old, event: event2)
         event2.chosen_place = chosen_place2
         event2.chosen_date = chosen_date2
-        event2.participants << user2
+        event2.participants << user
         event2.save
 
         get :index
@@ -200,6 +200,76 @@ RSpec.describe Api::EventsController, type: :controller do
       it 'should return 401 unauthorized' do
         @user = create(:user)
         post :create, params: {event: attributes_for(:event)}
+
+        expect(response).to have_http_status(401)
+      end
+    end
+  end
+
+  describe 'GET #index' do
+    context 'valid authentication' do
+      before do
+        user = create(:user)
+        user2 = create(:user)
+        add_authenticated_header(request, user)
+
+        @event = create(:event, creator: user)
+        chosen_place = create(:place_poll_option, event: @event)
+        chosen_date = create(:date_poll_option, event: @event)
+        @event.chosen_place = chosen_place
+        @event.chosen_date = chosen_date
+        @event.participants << user2
+        @event.save
+
+        get :show, params: {hash: @event.event_hash}
+        @json = JSON.parse(response.body)
+      end
+
+      it 'should return http code 200' do
+        expect(response).to have_http_status(200)
+      end
+
+      it "should return the event" do
+        expect(@json['event']['id']).to eql(@event.id)
+      end
+
+      it "should return the event's nested dependencies" do
+        expect(@json['event']['chosen_place']).to be_truthy
+        expect(@json['event']['chosen_date']).to be_truthy
+        expect(@json['event']['participants']).to be_truthy
+        expect(@json['event']['participants'].length).to eql(2)
+      end
+
+      it "shouldn't show the user's password hash" do
+        expect(@json['event']['participants'][0]).not_to include('password_hash')
+      end
+    end
+
+    context 'bad request' do
+      it 'should return 404' do
+        user = create(:user)
+        event = create(:event, creator: user)
+        add_authenticated_header(request, user)
+        get :show, params: {hash: event.id}
+        expect(response).to have_http_status(404)
+      end
+    end
+
+    context 'unauthorized' do
+      it 'should return 401 unauthorized when no auth header' do
+        user = create(:user)
+        event = create(:event, creator: user)
+        get :show, params: {hash: event.event_hash}
+        expect(response).to have_http_status(401)
+      end
+
+      it 'should return 401 unauthorized when user not in event' do
+        user = create(:user)
+        user2 = create(:user)
+        event = create(:event, creator: user)
+
+        add_authenticated_header(request, user2)
+        get :show, params: {hash: event.event_hash}
 
         expect(response).to have_http_status(401)
       end
