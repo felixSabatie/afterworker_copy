@@ -214,7 +214,11 @@ RSpec.describe Api::EventsController, type: :controller do
         add_authenticated_header(request, user)
 
         @event = create(:event, creator: user)
+        place_poll_option = create(:place_poll_option, event: @event)
+        place_poll_option.voters << user2
         chosen_place = create(:place_poll_option, event: @event)
+        date_poll_option = create(:date_poll_option, event: @event)
+        date_poll_option.voters << user2
         chosen_date = create(:date_poll_option, event: @event)
         @event.chosen_place = chosen_place
         @event.chosen_date = chosen_date
@@ -236,6 +240,12 @@ RSpec.describe Api::EventsController, type: :controller do
       it "should return the event's nested dependencies" do
         expect(@json['event']['chosen_place']).to be_truthy
         expect(@json['event']['chosen_date']).to be_truthy
+        expect(@json['event']['place_poll_options']).to be_truthy
+        expect(@json['event']['place_poll_options'].length).to eql(2)
+        expect(@json['event']['place_poll_options'][0]['voters'].length).to eql(1)
+        expect(@json['event']['date_poll_options']).to be_truthy
+        expect(@json['event']['date_poll_options'].length).to eql(2)
+        expect(@json['event']['date_poll_options'][0]['voters'].length).to eql(1)
         expect(@json['event']['participants']).to be_truthy
         expect(@json['event']['participants'].length).to eql(2)
       end
