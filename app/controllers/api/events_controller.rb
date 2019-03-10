@@ -4,7 +4,7 @@ module Api
     before_action :set_event, only: [:show]
 
     def index
-      render json: {events: current_user.events}, include: get_includes
+      render json: {events: current_user.events}, include: get_includes_basic
     end
 
     def create
@@ -43,7 +43,7 @@ module Api
       end
 
       if event.save
-        render json: {event: event}, include: get_includes
+        render json: {event: event}, include: get_includes_basic
       else
         render status: 422, json: event.errors.messages
       end
@@ -54,7 +54,7 @@ module Api
         render status: 404
       else
         if @event.participants.any? {|user| user.id === current_user.id}
-          render json: {event: @event}, include: get_includes
+          render json: {event: @event}, include: get_includes_advanced
         else
           render status: 401
         end
@@ -63,7 +63,7 @@ module Api
 
     private
 
-    def get_includes
+    def get_includes_basic
       [{
            participants: {
                except: [:password_digest]
@@ -72,6 +72,28 @@ module Api
        :place_poll_options,
        :chosen_place,
        :date_poll_options,
+       :chosen_date,
+       :creator,
+      ]
+    end
+
+    def get_includes_advanced
+      [{
+           participants: {
+               except: [:password_digest]
+           }
+       },
+       {
+           place_poll_options: {
+               include: [:voters]
+           }
+       },
+       :chosen_place,
+       {
+           date_poll_options: {
+               include: [:voters]
+           }
+       },
        :chosen_date,
        :creator,
       ]
