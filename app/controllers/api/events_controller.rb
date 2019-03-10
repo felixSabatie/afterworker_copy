@@ -85,13 +85,21 @@ module Api
        },
        {
            place_poll_options: {
-               include: [:voters]
+               include: [{
+                             voters: {
+                                 except: [:password_digest]
+                             }
+                         }]
            }
        },
        :chosen_place,
        {
            date_poll_options: {
-               include: [:voters]
+               include: [{
+                             voters: {
+                                 except: [:password_digest]
+                             }
+                         }]
            }
        },
        :chosen_date,

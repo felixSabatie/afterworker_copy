@@ -44,7 +44,7 @@ RSpec.describe Api::EventsController, type: :controller do
       end
 
       it "shouldn't show the user's password hash" do
-        expect(@json['events'][0]['participants'][0]).not_to include('password_hash')
+        expect(@json['events'][0]['participants'][0]).not_to include('password_digest')
       end
     end
 
@@ -243,15 +243,16 @@ RSpec.describe Api::EventsController, type: :controller do
         expect(@json['event']['place_poll_options']).to be_truthy
         expect(@json['event']['place_poll_options'].length).to eql(2)
         expect(@json['event']['place_poll_options'][0]['voters'].length).to eql(1)
+        expect(@json['event']['place_poll_options'][0]['voters'][0]).not_to include('password_digest')
         expect(@json['event']['date_poll_options']).to be_truthy
         expect(@json['event']['date_poll_options'].length).to eql(2)
-        expect(@json['event']['date_poll_options'][0]['voters'].length).to eql(1)
+        expect(@json['event']['date_poll_options'][0]['voters'][0]).not_to include('password_digest')
         expect(@json['event']['participants']).to be_truthy
         expect(@json['event']['participants'].length).to eql(2)
       end
 
       it "shouldn't show the user's password hash" do
-        expect(@json['event']['participants'][0]).not_to include('password_hash')
+        expect(@json['event']['participants'][0]).not_to include('password_digest')
       end
     end
 
