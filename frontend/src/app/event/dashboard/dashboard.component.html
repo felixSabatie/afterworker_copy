@@ -3,8 +3,15 @@
     <app-spinner class="loading-component"></app-spinner>
   </div>
 
-  <div *ngIf="!fetchingEvent">
+  <div *ngIf="!fetchingEvent" class="dashboard-content">
     <h1 class="title">{{ event.name }}</h1>
-    <app-voting></app-voting>
+    <div class="modules">
+      <app-voting class="module"></app-voting>
+      <app-voting class="module"></app-voting>
+      <app-voting class="module"></app-voting>
+      <app-voting class="module"></app-voting>
+      <app-voting class="module"></app-voting>
+      <app-voting class="module"></app-voting>
+    </div>
   </div>
 </div>
