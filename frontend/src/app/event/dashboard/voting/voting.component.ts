@@ -9,6 +9,7 @@ import {VotingItem} from "../../../models/voting-item.model";
 export class VotingComponent implements OnInit {
   @Input() title: string;
   @Input() votingItems: VotingItem[];
+  @Input() nbParticipants: number;
 
   constructor() { }
 

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {VotingItem} from "../../../../models/voting-item.model";
 
 @Component({
   selector: 'app-voting-item',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./voting-item.component.scss']
 })
 export class VotingItemComponent implements OnInit {
+  @Input() votingItem: VotingItem;
+  @Input() nbParticipants: number;
 
   constructor() { }
 
