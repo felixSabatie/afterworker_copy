@@ -6,12 +6,7 @@
   <div *ngIf="!fetchingEvent" class="dashboard-content">
     <h1 class="title">{{ event.name }}</h1>
     <div class="modules">
-      <app-voting class="module"></app-voting>
-      <app-voting class="module"></app-voting>
-      <app-voting class="module"></app-voting>
-      <app-voting class="module"></app-voting>
-      <app-voting class="module"></app-voting>
-      <app-voting class="module"></app-voting>
+      <app-voting class="module" title="Place poll" [votingItems]="testVotingItems"></app-voting>
     </div>
   </div>
 </div>
