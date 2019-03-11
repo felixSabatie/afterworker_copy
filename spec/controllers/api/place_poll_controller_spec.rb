@@ -6,11 +6,11 @@ RSpec.describe Api::PlacePollController, type: :controller do
     context 'valid params' do
       before do
         user = create(:user)
-        user2 = create(:user)
+        @user2 = create(:user)
         event = create(:event, creator: user)
 
-        event.participants << user2
-        add_authenticated_header(request, user2)
+        event.participants << @user2
+        add_authenticated_header(request, @user2)
         post :create, params: {hash: event.event_hash,
                                place_poll_option: attributes_for(:place_poll_option, event: event)}
         @json = JSON.parse(response.body)
@@ -26,19 +26,27 @@ RSpec.describe Api::PlacePollController, type: :controller do
 
       it 'should return the place poll option' do
         expect(@json['place_poll_option']['id']).to be_truthy
+      end
+
+      it 'should add the user to the place poll option voters' do
+        expect(@json['place_poll_option']['voters'][0]['id']).to eql(@user2.id)
+      end
+
+      it 'shouldn\'t show the voter\'s password digest' do
+        expect(@json['place_poll_option']['voters'][0]['password_digest']).not_to be_truthy
       end
     end
 
     context 'valid params and closed to suggestions' do
       before do
-        user = create(:user)
+        @user = create(:user)
         user2 = create(:user)
-        event = build(:event, creator: user)
+        event = build(:event, creator: @user)
         event.is_open_to_places = false
         event.save
 
         event.participants << user2
-        add_authenticated_header(request, user)
+        add_authenticated_header(request, @user)
         post :create, params: {hash: event.event_hash,
                                place_poll_option: attributes_for(:place_poll_option, event: event)}
         @json = JSON.parse(response.body)
@@ -54,6 +62,14 @@ RSpec.describe Api::PlacePollController, type: :controller do
 
       it 'should return the place poll option' do
         expect(@json['place_poll_option']['id']).to be_truthy
+      end
+
+      it 'should add the user to the place poll option voters' do
+        expect(@json['place_poll_option']['voters'][0]['id']).to eql(@user.id)
+      end
+
+      it 'shouldn\'t show the voter\'s password digest' do
+        expect(@json['place_poll_option']['voters'][0]['password_digest']).not_to be_truthy
       end
     end
 

@@ -16,9 +16,9 @@ class Api::PlacePollController < ApplicationController
         place_poll_option = PlacePollOption.new(place_poll_option_params)
         place_poll_option.event = @event
         if place_poll_option.save()
-          render json: {place_poll_option: place_poll_option}
+          place_poll_option.voters << current_user
+          render json: {place_poll_option: place_poll_option}, include: get_includes
         else
-          byebug
           render status: 422, json: place_poll_option.errors.messages
         end
       else
@@ -40,6 +40,12 @@ class Api::PlacePollController < ApplicationController
         :participants,
         :place_poll_options,
         :creator,
+    ]
+  end
+
+  def get_includes
+    [
+        {voters: {except: [:password_digest]}}
     ]
   end
 
