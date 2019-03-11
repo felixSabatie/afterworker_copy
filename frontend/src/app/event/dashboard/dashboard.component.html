@@ -1,3 +1,24 @@
-<p>
-  dashboard works!
-</p>
+<div class="dashboard">
+  <div *ngIf="fetchingEvent || fecthingUser">
+    <app-spinner class="loading-component"></app-spinner>
+  </div>
+
+  <div *ngIf="!fetchingEvent && !fecthingUser" class="dashboard-content">
+    <h1 class="title">{{ event.name }}</h1>
+    <div class="modules">
+      <app-voting class="module" pollTitle="Place poll" [votingItems]="testVotingItems"
+      [nbParticipants]="event.participants.length" [currentUser]="currentUser"
+      (changedVote)="changeVote($event)">
+        <form (ngSubmit)="createPlace()" class="inline-form">
+          <div class="input">
+            <div class="input-with-icon">
+              <fa-icon class="icon" [icon]="faMapMarkerAlt"></fa-icon>
+              <input type="text" [(ngModel)]="placeName" name="place_name" placeholder="suggest a place" required>
+            </div>
+          </div>
+          <button class="btn">Ok</button>
+        </form>
+      </app-voting>
+    </div>
+  </div>
+</div>

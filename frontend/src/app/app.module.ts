@@ -6,7 +6,7 @@ import {HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
 import { AuthInterceptor } from "./http-interceptors/auth-interceptor";
 
 import { AppRoutingModule } from './app-routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -30,6 +30,8 @@ import { UsersListItemComponent } from './shared-components/users-list/users-lis
 import { EventFormComponent } from './home/event-form/event-form.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { DashboardComponent } from './event/dashboard/dashboard.component';
+import { VotingComponent } from './event/dashboard/voting/voting.component';
+import { VotingItemComponent } from './event/dashboard/voting/voting-item/voting-item.component';
 
 const STORE_KEYS_TO_PERSIST = ['token', 'user'];
 
@@ -59,6 +61,8 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     UsersListItemComponent,
     EventFormComponent,
     DashboardComponent,
+    VotingComponent,
+    VotingItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,6 +77,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     }),
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    FormsModule,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true

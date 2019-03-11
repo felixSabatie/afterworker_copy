@@ -1,0 +1,49 @@
+@import '../../../styles/colors';
+
+.dashboard {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+
+  .loading-component {
+    color: $textColor;
+    font-size: 32px;
+    text-align: center;
+    display: block;
+  }
+
+  .dashboard-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+
+    .title {
+      margin: 50px;
+    }
+
+    .modules {
+      padding: 0 50px 50px 50px;
+      flex: 1;
+      display: grid;
+      grid-template-columns: 380px 380px 275px;
+      grid-template-rows: repeat(2, 1fr);
+      grid-gap: 40px;
+      overflow-x: auto;
+
+      .module {
+        .inline-form {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+
+          .input {
+            flex: 1;
+            padding-right: 10px;
+          }
+        }
+      }
+    }
+  }
+}

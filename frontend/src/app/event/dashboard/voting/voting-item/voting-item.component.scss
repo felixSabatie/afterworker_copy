@@ -1,0 +1,45 @@
+@import '../../../../../styles/colors';
+@import '../../../../../styles/variables';
+
+.voting-item {
+  padding-bottom: 20px;
+  .top-line {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .vote-input {
+      cursor: pointer;
+    }
+
+    .voters {
+      flex-shrink: 0;
+    }
+  }
+
+  .bottom-line {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    $barHeight : 8px;
+
+    .progress-bar {
+      flex: 1;
+      background-color: $darkerAppBackgroundColor;
+      height: $barHeight;
+      border-radius: calc(#{$barHeight} / 2);
+
+      .progression {
+        height: 100%;
+        background-color: $accentColor;
+        border-radius: calc(#{$barHeight} / 2);
+        transition: $transitionsDuration;
+      }
+    }
+
+    .percentage {
+      padding-left: 20px;
+    }
+  }
+}

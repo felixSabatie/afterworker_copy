@@ -124,7 +124,7 @@ RSpec.describe Api::UsersController, type: :controller do
       end
 
       it 'shouldn\'t return the user\'s password hash' do
-        expect(@json['user']).not_to include('password_hash')
+        expect(@json['user']).not_to include('password_digest')
       end
     end
 
@@ -183,7 +183,7 @@ RSpec.describe Api::UsersController, type: :controller do
       end
 
       it 'shouldn\'t return the user\'s password hash' do
-        expect(@json['user']).not_to include('password_hash')
+        expect(@json['user']).not_to include('password_digest')
       end
     end
 

@@ -1,9 +1,10 @@
 module Api
   class EventsController < ApplicationController
     before_action :authenticate_user
+    before_action :set_event, only: [:show]
 
     def index
-      render json: {events: current_user.events}, include: get_includes
+      render json: {events: current_user.events}, include: get_includes_basic
     end
 
     def create
@@ -42,15 +43,27 @@ module Api
       end
 
       if event.save
-        render json: {event: event}, include: get_includes
+        render json: {event: event}, include: get_includes_basic
       else
         render status: 422, json: event.errors.messages
       end
     end
 
+    def show
+      if @event === nil
+        render status: 404
+      else
+        if @event.participants.any? {|user| user.id === current_user.id}
+          render json: {event: @event}, include: get_includes_advanced
+        else
+          render status: 401
+        end
+      end
+    end
+
     private
 
-    def get_includes
+    def get_includes_basic
       [{
            participants: {
                except: [:password_digest]
@@ -62,6 +75,40 @@ module Api
        :chosen_date,
        :creator,
       ]
+    end
+
+    def get_includes_advanced
+      [{
+           participants: {
+               except: [:password_digest]
+           }
+       },
+       {
+           place_poll_options: {
+               include: [{
+                             voters: {
+                                 except: [:password_digest]
+                             }
+                         }]
+           }
+       },
+       :chosen_place,
+       {
+           date_poll_options: {
+               include: [{
+                             voters: {
+                                 except: [:password_digest]
+                             }
+                         }]
+           }
+       },
+       :chosen_date,
+       :creator,
+      ]
+    end
+
+    def set_event
+      @event = Event.includes(:participants).find_by(event_hash: params[:hash])
     end
 
   end

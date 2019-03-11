@@ -1,0 +1,12 @@
+<div class="voting">
+  <h4 class="title">{{pollTitle}}</h4>
+  <div class="voting-items-container">
+    <div class="voting-items">
+      <app-voting-item *ngFor="let votingItem of votingItems" [nbParticipants]="nbParticipants" [currentUser]="currentUser"
+                       [votingItem]="votingItem" (changedVote)="changeVote($event, votingItem.id)"></app-voting-item>
+    </div>
+  </div>
+  <div class="form">
+    <ng-content></ng-content>
+  </div>
+</div>

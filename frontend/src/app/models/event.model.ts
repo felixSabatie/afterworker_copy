@@ -18,5 +18,8 @@ export interface Event {
   chosen_date: DatePollOption;
   chosen_place: PlacePollOption;
 
+  date_poll_options: DatePollOption[];
+  place_poll_options: PlacePollOption[];
+
   invites: Invite[];
 }

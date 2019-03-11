@@ -1,0 +1,22 @@
+<div class="voting-item">
+  <div class="top-line">
+    <div class="input vote-input" (click)="clicked($event)">
+      <div class="checkbox-container">
+        <label class="checkbox">
+          <input type="checkbox" [checked]="voted">
+          <span class="checkmark"></span>
+        </label>
+        <span>{{ votingItem.name }}</span>
+      </div>
+    </div>
+
+    <div class="voters">
+      <app-users-logos [users]="votingItem.voters" [maxAvatars]="2"
+                       [modalTitle]="'Voters for \'' + votingItem.name + '\''"></app-users-logos>
+    </div>
+  </div>
+  <div class="bottom-line">
+    <div class="progress-bar"><div class="progression" [style.width]="percentage + '%'"></div></div>
+    <div class="percentage">{{percentage}}%</div>
+  </div>
+</div>
