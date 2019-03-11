@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {VotingItem} from "../../../../models/voting-item.model";
+import {User} from "../../../../models/user.model";
 
 @Component({
   selector: 'app-voting-item',
@@ -9,20 +10,25 @@ import {VotingItem} from "../../../../models/voting-item.model";
 export class VotingItemComponent implements OnInit {
   @Input() votingItem: VotingItem;
   @Input() nbParticipants: number;
-  @Input() voted: boolean;
-  @Output() toggledVote = new EventEmitter;
-
-  percentage: number;
+  @Input() currentUser: User;
+  @Output() changedVote = new EventEmitter<boolean>();
 
   constructor() { }
 
   ngOnInit() {
-    this.percentage = Math.round(100 * this.votingItem.voters.length / this.nbParticipants);
+  }
+
+  get voted() {
+    return this.votingItem.voters.some(voter => voter.id === this.currentUser.id);
+  }
+
+  get percentage() {
+    return Math.round(100 * this.votingItem.voters.length / this.nbParticipants);
   }
 
   clicked(e: Event) {
     e.preventDefault();
-    this.toggledVote.emit();
+    this.changedVote.emit(!this.voted);
   }
 
 }

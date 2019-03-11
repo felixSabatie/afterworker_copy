@@ -10,17 +10,23 @@ export class UsersAvatarsComponent implements OnInit {
   @Input() users: User[];
   @Input() maxAvatars: number;
   @Input() modalTitle: string;
-  usersToDisplay: User[] = [];
-  usersLeft = 0;
   showModal = false;
 
   constructor() { }
 
   ngOnInit() {
-    this.usersToDisplay = this.users.slice(0, this.maxAvatars);
+  }
+
+  get usersLeft() {
     if(this.users.length > this.maxAvatars) {
-      this.usersLeft = this.users.length - this.maxAvatars;
+      return this.users.length - this.maxAvatars;
+    } else {
+      return 0;
     }
+  }
+
+  get usersToDisplay() {
+    return this.users.slice(0, this.maxAvatars);
   }
 
   openModal() {

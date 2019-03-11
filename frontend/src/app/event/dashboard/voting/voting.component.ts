@@ -12,19 +12,15 @@ export class VotingComponent implements OnInit {
   @Input() votingItems: VotingItem[];
   @Input() nbParticipants: number;
   @Input() currentUser: User;
-  @Output() toggledVote = new EventEmitter<number>();
+  @Output() changedVote = new EventEmitter<object>();
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  votedForItem(item: VotingItem): boolean {
-    return item.voters.some(voter => voter.id === this.currentUser.id);
-  }
-
-  toggleVote(optionId: number) {
-    this.toggledVote.emit(optionId);
+  changeVote(e: boolean, optionId: number) {
+    this.changedVote.emit({optionId: optionId, voted: e});
   }
 
 }

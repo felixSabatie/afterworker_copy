@@ -8,16 +8,16 @@
     <div class="modules">
       <app-voting class="module" pollTitle="Place poll" [votingItems]="testVotingItems"
       [nbParticipants]="event.participants.length" [currentUser]="currentUser"
-      (toggledVote)="toggleVote($event)">
-        <div class="inline-form">
+      (changedVote)="changeVote($event)">
+        <form (ngSubmit)="createPlace()" class="inline-form">
           <div class="input">
             <div class="input-with-icon">
               <fa-icon class="icon" [icon]="faMapMarkerAlt"></fa-icon>
-              <input type="text" placeholder="suggest a place" required>
+              <input type="text" [(ngModel)]="placeName" name="place_name" placeholder="suggest a place" required>
             </div>
           </div>
           <button class="btn">Ok</button>
-        </div>
+        </form>
       </app-voting>
     </div>
   </div>

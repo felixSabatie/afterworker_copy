@@ -7,6 +7,7 @@ import {Store} from "@ngrx/store";
 import {AppState} from "../../ngrx/app.state";
 import {User} from "../../models/user.model";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
+import {PlacePollOption} from "../../models/place-poll-option.model";
 
 @Component({
   selector: 'app-dashboard',
@@ -19,6 +20,7 @@ export class DashboardComponent implements OnInit {
   fecthingUser = true;
   testVotingItems: VotingItem[] = [];
   currentUser: User;
+  placeName = '';
 
   faMapMarkerAlt = faMapMarkerAlt;
 
@@ -43,8 +45,24 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
   }
 
-  toggleVote(e: Event) {
-    console.log(e);
+  changeVote(e: any) {
+    if(e.voted) {
+      this.testVotingItems.find(item => item.id === e.optionId).voters
+        .push(this.currentUser);
+    } else {
+      const voters = this.testVotingItems.find(item => item.id === e.optionId).voters;
+      const currentUserVoterId = voters.findIndex(voter => voter.id === this.currentUser.id);
+      voters.splice(currentUserVoterId, 1);
+    }
+  }
+
+  createPlace() {
+    if(this.placeName.length > 0) {
+      this.testVotingItems.push({
+        name: this.placeName,
+        voters: [],
+      } as VotingItem);
+    }
   }
 
 }
