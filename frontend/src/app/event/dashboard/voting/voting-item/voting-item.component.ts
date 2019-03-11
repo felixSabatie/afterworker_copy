@@ -9,10 +9,12 @@ import {VotingItem} from "../../../../models/voting-item.model";
 export class VotingItemComponent implements OnInit {
   @Input() votingItem: VotingItem;
   @Input() nbParticipants: number;
+  percentage: number;
 
   constructor() { }
 
   ngOnInit() {
+    this.percentage = Math.round(100 * this.votingItem.voters.length / this.nbParticipants);
   }
 
 }
