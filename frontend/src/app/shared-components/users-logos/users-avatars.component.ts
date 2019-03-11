@@ -9,6 +9,7 @@ import {User} from "../../models/user.model";
 export class UsersAvatarsComponent implements OnInit {
   @Input() users: User[];
   @Input() maxAvatars: number;
+  @Input() modalTitle: string;
   usersToDisplay: User[] = [];
   usersLeft = 0;
   showModal = false;

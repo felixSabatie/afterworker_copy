@@ -103,7 +103,7 @@
     .checkbox {
       $checkboxSize: 20px;
       position: relative;
-      width: $checkboxSize;
+      min-width: $checkboxSize;
       height: $checkboxSize;
       display: inline-block;
       margin-right: 20px;

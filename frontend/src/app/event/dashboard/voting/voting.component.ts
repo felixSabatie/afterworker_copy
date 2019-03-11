@@ -7,7 +7,7 @@ import {VotingItem} from "../../../models/voting-item.model";
   styleUrls: ['./voting.component.scss']
 })
 export class VotingComponent implements OnInit {
-  @Input() title: string;
+  @Input() pollTitle: string;
   @Input() votingItems: VotingItem[];
   @Input() nbParticipants: number;
 

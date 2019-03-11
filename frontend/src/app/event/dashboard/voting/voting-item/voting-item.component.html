@@ -1,10 +1,21 @@
 <div class="voting-item">
-  <div class="input">
-    <div class="checkbox-container">
-      <label class="checkbox">
-        <input type="checkbox">
-        <span class="checkmark"></span>
-      </label>
+  <div class="top-line">
+    <div class="input">
+      <div class="checkbox-container">
+        <label class="checkbox">
+          <input type="checkbox">
+          <span class="checkmark"></span>
+        </label>
+        <span>{{ votingItem.name }}</span>
+      </div>
     </div>
+
+    <div class="voters">
+      <app-users-logos [users]="votingItem.voters" [maxAvatars]="2"
+                       [modalTitle]="'Voters for \'' + votingItem.name + '\''"></app-users-logos>
+    </div>
+  </div>
+  <div class="bottom-line">
+
   </div>
 </div>
