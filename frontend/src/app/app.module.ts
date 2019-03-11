@@ -6,7 +6,7 @@ import {HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
 import { AuthInterceptor } from "./http-interceptors/auth-interceptor";
 
 import { AppRoutingModule } from './app-routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -77,6 +77,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     }),
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    FormsModule,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true

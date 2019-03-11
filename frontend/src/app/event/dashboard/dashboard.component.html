@@ -1,13 +1,14 @@
 <div class="dashboard">
-  <div *ngIf="fetchingEvent">
+  <div *ngIf="fetchingEvent || fecthingUser">
     <app-spinner class="loading-component"></app-spinner>
   </div>
 
-  <div *ngIf="!fetchingEvent" class="dashboard-content">
+  <div *ngIf="!fetchingEvent && !fecthingUser" class="dashboard-content">
     <h1 class="title">{{ event.name }}</h1>
     <div class="modules">
       <app-voting class="module" pollTitle="Place poll" [votingItems]="testVotingItems"
-      [nbParticipants]="event.participants.length"></app-voting>
+      [nbParticipants]="event.participants.length" [currentUser]="currentUser"
+      (toggledVote)="toggleVote($event)"></app-voting>
     </div>
   </div>
 </div>

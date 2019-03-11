@@ -1,9 +1,9 @@
 <div class="voting-item">
   <div class="top-line">
-    <div class="input">
+    <div class="input vote-input" (click)="clicked($event)">
       <div class="checkbox-container">
         <label class="checkbox">
-          <input type="checkbox">
+          <input type="checkbox" [(ngModel)]="voted">
           <span class="checkmark"></span>
         </label>
         <span>{{ votingItem.name }}</span>

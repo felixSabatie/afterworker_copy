@@ -2,6 +2,7 @@
   <h4 class="title">{{pollTitle}}</h4>
   <div class="voting-items">
     <app-voting-item *ngFor="let votingItem of votingItems" [nbParticipants]="nbParticipants"
-                     [votingItem]="votingItem"></app-voting-item>
+                     [votingItem]="votingItem" [voted]="votedForItem(votingItem)"
+                     (toggledVote)="toggleVote(votingItem.id)"></app-voting-item>
   </div>
 </div>

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {VotingItem} from "../../../../models/voting-item.model";
 
 @Component({
@@ -9,12 +9,20 @@ import {VotingItem} from "../../../../models/voting-item.model";
 export class VotingItemComponent implements OnInit {
   @Input() votingItem: VotingItem;
   @Input() nbParticipants: number;
+  @Input() voted: boolean;
+  @Output() toggledVote = new EventEmitter;
+
   percentage: number;
 
   constructor() { }
 
   ngOnInit() {
     this.percentage = Math.round(100 * this.votingItem.voters.length / this.nbParticipants);
+  }
+
+  clicked(e: Event) {
+    e.preventDefault();
+    this.toggledVote.emit();
   }
 
 }
