@@ -1,8 +1,13 @@
 <div class="voting">
   <h4 class="title">{{pollTitle}}</h4>
-  <div class="voting-items">
-    <app-voting-item *ngFor="let votingItem of votingItems" [nbParticipants]="nbParticipants"
-                     [votingItem]="votingItem" [voted]="votedForItem(votingItem)"
-                     (toggledVote)="toggleVote(votingItem.id)"></app-voting-item>
+  <div class="voting-items-container">
+    <div class="voting-items">
+      <app-voting-item *ngFor="let votingItem of votingItems" [nbParticipants]="nbParticipants"
+                       [votingItem]="votingItem" [voted]="votedForItem(votingItem)"
+                       (toggledVote)="toggleVote(votingItem.id)"></app-voting-item>
+    </div>
+  </div>
+  <div class="form">
+    <ng-content></ng-content>
   </div>
 </div>

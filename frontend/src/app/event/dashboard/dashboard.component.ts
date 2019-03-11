@@ -6,6 +6,7 @@ import {VotingItem} from "../../models/voting-item.model";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../ngrx/app.state";
 import {User} from "../../models/user.model";
+import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-dashboard',
@@ -18,6 +19,8 @@ export class DashboardComponent implements OnInit {
   fecthingUser = true;
   testVotingItems: VotingItem[] = [];
   currentUser: User;
+
+  faMapMarkerAlt = faMapMarkerAlt;
 
   constructor(private eventService: EventService, private route: ActivatedRoute, private store: Store<AppState>) {
     store.select('user').subscribe(user => {
