@@ -1,6 +1,7 @@
 class Api::PlacePollController < ApplicationController
   before_action :authenticate_user
-  before_action :set_event, only: [:create]
+  before_action :set_event, only: [:create, :toggle]
+  before_action :set_place_poll_option, only: [:toggle]
 
   def create
     if @event === nil
@@ -15,12 +16,30 @@ class Api::PlacePollController < ApplicationController
 
         place_poll_option = PlacePollOption.new(place_poll_option_params)
         place_poll_option.event = @event
-        if place_poll_option.save()
+        if place_poll_option.save
           place_poll_option.voters << current_user
           render json: {place_poll_option: place_poll_option}, include: get_includes
         else
           render status: 422, json: place_poll_option.errors.messages
         end
+      else
+        render status: 401
+      end
+    end
+  end
+
+  def toggle
+    if @event === nil || @place_poll_option === nil
+      render status: 404
+    else
+      if user_can_access_place_poll
+        if @place_poll_option.voters.any? { |user| user.id === current_user.id }
+          @place_poll_option.voters.delete(current_user)
+        else
+          @place_poll_option.voters << current_user
+        end
+
+        render status: 200
       else
         render status: 401
       end
@@ -51,6 +70,10 @@ class Api::PlacePollController < ApplicationController
 
   def set_event
     @event = Event.includes(get_event_includes).find_by(event_hash: params[:hash])
+  end
+
+  def set_place_poll_option
+    @place_poll_option = PlacePollOption.includes(:voters).find(params[:id])
   end
 
 end

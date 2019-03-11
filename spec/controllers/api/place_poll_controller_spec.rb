@@ -171,6 +171,7 @@ RSpec.describe Api::PlacePollController, type: :controller do
         @place_poll_option.voters << @user2
         post :toggle, params: {hash: @event.event_hash, id: @place_poll_option.id}
 
+        @place_poll_option.reload
         expect(response).to have_http_status(200)
         expect(@place_poll_option.voters.length).to eql(1)
         expect(@place_poll_option.voters[0].id).not_to eql(@user2.id)
