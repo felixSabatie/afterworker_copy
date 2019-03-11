@@ -147,36 +147,90 @@ RSpec.describe Api::PlacePollController, type: :controller do
 
   describe 'POST #toggle' do
     context 'valid request' do
-      it 'should add the user\'s vote' do
+      before do
+        user = create(:user)
+        @user2 = create(:user)
+        @event = create(:event, creator: user)
+        @event.participants << @user2
 
+        @place_poll_option = create(:place_poll_option, event: @event)
+        @place_poll_option.voters << user
+
+        add_authenticated_header(request, @user2)
+      end
+
+      it 'should add the user\'s vote' do
+        post :toggle, params: {hash: @event.event_hash, id: @place_poll_option.id}
+
+        expect(response).to have_http_status(200)
+        expect(@place_poll_option.voters.length).to eql(2)
+        expect(@place_poll_option.voters[1].id).to eql(@user2.id)
       end
 
       it 'should remove the user\'s vote' do
+        @place_poll_option.voters << @user2
+        post :toggle, params: {hash: @event.event_hash, id: @place_poll_option.id}
 
+        expect(response).to have_http_status(200)
+        expect(@place_poll_option.voters.length).to eql(1)
+        expect(@place_poll_option.voters[0].id).not_to eql(@user2.id)
       end
     end
 
     context 'bad request' do
-      it 'should return 404 when the event does not exist' do
+      before do
+        user = create(:user)
+        @user2 = create(:user)
+        @event = create(:event, creator: user)
+        @event.participants << @user2
 
+        @place_poll_option = create(:place_poll_option, event: @event)
+        @place_poll_option.voters << user
+
+        add_authenticated_header(request, @user2)
+      end
+
+      it 'should return 404 when the event does not exist' do
+        post :toggle, params: {hash: 'wrong', id: @place_poll_option.id}
+        expect(response).to have_http_status(404)
       end
 
       it 'should return 404 when the place poll option does not exist' do
-
+        post :toggle, params: {hash: @event.event_hash, id: @place_poll_option.id + 1}
+        expect(response).to have_http_status(404)
       end
     end
 
     context 'unauthorized' do
-      it 'should return 401 because the user is not logged in' do
+      before do
+        user = create(:user)
+        @user2 = create(:user)
+        @event = create(:event, creator: user)
 
+        @place_poll_option = create(:place_poll_option, event: @event)
+        @place_poll_option.voters << user
+      end
+
+      it 'should return 401 because the user is not logged in' do
+        post :toggle, params: {hash: @event.event_hash, id: @place_poll_option.id}
+        expect(response).to have_http_status(401)
       end
 
       it 'should return 401 because the user cannot access the event' do
+        add_authenticated_header(request, @user2)
 
+        post :toggle, params: {hash: @event.event_hash, id: @place_poll_option.id}
+        expect(response).to have_http_status(401)
       end
 
       it 'should return 401 because the event does not have a place poll' do
+        @event.participants << @user2
+        @event.has_place_poll = false
+        @event.save
+        add_authenticated_header(request, @user2)
 
+        post :toggle, params: {hash: @event.event_hash, id: @place_poll_option.id}
+        expect(response).to have_http_status(401)
       end
     end
   end
