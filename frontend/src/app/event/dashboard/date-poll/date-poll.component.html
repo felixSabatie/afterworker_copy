@@ -5,7 +5,7 @@
     <div class="input">
       <div class="input-with-icon">
         <fa-icon class="icon" [icon]="faCalendarAlt"></fa-icon>
-        <input type="text" [(ngModel)]="date" name="place_name" placeholder="suggest a date"
+        <input type="text" [(ngModel)]="date" name="date" placeholder="suggest a date"
                [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" required>
         <owl-date-time stepMinute="5" [startAt]="startAt" #dt1></owl-date-time>
       </div>

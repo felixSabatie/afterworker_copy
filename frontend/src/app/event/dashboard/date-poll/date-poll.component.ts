@@ -37,10 +37,10 @@ export class DatePollComponent implements OnInit {
         voters: datePollOption.voters,
       }
     });
-    this.orderPlacePollVotingItems();
+    this.orderdatePollVotingItems();
   }
 
-  orderPlacePollVotingItems() {
+  orderdatePollVotingItems() {
     this.datePollVotingItems.sort((item1, item2) => item2.voters.length - item1.voters.length);
   }
 
@@ -54,7 +54,7 @@ export class DatePollComponent implements OnInit {
       voters.splice(currentUserVoterId, 1);
     }
 
-    this.orderPlacePollVotingItems();
+    this.orderdatePollVotingItems();
     this.datePollService.toggleVote(this.event, e.optionId).subscribe();
   }
 
