@@ -8,6 +8,9 @@
         <input type="text" [(ngModel)]="placeName" name="place_name" placeholder="suggest a place" required>
       </div>
     </div>
-    <button class="btn">Ok</button>
+    <button class="btn" [disabled]="waitingForResponse">
+      <app-spinner *ngIf="waitingForResponse"></app-spinner>
+      <span *ngIf="!waitingForResponse">Ok</span>
+    </button>
   </form>
 </app-voting>
