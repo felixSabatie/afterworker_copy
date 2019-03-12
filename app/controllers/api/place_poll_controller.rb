@@ -39,7 +39,7 @@ class Api::PlacePollController < ApplicationController
           @place_poll_option.voters << current_user
         end
 
-        render status: 200
+        render json: {success: true}
       else
         render status: 401
       end

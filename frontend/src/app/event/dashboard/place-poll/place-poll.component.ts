@@ -3,6 +3,7 @@ import {Event} from "../../../models/event.model";
 import {VotingItem} from "../../../models/voting-item.model";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import {User} from "../../../models/user.model";
+import {PlacePollService} from "./place-poll.service";
 
 @Component({
   selector: 'app-place-poll',
@@ -17,7 +18,7 @@ export class PlacePollComponent implements OnInit {
   placePollVotingItems: VotingItem[] = [];
   faMapMarkerAlt = faMapMarkerAlt;
 
-  constructor() {
+  constructor(private placePollService: PlacePollService) {
   }
 
   ngOnInit() {
@@ -39,6 +40,8 @@ export class PlacePollComponent implements OnInit {
       const currentUserVoterId = voters.findIndex(voter => voter.id === this.currentUser.id);
       voters.splice(currentUserVoterId, 1);
     }
+
+    this.placePollService.toggleVote(this.event, e.optionId).subscribe();
   }
 
   createPlace() {
