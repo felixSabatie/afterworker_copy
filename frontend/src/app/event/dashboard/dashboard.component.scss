@@ -33,7 +33,7 @@
       overflow-x: auto;
 
       .module {
-        .inline-form {
+        ::ng-deep .inline-form {
           display: flex;
           flex-direction: row;
           align-items: center;
