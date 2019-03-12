@@ -1,0 +1,18 @@
+<app-voting pollTitle="Date poll" [votingItems]="datePollVotingItems"
+            [nbParticipants]="event.participants.length" [currentUser]="currentUser"
+            (changedVote)="changeVote($event)">
+  <form (ngSubmit)="createDate()" class="inline-form">
+    <div class="input">
+      <div class="input-with-icon">
+        <fa-icon class="icon" [icon]="faCalendarAlt"></fa-icon>
+        <input type="text" [(ngModel)]="date" name="date" placeholder="suggest a date"
+               [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" required>
+        <owl-date-time stepMinute="5" [startAt]="startAt" #dt1></owl-date-time>
+      </div>
+    </div>
+    <button class="btn" [disabled]="waitingForResponse">
+      <app-spinner *ngIf="waitingForResponse"></app-spinner>
+      <span *ngIf="!waitingForResponse">Ok</span>
+    </button>
+  </form>
+</app-voting>
