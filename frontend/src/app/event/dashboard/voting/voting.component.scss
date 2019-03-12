@@ -1,7 +1,7 @@
 @import '../../../../styles/colors';
 
 .voting {
-  padding: 20px 20px 10px 20px;
+  padding: 20px 10px 10px 20px;
   background-color: $backgroundColor;
   height: 100%;
   width: 100%;
@@ -26,6 +26,7 @@
       left: 0;
       right: 0;
       overflow-x: auto;
+      padding-right: 10px;
     }
   }
 }

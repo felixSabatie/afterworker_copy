@@ -66,8 +66,8 @@ html, body {
     bottom: 20px;
     right: 20px;
 
-    width: $fab-size;
-    height: $fab-size;
+    width: $fabSize;
+    height: $fabSize;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -125,5 +125,19 @@ html, body {
     font-size: 20px;
     font-weight: normal;
     color: black;
+  }
+
+  ::-webkit-scrollbar {
+    width: $scrollbarSize;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, .1);
+    border-radius: calc(#{$scrollbarSize}/2);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, .3);
+    border-radius: calc(#{$scrollbarSize}/2);
   }
 }

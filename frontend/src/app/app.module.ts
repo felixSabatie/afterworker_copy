@@ -32,6 +32,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { DashboardComponent } from './event/dashboard/dashboard.component';
 import { VotingComponent } from './event/dashboard/voting/voting.component';
 import { VotingItemComponent } from './event/dashboard/voting/voting-item/voting-item.component';
+import { PlacePollComponent } from './event/dashboard/place-poll/place-poll.component';
 
 const STORE_KEYS_TO_PERSIST = ['token', 'user'];
 
@@ -63,6 +64,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     DashboardComponent,
     VotingComponent,
     VotingItemComponent,
+    PlacePollComponent,
   ],
   imports: [
     BrowserModule,

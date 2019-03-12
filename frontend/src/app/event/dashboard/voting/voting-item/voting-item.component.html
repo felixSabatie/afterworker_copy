@@ -10,7 +10,7 @@
       </div>
     </div>
 
-    <div class="voters">
+    <div class="voters" *ngIf="votingItem.voters && votingItem.voters.length > 0">
       <app-users-logos [users]="votingItem.voters" [maxAvatars]="2"
                        [modalTitle]="'Voters for \'' + votingItem.name + '\''"></app-users-logos>
     </div>

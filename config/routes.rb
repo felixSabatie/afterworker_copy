@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
     resources :events, only: [:index, :create]
     get '/events/:hash' => 'events#show'
+    post '/events/:hash/place-poll' => 'place_poll#create'
+    post '/events/:hash/place-poll/:id/toggle' => 'place_poll#toggle'
   end
 
   root to: 'static_files#index'

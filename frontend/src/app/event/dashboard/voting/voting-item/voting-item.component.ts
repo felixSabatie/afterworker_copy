@@ -19,11 +19,13 @@ export class VotingItemComponent implements OnInit {
   }
 
   get voted() {
-    return this.votingItem.voters.some(voter => voter.id === this.currentUser.id);
+    return this.votingItem.voters &&
+      this.votingItem.voters.some(voter => voter.id === this.currentUser.id);
   }
 
   get percentage() {
-    return Math.round(100 * this.votingItem.voters.length / this.nbParticipants);
+    const nbVoters = this.votingItem.voters ? this.votingItem.voters.length : 0;
+    return Math.round(100 * nbVoters / this.nbParticipants);
   }
 
   clicked(e: Event) {
