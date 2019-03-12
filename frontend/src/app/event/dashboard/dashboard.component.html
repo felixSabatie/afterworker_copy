@@ -6,8 +6,9 @@
   <div *ngIf="!fetchingEvent && !fecthingUser" class="dashboard-content">
     <h1 class="title">{{ event.name }}</h1>
     <div class="modules">
-      <app-place-poll class="module" [event]="event" [currentUser]="currentUser"></app-place-poll>
-      <app-date-poll class="module" [event]="event" [currentUser]="currentUser"></app-date-poll>
+      <app-place-poll class="module place-poll" [event]="event" [currentUser]="currentUser"></app-place-poll>
+      <app-date-poll class="module date-poll" [event]="event" [currentUser]="currentUser"></app-date-poll>
+      <div class="module place-holder"></div>
     </div>
   </div>
 </div>
