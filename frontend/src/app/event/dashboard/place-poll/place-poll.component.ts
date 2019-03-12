@@ -31,6 +31,11 @@ export class PlacePollComponent implements OnInit {
         voters: placePollOption.voters,
       }
     });
+    this.orderPlacePollVotingItems();
+  }
+
+  orderPlacePollVotingItems() {
+    this.placePollVotingItems.sort((item1, item2) => item2.voters.length - item1.voters.length);
   }
 
   changeVote(e: any) {
@@ -43,6 +48,7 @@ export class PlacePollComponent implements OnInit {
       voters.splice(currentUserVoterId, 1);
     }
 
+    this.orderPlacePollVotingItems();
     this.placePollService.toggleVote(this.event, e.optionId).subscribe();
   }
 
