@@ -29,7 +29,7 @@ class Api::PlacePollController < ApplicationController
   end
 
   def toggle
-    if @event === nil || @place_poll_option === nil
+    if @event === nil || @place_poll_option === nil || @place_poll_option.event_id != @event.id
       render status: 404
     else
       if user_can_access_place_poll
