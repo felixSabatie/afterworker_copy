@@ -57,11 +57,11 @@ export class PlacePollComponent implements OnInit {
       this.waitingForResponse = true;
       this.placePollService.createPlacePollOption(this.event, {name: this.placeName} as PlacePollOption)
         .subscribe(placePollOption => {
-          this.placePollVotingItems.push({
+          this.placePollVotingItems = [...this.placePollVotingItems, {
             id: placePollOption.id,
             name: placePollOption.name,
             voters: placePollOption.voters,
-          } as VotingItem);
+          } as VotingItem];
           this.placeName = '';
           this.waitingForResponse = false;
         });
