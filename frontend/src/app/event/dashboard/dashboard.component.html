@@ -9,7 +9,12 @@
       <app-place-poll class="module place-poll" [event]="event" [currentUser]="currentUser"></app-place-poll>
       <app-date-poll class="module date-poll" [event]="event" [currentUser]="currentUser"></app-date-poll>
       <app-participants-list class="module participants-list" [participants]="event.participants"></app-participants-list>
-      <div class="place-holder"></div>
+      <div class="place-holder desktop-only"></div>
+      <div class="modules-nav mobile-only">
+        <div class="nav-item"><fa-icon [icon]="faMapMarkerAlt"></fa-icon></div>
+        <div class="nav-item"><fa-icon [icon]="faCalendarAlt"></fa-icon></div>
+        <div class="nav-item"><fa-icon [icon]="faUsers"></fa-icon></div>
+      </div>
     </div>
   </div>
 </div>

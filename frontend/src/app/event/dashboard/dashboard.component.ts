@@ -5,6 +5,7 @@ import { Event } from '../../models/event.model';
 import {Store} from "@ngrx/store";
 import {AppState} from "../../ngrx/app.state";
 import {User} from "../../models/user.model";
+import { faMapMarkerAlt, faCalendarAlt, faUsers } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,6 +17,10 @@ export class DashboardComponent implements OnInit {
   fetchingEvent = true;
   fecthingUser = true;
   currentUser: User;
+
+  faMapMarkerAlt = faMapMarkerAlt;
+  faCalendarAlt = faCalendarAlt;
+  faUsers = faUsers;
 
   constructor(private eventService: EventService, private route: ActivatedRoute, private store: Store<AppState>) {
     store.select('user').subscribe(user => {
