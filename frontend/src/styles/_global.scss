@@ -141,4 +141,17 @@ html, body {
     background-color: rgba(0, 0, 0, .3);
     border-radius: calc(#{$scrollbarSize}/2);
   }
+
+  .mobile-only {
+    display: block;
+    @media (min-width: $smallScreenSize) {
+      display: none;
+    }
+  }
+  .desktop-only {
+    display: none;
+    @media (min-width: $smallScreenSize) {
+      display: block;
+    }
+  }
 }

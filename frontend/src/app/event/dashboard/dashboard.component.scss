@@ -1,4 +1,5 @@
 @import '../../../styles/colors';
+@import '../../../styles/variables';
 
 .dashboard {
   width: 100%;
@@ -25,14 +26,6 @@
 
     .modules {
       flex: 1;
-      padding: 0 0 50px 50px;
-      display: grid;
-      grid-template:  ". placepoll participantslist placeholder"
-                      ". datepoll . placeholder";
-      grid-template-columns: 380px 380px 275px 10px;
-      grid-template-rows: repeat(2, 1fr);
-      grid-gap: 40px;
-      overflow: auto;
 
       .module {
         padding: 20px 10px 10px 20px;
@@ -57,23 +50,76 @@
             padding-right: 10px;
           }
         }
+      }
+    }
 
-        &.place-poll {
+    @media screen and (min-width: $smallScreenSize) {
+      .modules.desktop-only {
+        box-sizing: border-box;
+        padding: 0 0 50px 50px;
+        display: grid;
+        grid-template:  ". placepoll participantslist placeholder"
+        ". datepoll . placeholder";
+        grid-template-columns: 380px 380px 275px 10px;
+        grid-template-rows: repeat(2, 1fr);
+        grid-gap: 40px;
+        overflow: auto;
+
+        .place-poll {
           grid-area: placepoll;
         }
 
-        &.date-poll {
+        .date-poll {
           grid-area: datepoll;
         }
 
-        &.participants-list {
+        .participants-list {
           grid-area: participantslist;
         }
+
+        .place-holder {
+          grid-area: placeholder;
+          width: 100%;
+          height: 100%;
+        }
       }
-      .place-holder {
-        grid-area: placeholder;
-        width: 100%;
-        height: 100%;
+    }
+
+    @media screen and (max-width: calc(#{$smallScreenSize} - 1px)) {
+      background-color: $backgroundColor;
+      .title {
+        text-align: center;
+        margin: 15px 0 0 0;
+      }
+      .modules {
+        .module {
+          padding: 10px 10px 0;
+        }
+      }
+      .modules-nav {
+        height: 50px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        background-color: $darkerAppBackgroundColor;
+
+        .nav-item {
+          flex: 1;
+          text-align: center;
+          color: $greyTextColor;
+          transition: $transitionsDuration;
+
+          &.selected {
+            color: $accentColorLight;
+          }
+
+          ::ng-deep svg {
+            display: block;
+            margin: auto;
+          }
+        }
       }
     }
   }

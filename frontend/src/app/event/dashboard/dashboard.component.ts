@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {EventService} from "../../shared-services/event.service";
 import {ActivatedRoute} from "@angular/router";
 import { Event } from '../../models/event.model';
 import {Store} from "@ngrx/store";
 import {AppState} from "../../ngrx/app.state";
 import {User} from "../../models/user.model";
+import { faMapMarkerAlt, faCalendarAlt, faUsers } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,6 +17,10 @@ export class DashboardComponent implements OnInit {
   fetchingEvent = true;
   fecthingUser = true;
   currentUser: User;
+
+  navItems = [faMapMarkerAlt, faCalendarAlt, faUsers];
+
+  currentSwiperIndex = 0;
 
   constructor(private eventService: EventService, private route: ActivatedRoute, private store: Store<AppState>) {
     store.select('user').subscribe(user => {
@@ -29,6 +34,10 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  swiperIndexChanged(newIndex: number) {
+    this.currentSwiperIndex = newIndex;
   }
 
 }

@@ -5,11 +5,24 @@
 
   <div *ngIf="!fetchingEvent && !fecthingUser" class="dashboard-content">
     <h1 class="title">{{ event.name }}</h1>
-    <div class="modules">
+    <div class="modules desktop-only">
       <app-place-poll class="module place-poll" [event]="event" [currentUser]="currentUser"></app-place-poll>
       <app-date-poll class="module date-poll" [event]="event" [currentUser]="currentUser"></app-date-poll>
       <app-participants-list class="module participants-list" [participants]="event.participants"></app-participants-list>
       <div class="place-holder"></div>
+    </div>
+    <div class="modules mobile-only">
+      <swiper [(index)]="currentSwiperIndex" (indexChange)="swiperIndexChanged($event)">
+        <app-place-poll class="module place-poll" [event]="event" [currentUser]="currentUser"></app-place-poll>
+        <app-date-poll class="module date-poll" [event]="event" [currentUser]="currentUser"></app-date-poll>
+        <app-participants-list class="module participants-list" [participants]="event.participants"></app-participants-list>
+      </swiper>
+    </div>
+    <div class="modules-nav mobile-only">
+      <div *ngFor="let navItem of navItems, index as i" class="nav-item" [class.selected]="currentSwiperIndex === i"
+        (click)="swiperIndexChanged(i)">
+        <fa-icon [icon]="navItem"></fa-icon>
+      </div>
     </div>
   </div>
 </div>
