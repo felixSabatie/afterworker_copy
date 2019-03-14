@@ -58,6 +58,7 @@
       }
 
       @media screen and (max-width: calc(#{$smallScreenSize} - 1px)) {
+        
       }
 
       .module {
@@ -83,6 +84,22 @@
             padding-right: 10px;
           }
         }
+      }
+    }
+
+    .modules-nav {
+      height: 50px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: $greyTextColor;
+      background-color: $darkerAppBackgroundColor;
+
+      .nav-item {
+        flex: 1;
+        text-align: center;
       }
     }
   }
