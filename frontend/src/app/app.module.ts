@@ -35,6 +35,7 @@ import { VotingItemComponent } from './event/dashboard/voting/voting-item/voting
 import { PlacePollComponent } from './event/dashboard/place-poll/place-poll.component';
 import { DatePollComponent } from './event/dashboard/date-poll/date-poll.component';
 import { ParticipantsListComponent } from './event/dashboard/users-list-module/participants-list.component';
+import {SWIPER_CONFIG, SwiperConfigInterface, SwiperModule} from "ngx-swiper-wrapper";
 
 const STORE_KEYS_TO_PERSIST = ['token', 'user'];
 
@@ -47,6 +48,10 @@ export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionRedu
 }
 const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
 
+const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
+  direction: 'horizontal',
+  slidesPerView: 'auto'
+};
 
 @NgModule({
   declarations: [
@@ -84,9 +89,13 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     FormsModule,
+    SwiperModule,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true
+  }, {
+    provide: SWIPER_CONFIG,
+    useValue: DEFAULT_SWIPER_CONFIG
   }],
   bootstrap: [AppComponent]
 })

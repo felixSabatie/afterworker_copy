@@ -27,7 +27,34 @@
     .modules {
       flex: 1;
 
-      @media screen and (min-width: $smallScreenSize) {
+      .module {
+        padding: 20px 10px 10px 20px;
+        background-color: $backgroundColor;
+        height: 100%;
+        width: 100%;
+        box-sizing: border-box;
+        border-radius: 10px;
+
+        ::ng-deep .title {
+          text-align: center;
+          margin-bottom: 20px;
+        }
+
+        ::ng-deep .inline-form {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+
+          .input {
+            flex: 1;
+            padding-right: 10px;
+          }
+        }
+      }
+    }
+
+    @media screen and (min-width: $smallScreenSize) {
+      .modules.desktop-only {
         box-sizing: border-box;
         padding: 0 0 50px 50px;
         display: grid;
@@ -56,50 +83,23 @@
           height: 100%;
         }
       }
-
-      @media screen and (max-width: calc(#{$smallScreenSize} - 1px)) {
-        
-      }
-
-      .module {
-        padding: 20px 10px 10px 20px;
-        background-color: $backgroundColor;
-        height: 100%;
-        width: 100%;
-        box-sizing: border-box;
-        border-radius: 10px;
-
-        ::ng-deep .title {
-          text-align: center;
-          margin-bottom: 20px;
-        }
-
-        ::ng-deep .inline-form {
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-
-          .input {
-            flex: 1;
-            padding-right: 10px;
-          }
-        }
-      }
     }
 
-    .modules-nav {
-      height: 50px;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      color: $greyTextColor;
-      background-color: $darkerAppBackgroundColor;
+    @media screen and (max-width: calc(#{$smallScreenSize} - 1px)) {
+      .modules-nav {
+        height: 50px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        color: $greyTextColor;
+        background-color: $darkerAppBackgroundColor;
 
-      .nav-item {
-        flex: 1;
-        text-align: center;
+        .nav-item {
+          flex: 1;
+          text-align: center;
+        }
       }
     }
   }

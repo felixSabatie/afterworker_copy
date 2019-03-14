@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {EventService} from "../../shared-services/event.service";
 import {ActivatedRoute} from "@angular/router";
 import { Event } from '../../models/event.model';
