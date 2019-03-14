@@ -86,6 +86,17 @@
     }
 
     @media screen and (max-width: calc(#{$smallScreenSize} - 1px)) {
+      background-color: $backgroundColor;
+      .title {
+        text-align: center;
+        margin: 15px 0 0 0;
+      }
+      .modules {
+        .module {
+          padding: 10px;
+          padding-bottom: 0;
+        }
+      }
       .modules-nav {
         height: 50px;
         display: flex;
