@@ -22,6 +22,8 @@ export class DashboardComponent implements OnInit {
   faCalendarAlt = faCalendarAlt;
   faUsers = faUsers;
 
+  currentSwiperIndex = 0;
+
   constructor(private eventService: EventService, private route: ActivatedRoute, private store: Store<AppState>) {
     store.select('user').subscribe(user => {
       this.currentUser = user;
@@ -34,6 +36,10 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  swiperIndexChanged(e: number) {
+    this.currentSwiperIndex = e;
   }
 
 }
