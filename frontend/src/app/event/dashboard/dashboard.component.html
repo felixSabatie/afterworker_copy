@@ -8,7 +8,8 @@
     <div class="modules">
       <app-place-poll class="module place-poll" [event]="event" [currentUser]="currentUser"></app-place-poll>
       <app-date-poll class="module date-poll" [event]="event" [currentUser]="currentUser"></app-date-poll>
-      <div class="module place-holder"></div>
+      <app-participants-list class="module participants-list" [participants]="event.participants"></app-participants-list>
+      <div class="place-holder"></div>
     </div>
   </div>
 </div>
