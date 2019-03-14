@@ -1,0 +1,23 @@
+@import '../../../../styles/colors';
+
+.date-poll {
+  height: 100%;
+
+  .chosen-date {
+    height: 100%;
+    box-sizing: border-box;
+    padding: 0 10px 20px 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    text-align: center;
+
+    .icon {
+      margin-right: 10px;
+      color: $accentColor;
+    }
+  }
+}
+
