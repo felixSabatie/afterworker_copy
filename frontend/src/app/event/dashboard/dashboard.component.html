@@ -19,9 +19,10 @@
       </swiper>
     </div>
     <div class="modules-nav mobile-only">
-      <div class="nav-item" [class.selected]="currentSwiperIndex === 0"><fa-icon [icon]="faMapMarkerAlt"></fa-icon></div>
-      <div class="nav-item" [class.selected]="currentSwiperIndex === 1"><fa-icon [icon]="faCalendarAlt"></fa-icon></div>
-      <div class="nav-item" [class.selected]="currentSwiperIndex === 2"><fa-icon [icon]="faUsers"></fa-icon></div>
+      <div *ngFor="let navItem of navItems, index as i" class="nav-item" [class.selected]="currentSwiperIndex === i"
+        (click)="swiperIndexChanged(i)">
+        <fa-icon [icon]="navItem"></fa-icon>
+      </div>
     </div>
   </div>
 </div>

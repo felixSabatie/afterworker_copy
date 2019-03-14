@@ -114,6 +114,11 @@
           &.selected {
             color: $accentColorLight;
           }
+
+          ::ng-deep svg {
+            display: block;
+            margin: auto;
+          }
         }
       }
     }

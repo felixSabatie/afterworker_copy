@@ -18,9 +18,7 @@ export class DashboardComponent implements OnInit {
   fecthingUser = true;
   currentUser: User;
 
-  faMapMarkerAlt = faMapMarkerAlt;
-  faCalendarAlt = faCalendarAlt;
-  faUsers = faUsers;
+  navItems = [faMapMarkerAlt, faCalendarAlt, faUsers];
 
   currentSwiperIndex = 0;
 
@@ -38,8 +36,8 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
   }
 
-  swiperIndexChanged(e: number) {
-    this.currentSwiperIndex = e;
+  swiperIndexChanged(newIndex: number) {
+    this.currentSwiperIndex = newIndex;
   }
 
 }
