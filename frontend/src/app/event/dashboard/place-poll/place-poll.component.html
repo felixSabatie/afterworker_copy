@@ -1,16 +1,26 @@
-<app-voting pollTitle="Place poll" [votingItems]="placePollVotingItems"
-            [nbParticipants]="event.participants.length" [currentUser]="currentUser"
-            (changedVote)="changeVote($event)">
-  <form (ngSubmit)="createPlace()" class="inline-form">
-    <div class="input">
-      <div class="input-with-icon">
-        <fa-icon class="icon" [icon]="faMapMarkerAlt"></fa-icon>
-        <input type="text" [(ngModel)]="placeName" name="place_name" placeholder="suggest a place" required>
+<div class="place-poll">
+  <app-voting *ngIf="event.chosen_place === undefined"
+              pollTitle="Place poll" [votingItems]="placePollVotingItems"
+              [nbParticipants]="event.participants.length" [currentUser]="currentUser"
+              (changedVote)="changeVote($event)">
+    <form (ngSubmit)="createPlace()" class="inline-form">
+      <div class="input">
+        <div class="input-with-icon">
+          <fa-icon class="icon" [icon]="faMapMarkerAlt"></fa-icon>
+          <input type="text" [(ngModel)]="placeName" name="place_name" placeholder="suggest a place" required>
+        </div>
       </div>
-    </div>
-    <button class="btn" [disabled]="waitingForResponse">
-      <app-spinner *ngIf="waitingForResponse"></app-spinner>
-      <span *ngIf="!waitingForResponse">Ok</span>
-    </button>
-  </form>
-</app-voting>
+      <button class="btn" [disabled]="waitingForResponse">
+        <app-spinner *ngIf="waitingForResponse"></app-spinner>
+        <span *ngIf="!waitingForResponse">Ok</span>
+      </button>
+    </form>
+  </app-voting>
+
+  <div class="chosen-place" *ngIf="event.chosen_place !== undefined">
+    <fa-icon [icon]="faMapMarkerAlt" class="icon"></fa-icon>
+    <div class="place-name">{{ event.chosen_place.name }}</div>
+  </div>
+</div>
+
+
