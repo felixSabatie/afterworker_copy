@@ -34,6 +34,7 @@ import { VotingComponent } from './event/dashboard/voting/voting.component';
 import { VotingItemComponent } from './event/dashboard/voting/voting-item/voting-item.component';
 import { PlacePollComponent } from './event/dashboard/place-poll/place-poll.component';
 import { DatePollComponent } from './event/dashboard/date-poll/date-poll.component';
+import { ParticipantsListComponent } from './event/dashboard/users-list-module/participants-list.component';
 
 const STORE_KEYS_TO_PERSIST = ['token', 'user'];
 
@@ -67,6 +68,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     VotingItemComponent,
     PlacePollComponent,
     DatePollComponent,
+    ParticipantsListComponent,
   ],
   imports: [
     BrowserModule,
