@@ -38,6 +38,7 @@ import { ParticipantsListComponent } from './event/dashboard/users-list-module/p
 import {SWIPER_CONFIG, SwiperConfigInterface, SwiperModule} from "ngx-swiper-wrapper";
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import {HttpErrorsInterceptor} from "./http-interceptors/http-errors-interceptor";
 
 const STORE_KEYS_TO_PERSIST = ['token', 'user'];
 
@@ -96,6 +97,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true
+  }, {
+    provide: HTTP_INTERCEPTORS, useClass: HttpErrorsInterceptor, multi: true
   }, {
     provide: SWIPER_CONFIG,
     useValue: DEFAULT_SWIPER_CONFIG
