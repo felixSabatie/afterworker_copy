@@ -4,6 +4,7 @@ import { LoginComponent } from "./auth/login/login.component";
 import {RegisterComponent} from "./auth/register/register.component";
 import {HomeComponent} from "./home/home.component";
 import {DashboardComponent} from "./event/dashboard/dashboard.component";
+import {NotFoundComponent} from './not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'home', component: HomeComponent },
   { path: 'events/:hash', component: DashboardComponent },
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({

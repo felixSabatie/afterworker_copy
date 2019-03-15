@@ -3,7 +3,7 @@
     <app-spinner class="loading-component"></app-spinner>
   </div>
 
-  <div *ngIf="!fetchingEvent && !fecthingUser" class="dashboard-content">
+  <div *ngIf="!fetchingEvent && !fecthingUser && !notFound" class="dashboard-content">
     <h1 class="title">{{ event.name }}</h1>
     <div class="modules desktop-only">
       <app-place-poll class="module place-poll" [event]="event" [currentUser]="currentUser"></app-place-poll>
@@ -25,4 +25,6 @@
       </div>
     </div>
   </div>
+
+  <app-not-found *ngIf="!fetchingEvent && !fecthingUser && notFound"></app-not-found>
 </div>

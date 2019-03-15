@@ -21,13 +21,6 @@ export class HomeComponent implements OnInit {
   faPlus = faPlus;
 
   constructor(private store: Store<AppState>, private router: Router, private eventService: EventService) {
-    // TODO change to an http 401 event catcher
-    store.select('user').subscribe(user => {
-      if(user === undefined) {
-        router.navigate(['login']);
-      }
-    });
-
     eventService.getEvents().subscribe(events => {
       this.fetchingEvents = false;
       this.hasEvents = events.length > 0;
