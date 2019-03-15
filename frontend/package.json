@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "deploy": "ng build --prod && rm -rf ../public/angular/* && cp -r ./dist/frontend/* ../public/angular",
+    "deploy": "ng build --prod && rm -rf ../public/* && cp -r ./dist/frontend/* ../public",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
