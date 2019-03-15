@@ -8,6 +8,7 @@ import {User} from "../../models/user.model";
 })
 export class UsersListComponent implements OnInit {
   @Input() users: User[];
+  @Input() creatorId: number;
 
   constructor() { }
 

@@ -10,6 +10,7 @@ export class UsersAvatarsComponent implements OnInit {
   @Input() users: User[];
   @Input() maxAvatars: number;
   @Input() modalTitle: string;
+  @Input() creatorId: number;
   showModal = false;
 
   constructor() { }
