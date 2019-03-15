@@ -16,6 +16,7 @@ export class DashboardComponent implements OnInit {
   event: Event;
   fetchingEvent = true;
   fecthingUser = true;
+  notFound = false;
   currentUser: User;
 
   navItems = [faMapMarkerAlt, faCalendarAlt, faUsers];
@@ -30,6 +31,11 @@ export class DashboardComponent implements OnInit {
     this.eventService.getEvent(this.route.snapshot.params['hash']).subscribe((event: Event) => {
       this.event = event;
       this.fetchingEvent = false;
+    }, err => {
+      if(err.status && err.status === 404) {
+        this.notFound = true;
+        this.fetchingEvent = false;
+      }
     });
   }
 

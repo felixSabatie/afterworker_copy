@@ -39,6 +39,7 @@ import {SWIPER_CONFIG, SwiperConfigInterface, SwiperModule} from "ngx-swiper-wra
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import {HttpErrorsInterceptor} from "./http-interceptors/http-errors-interceptor";
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const STORE_KEYS_TO_PERSIST = ['token', 'user'];
 
@@ -77,6 +78,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     PlacePollComponent,
     DatePollComponent,
     ParticipantsListComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
