@@ -8,14 +8,14 @@
     <div class="modules desktop-only">
       <app-place-poll class="module place-poll" [event]="event" [currentUser]="currentUser"></app-place-poll>
       <app-date-poll class="module date-poll" [event]="event" [currentUser]="currentUser"></app-date-poll>
-      <app-participants-list class="module participants-list" [participants]="event.participants"></app-participants-list>
+      <app-participants-list class="module participants-list" [event]="event"></app-participants-list>
       <div class="place-holder"></div>
     </div>
     <div class="modules mobile-only">
       <swiper [(index)]="currentSwiperIndex" (indexChange)="swiperIndexChanged($event)">
         <app-place-poll class="module place-poll" [event]="event" [currentUser]="currentUser"></app-place-poll>
         <app-date-poll class="module date-poll" [event]="event" [currentUser]="currentUser"></app-date-poll>
-        <app-participants-list class="module participants-list" [participants]="event.participants"></app-participants-list>
+        <app-participants-list class="module participants-list" [event]="event"></app-participants-list>
       </swiper>
     </div>
     <div class="modules-nav mobile-only">

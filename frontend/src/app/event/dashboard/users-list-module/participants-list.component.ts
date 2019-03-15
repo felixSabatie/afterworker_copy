@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {User} from "../../../models/user.model";
+import {Event} from '../../../models/event.model';
 
 @Component({
   selector: 'app-participants-list',
@@ -7,7 +7,7 @@ import {User} from "../../../models/user.model";
   styleUrls: ['./participants-list.component.scss']
 })
 export class ParticipantsListComponent implements OnInit {
-  @Input() participants: User[];
+  @Input() event: Event;
 
   constructor() { }
 
