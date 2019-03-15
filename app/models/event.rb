@@ -17,6 +17,10 @@ class Event < ApplicationRecord
   before_create :generate_hash
   after_create :add_creator_to_participants
 
+  def user_is_admin(user)
+    user.id === self.user_id
+  end
+
   private
 
   def generate_hash(length=30)

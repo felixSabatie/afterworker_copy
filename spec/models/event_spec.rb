@@ -29,4 +29,20 @@ RSpec.describe Event, type: :model do
     expect(event.errors.messages).to have_key(:creator)
   end
 
+  context 'admin function' do
+    it 'should return true for the creator' do
+      user = create(:user)
+      event = create(:event, creator: user)
+      expect(event.user_is_admin(user)).to eq(true)
+    end
+
+    it 'should return false for a simple participant' do
+      user = create(:user)
+      user2 = create(:user)
+      event = create(:event, creator: user)
+      event.participants << user2
+      expect(event.user_is_admin(user2)).to eq(false)
+    end
+  end
+
 end

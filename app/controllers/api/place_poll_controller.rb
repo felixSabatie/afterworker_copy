@@ -51,7 +51,7 @@ class Api::PlacePollController < ApplicationController
   def user_can_access_place_poll
     @event.has_place_poll &&
         @event.participants.any? {|user| user.id === current_user.id} &&
-        (@event.is_open_to_places || current_user.id === @event.creator.id)
+        (@event.is_open_to_places || @event.user_is_admin(current_user))
   end
 
   def get_event_includes

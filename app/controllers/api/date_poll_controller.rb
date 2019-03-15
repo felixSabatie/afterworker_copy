@@ -47,7 +47,7 @@ class Api::DatePollController < ApplicationController
   def user_can_access_date_poll
     @event.has_date_poll &&
         @event.participants.any? {|user| user.id === current_user.id} &&
-        (@event.is_open_to_dates || current_user.id === @event.creator.id)
+        (@event.is_open_to_dates || @event.user_is_admin(current_user))
   end
 
   def get_event_includes
