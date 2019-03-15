@@ -36,6 +36,8 @@ import { PlacePollComponent } from './event/dashboard/place-poll/place-poll.comp
 import { DatePollComponent } from './event/dashboard/date-poll/date-poll.component';
 import { ParticipantsListComponent } from './event/dashboard/users-list-module/participants-list.component';
 import {SWIPER_CONFIG, SwiperConfigInterface, SwiperModule} from "ngx-swiper-wrapper";
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 const STORE_KEYS_TO_PERSIST = ['token', 'user'];
 
@@ -90,6 +92,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     OwlNativeDateTimeModule,
     FormsModule,
     SwiperModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true
