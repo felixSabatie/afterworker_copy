@@ -6,6 +6,7 @@ import {Store} from "@ngrx/store";
 import {AppState} from "../../ngrx/app.state";
 import {User} from "../../models/user.model";
 import { faMapMarkerAlt, faCalendarAlt, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { PlacePollService } from './place-poll/place-poll.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,7 +24,8 @@ export class DashboardComponent implements OnInit {
 
   currentSwiperIndex = 0;
 
-  constructor(private eventService: EventService, private route: ActivatedRoute, private store: Store<AppState>) {
+  constructor(private eventService: EventService, private placePollService: PlacePollService,
+              private route: ActivatedRoute, private store: Store<AppState>) {
     store.select('user').subscribe(user => {
       this.currentUser = user;
       this.fecthingUser = false;
@@ -51,7 +53,12 @@ export class DashboardComponent implements OnInit {
   }
 
   choosePlace(placeId: number) {
-    console.log('chose place ' + placeId);
+    this.placePollService.choosePlace(this.event, placeId).subscribe(() => {
+      const chosenPlace = this.event.place_poll_options.find(placePollOption => placePollOption.id === placeId);
+      this.event.chosen_place = chosenPlace;
+    }, err => {
+      console.error(err);
+    })
   }
 
   chooseDate(dateId: number) {
