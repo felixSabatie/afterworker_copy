@@ -250,7 +250,7 @@ RSpec.describe Api::PlacePollController, type: :controller do
         put :choose_place, params: {hash: event.event_hash, id: place_poll_option.id}
 
         expect(response).to have_http_status(200)
-        expect(event.chosen_place).to be_truthy
+        event.reload
         expect(event.chosen_place.id).to eq(place_poll_option.id)
       end
     end
