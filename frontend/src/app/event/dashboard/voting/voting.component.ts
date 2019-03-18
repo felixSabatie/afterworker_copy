@@ -12,6 +12,9 @@ export class VotingComponent implements OnInit {
   @Input() votingItems: VotingItem[];
   @Input() nbParticipants: number;
   @Input() currentUser: User;
+  @Input() isAdmin: boolean;
+  @Input() itemType: string;
+
   @Output() changedVote = new EventEmitter<object>();
   @ViewChild('votingItemsScrollable') private votingItemsScrollable: ElementRef;
 

@@ -1,6 +1,6 @@
 <div class="place-poll">
-  <app-voting *ngIf="event.chosen_place === undefined"
-              pollTitle="Place poll" [votingItems]="placePollVotingItems"
+  <app-voting *ngIf="event.chosen_place === undefined" itemType="place"
+              pollTitle="Place poll" [votingItems]="placePollVotingItems" [isAdmin]="isAdmin"
               [nbParticipants]="event.participants.length" [currentUser]="currentUser"
               (changedVote)="changeVote($event)">
     <form (ngSubmit)="createPlace()" class="inline-form" *ngIf="isAdmin">

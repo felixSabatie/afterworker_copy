@@ -11,6 +11,9 @@ export class VotingItemComponent implements OnInit {
   @Input() votingItem: VotingItem;
   @Input() nbParticipants: number;
   @Input() currentUser: User;
+  @Input() isAdmin: boolean;
+  @Input() itemType: string;
+
   @Output() changedVote = new EventEmitter<boolean>();
 
   constructor() { }
