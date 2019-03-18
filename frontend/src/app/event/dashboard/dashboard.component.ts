@@ -42,6 +42,10 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
   }
 
+  get isAdmin() {
+    return this.event.creator.id === this.currentUser.id;
+  }
+
   swiperIndexChanged(newIndex: number) {
     this.currentSwiperIndex = newIndex;
   }

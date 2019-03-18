@@ -15,6 +15,7 @@ import {DatePollOption} from "../../../models/date-poll-option.model";
 export class DatePollComponent implements OnInit {
   @Input() event: Event;
   @Input() currentUser: User;
+  @Input() isAdmin: boolean;
 
   date: Date;
   datePollVotingItems: VotingItem[] = [];

@@ -14,6 +14,7 @@ import {PlacePollOption} from "../../../models/place-poll-option.model";
 export class PlacePollComponent implements OnInit {
   @Input() event: Event;
   @Input() currentUser: User;
+  @Input() isAdmin: boolean;
 
   placeName = '';
   placePollVotingItems: VotingItem[] = [];
