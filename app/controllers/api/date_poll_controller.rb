@@ -7,7 +7,7 @@ class Api::DatePollController < ApplicationController
     if @event === nil
       render status: 404
     else
-      if user_can_access_date_poll
+      if user_can_modify_date_poll
         date_poll_option_params = params.require(:date_poll_option).permit(:date)
 
         date_poll_option = DatePollOption.new(date_poll_option_params)
@@ -60,7 +60,11 @@ class Api::DatePollController < ApplicationController
 
   def user_can_access_date_poll
     @event.has_date_poll &&
-        @event.participants.any? {|user| user.id === current_user.id} &&
+        @event.participants.any? {|user| user.id === current_user.id}
+  end
+
+  def user_can_modify_date_poll
+    user_can_access_date_poll &&
         (@event.is_open_to_dates || @event.user_is_admin(current_user))
   end
 
