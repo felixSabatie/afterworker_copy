@@ -21,6 +21,10 @@ export class DatePollService {
   }
 
   toggleVote(event: Event, datePollOptionId: number): Observable<any> {
-    return this.http.post(`${environment.baseUrl}/events/${event.event_hash}/date-poll/${datePollOptionId}/toggle`, {})
+    return this.http.post(`${environment.baseUrl}/events/${event.event_hash}/date-poll/${datePollOptionId}/toggle`, {});
+  }
+
+  chooseDate(event: Event, datePollOptionId: number): Observable<any> {
+    return this.http.put(`${environment.baseUrl}/events/${event.event_hash}/date-poll/${datePollOptionId}/choose-date`, {});
   }
 }

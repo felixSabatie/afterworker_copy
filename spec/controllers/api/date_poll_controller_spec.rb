@@ -234,4 +234,77 @@ RSpec.describe Api::DatePollController, type: :controller do
       end
     end
   end
+
+  describe 'PUT #choose_date' do
+    context 'valid request' do
+      it 'should set the date as chosen date for the event' do
+        user = create(:user)
+        user2 = create(:user)
+        event = create(:event, creator: user)
+        event.participants << user2
+
+        date_poll_option = create(:date_poll_option, event: event)
+        add_authenticated_header(request, user)
+
+        put :choose_date, params: {hash: event.event_hash, id: date_poll_option.id}
+
+        expect(response).to have_http_status(200)
+        event.reload
+        expect(event.chosen_date.id).to eq(date_poll_option.id)
+      end
+    end
+
+    context 'bad request' do
+      before do
+        user = create(:user)
+        @user2 = create(:user)
+        @event = create(:event, creator: user)
+        @event.participants << @user2
+
+        @date_poll_option = create(:date_poll_option, event: @event)
+
+        add_authenticated_header(request, user)
+      end
+
+      it 'should return 404 when the event does not exist' do
+        put :choose_date, params: {hash: 'wrong', id: @date_poll_option.id}
+        expect(response).to have_http_status(404)
+      end
+
+      it 'should return 404 when the date poll option does not exist' do
+        put :choose_date, params: {hash: @event.event_hash, id: @date_poll_option.id + 1}
+        expect(response).to have_http_status(404)
+      end
+    end
+
+    context 'unauthorized' do
+      before do
+        @user = create(:user)
+        @user2 = create(:user)
+        @event = create(:event, creator: @user)
+
+        @date_poll_option = create(:date_poll_option, event: @event)
+      end
+
+      it 'should return 401 because the user is not logged in' do
+        put :choose_date, params: {hash: @event.event_hash, id: @date_poll_option.id}
+        expect(response).to have_http_status(401)
+      end
+
+      it 'should return 401 because the user is not in the event' do
+        add_authenticated_header(request, @user2)
+
+        put :choose_date, params: {hash: @event.event_hash, id: @date_poll_option.id}
+        expect(response).to have_http_status(401)
+      end
+
+      it 'should return 401 because the user is not admin' do
+        @event.participants << @user
+        add_authenticated_header(request, @user2)
+
+        put :choose_date, params: {hash: @event.event_hash, id: @date_poll_option.id}
+        expect(response).to have_http_status(401)
+      end
+    end
+  end
 end

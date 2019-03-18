@@ -1,13 +1,13 @@
 class Api::PlacePollController < ApplicationController
   before_action :authenticate_user
-  before_action :set_event, only: [:create, :toggle]
-  before_action :set_place_poll_option, only: [:toggle]
+  before_action :set_event, only: [:create, :toggle, :choose_place]
+  before_action :set_place_poll_option, only: [:toggle, :choose_place]
 
   def create
     if @event === nil
       render status: 404
     else
-      if user_can_access_place_poll
+      if user_can_modify_place_poll
         place_poll_option_params = params.require(:place_poll_option).permit(
             :name,
             :latitude,
@@ -46,12 +46,29 @@ class Api::PlacePollController < ApplicationController
     end
   end
 
+  def choose_place
+    if @event === nil || @place_poll_option === nil || @place_poll_option.event_id != @event.id
+      render status: 404
+    else
+      if @event.user_is_admin(current_user)
+        @event.chosen_place = @place_poll_option
+        @event.save
+        render json: {success: true}
+      else
+        render status: 401
+      end
+    end
+  end
+
   private
+
+  def user_can_modify_place_poll
+    user_can_access_place_poll && (@event.is_open_to_places || @event.user_is_admin(current_user))
+  end
 
   def user_can_access_place_poll
     @event.has_place_poll &&
-        @event.participants.any? {|user| user.id === current_user.id} &&
-        (@event.is_open_to_places || @event.user_is_admin(current_user))
+        @event.participants.any? {|user| user.id === current_user.id}
   end
 
   def get_event_includes

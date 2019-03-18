@@ -1,4 +1,4 @@
-import {Component, Inject, Input, LOCALE_ID, OnInit} from '@angular/core';
+import {Component, Inject, Input, LOCALE_ID, OnInit, Output, EventEmitter} from '@angular/core';
 import {Event} from "../../../models/event.model";
 import {User} from "../../../models/user.model";
 import {VotingItem} from "../../../models/voting-item.model";
@@ -15,6 +15,9 @@ import {DatePollOption} from "../../../models/date-poll-option.model";
 export class DatePollComponent implements OnInit {
   @Input() event: Event;
   @Input() currentUser: User;
+  @Input() isAdmin: boolean;
+
+  @Output() choseDate = new EventEmitter<number>();
 
   date: Date;
   datePollVotingItems: VotingItem[] = [];
@@ -76,6 +79,10 @@ export class DatePollComponent implements OnInit {
 
   dateToString(date: Date): string {
     return formatDate(date, 'LLL dd yyyy, HH:mm', this.locale);
+  }
+
+  chooseDate(dateId: number) {
+    this.choseDate.emit(dateId);
   }
 
 }

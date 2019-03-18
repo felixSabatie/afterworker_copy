@@ -11,7 +11,11 @@ export class VotingItemComponent implements OnInit {
   @Input() votingItem: VotingItem;
   @Input() nbParticipants: number;
   @Input() currentUser: User;
+  @Input() isAdmin: boolean;
+  @Input() itemType: string;
+
   @Output() changedVote = new EventEmitter<boolean>();
+  @Output() choseItem = new EventEmitter();
 
   constructor() { }
 
@@ -31,6 +35,11 @@ export class VotingItemComponent implements OnInit {
   clicked(e: Event) {
     e.preventDefault();
     this.changedVote.emit(!this.voted);
+  }
+
+  chooseItem(e: Event) {
+    e.preventDefault();
+    this.choseItem.emit();
   }
 
 }

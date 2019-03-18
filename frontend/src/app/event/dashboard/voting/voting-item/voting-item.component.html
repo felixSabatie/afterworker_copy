@@ -19,4 +19,8 @@
     <div class="progress-bar"><div class="progression" [style.width]="percentage + '%'"></div></div>
     <div class="percentage">{{percentage}}%</div>
   </div>
+
+  <div class="action-buttons" *ngIf="isAdmin">
+    <button class="btn btn-thin" (click)="chooseItem($event)">Choose this {{ itemType }}</button>
+  </div>
 </div>

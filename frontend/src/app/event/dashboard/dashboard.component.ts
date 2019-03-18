@@ -6,6 +6,8 @@ import {Store} from "@ngrx/store";
 import {AppState} from "../../ngrx/app.state";
 import {User} from "../../models/user.model";
 import { faMapMarkerAlt, faCalendarAlt, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { PlacePollService } from './place-poll/place-poll.service';
+import { DatePollService } from './date-poll/date-poll.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,7 +25,8 @@ export class DashboardComponent implements OnInit {
 
   currentSwiperIndex = 0;
 
-  constructor(private eventService: EventService, private route: ActivatedRoute, private store: Store<AppState>) {
+  constructor(private eventService: EventService, private placePollService: PlacePollService, private datePollService: DatePollService,
+              private route: ActivatedRoute, private store: Store<AppState>) {
     store.select('user').subscribe(user => {
       this.currentUser = user;
       this.fecthingUser = false;
@@ -42,8 +45,30 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
   }
 
+  get isAdmin() {
+    return this.event.creator.id === this.currentUser.id;
+  }
+
   swiperIndexChanged(newIndex: number) {
     this.currentSwiperIndex = newIndex;
+  }
+
+  choosePlace(placeId: number) {
+    this.placePollService.choosePlace(this.event, placeId).subscribe(() => {
+      const chosenPlace = this.event.place_poll_options.find(placePollOption => placePollOption.id === placeId);
+      this.event.chosen_place = chosenPlace;
+    }, err => {
+      console.error(err);
+    });
+  }
+
+  chooseDate(dateId: number) {
+    this.datePollService.chooseDate(this.event, dateId).subscribe(() => {
+      const chosenDate = this.event.date_poll_options.find(datePollOption => datePollOption.id === dateId);
+      this.event.chosen_date = chosenDate;
+    }, err => {
+      console.error(err);
+    });
   }
 
 }

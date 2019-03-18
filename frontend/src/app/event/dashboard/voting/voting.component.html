@@ -2,8 +2,10 @@
   <h4 class="title">{{pollTitle}}</h4>
   <div class="voting-items-container">
     <div class="voting-items" #votingItemsScrollable>
-      <app-voting-item *ngFor="let votingItem of votingItems" [nbParticipants]="nbParticipants" [currentUser]="currentUser"
-                       [votingItem]="votingItem" (changedVote)="changeVote($event, votingItem.id)"></app-voting-item>
+      <app-voting-item *ngFor="let votingItem of votingItems" [nbParticipants]="nbParticipants" 
+                       [currentUser]="currentUser" [isAdmin]="isAdmin" [itemType]="itemType"
+                       [votingItem]="votingItem" (changedVote)="changeVote($event, votingItem.id)"
+                       (choseItem)="chooseItem(votingItem.id)"></app-voting-item>
     </div>
   </div>
   <div class="form">

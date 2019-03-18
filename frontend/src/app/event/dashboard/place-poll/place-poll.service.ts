@@ -21,7 +21,11 @@ export class PlacePollService {
   }
 
   toggleVote(event: Event, placePollOptionId: number): Observable<any> {
-    return this.http.post(`${environment.baseUrl}/events/${event.event_hash}/place-poll/${placePollOptionId}/toggle`, {})
+    return this.http.post(`${environment.baseUrl}/events/${event.event_hash}/place-poll/${placePollOptionId}/toggle`, {});
+  }
+
+  choosePlace(event: Event, placePollOptionId: number): Observable<any> {
+    return this.http.put(`${environment.baseUrl}/events/${event.event_hash}/place-poll/${placePollOptionId}/choose-place`, {});
   }
 }
 

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {Event} from "../../../models/event.model";
 import {VotingItem} from "../../../models/voting-item.model";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
@@ -14,6 +14,9 @@ import {PlacePollOption} from "../../../models/place-poll-option.model";
 export class PlacePollComponent implements OnInit {
   @Input() event: Event;
   @Input() currentUser: User;
+  @Input() isAdmin: boolean;
+
+  @Output() chosePlace = new EventEmitter<number>();
 
   placeName = '';
   placePollVotingItems: VotingItem[] = [];
@@ -66,6 +69,10 @@ export class PlacePollComponent implements OnInit {
           this.waitingForResponse = false;
         });
     }
+  }
+
+  choosePlace(placeId: number) {
+    this.chosePlace.emit(placeId);
   }
 
 }
