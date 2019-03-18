@@ -1,7 +1,7 @@
 class Api::DatePollController < ApplicationController
   before_action :authenticate_user
-  before_action :set_event, only: [:create, :toggle]
-  before_action :set_date_poll_option, only: [:toggle]
+  before_action :set_event, only: [:create, :toggle, :choose_date]
+  before_action :set_date_poll_option, only: [:toggle, :choose_date]
 
   def create
     if @event === nil
@@ -35,6 +35,20 @@ class Api::DatePollController < ApplicationController
           @date_poll_option.voters << current_user
         end
 
+        render json: {success: true}
+      else
+        render status: 401
+      end
+    end
+  end
+
+  def choose_date
+    if @event === nil || @date_poll_option === nil || @date_poll_option.event_id != @event.id
+      render status: 404
+    else
+      if @event.user_is_admin(current_user)
+        @event.chosen_date = @date_poll_option
+        @event.save
         render json: {success: true}
       else
         render status: 401
