@@ -59,7 +59,7 @@ export class DashboardComponent implements OnInit {
       this.event.chosen_place = chosenPlace;
     }, err => {
       console.error(err);
-    })
+    });
   }
 
   chooseDate(dateId: number) {
@@ -68,7 +68,7 @@ export class DashboardComponent implements OnInit {
       this.event.chosen_date = chosenDate;
     }, err => {
       console.error(err);
-    })
+    });
   }
 
 }
