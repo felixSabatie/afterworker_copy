@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
     post '/events/:hash/date-poll' => 'date_poll#create'
     post '/events/:hash/date-poll/:id/toggle' => 'date_poll#toggle'
-    post '/events/:hash/date-poll/:id/choose-date' => 'date_poll#choose_date'
+    put '/events/:hash/date-poll/:id/choose-date' => 'date_poll#choose_date'
   end
 
   root to: 'static_files#index'
