@@ -1,7 +1,7 @@
 class Api::PlacePollController < ApplicationController
   before_action :authenticate_user
-  before_action :set_event, only: [:create, :toggle]
-  before_action :set_place_poll_option, only: [:toggle]
+  before_action :set_event, only: [:create, :toggle, :choose_place]
+  before_action :set_place_poll_option, only: [:toggle, :choose_place]
 
   def create
     if @event === nil
@@ -39,6 +39,20 @@ class Api::PlacePollController < ApplicationController
           @place_poll_option.voters << current_user
         end
 
+        render json: {success: true}
+      else
+        render status: 401
+      end
+    end
+  end
+
+  def choose_place
+    if @event === nil || @place_poll_option === nil || @place_poll_option.event_id != @event.id
+      render status: 404
+    else
+      if @event.user_is_admin(current_user)
+        @event.chosen_place = @place_poll_option
+        @event.save
         render json: {success: true}
       else
         render status: 401
