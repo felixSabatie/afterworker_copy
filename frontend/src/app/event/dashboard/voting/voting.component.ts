@@ -16,6 +16,7 @@ export class VotingComponent implements OnInit {
   @Input() itemType: string;
 
   @Output() changedVote = new EventEmitter<object>();
+  @Output() choseItem = new EventEmitter<number>();
   @ViewChild('votingItemsScrollable') private votingItemsScrollable: ElementRef;
 
   scrollToBottomNext = false;
@@ -46,6 +47,10 @@ export class VotingComponent implements OnInit {
 
   changeVote(e: boolean, optionId: number) {
     this.changedVote.emit({optionId: optionId, voted: e});
+  }
+
+  chooseItem(optionId: number) {
+    this.choseItem.emit(optionId);
   }
 
 }

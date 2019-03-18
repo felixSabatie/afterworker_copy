@@ -50,4 +50,12 @@ export class DashboardComponent implements OnInit {
     this.currentSwiperIndex = newIndex;
   }
 
+  choosePlace(placeId: number) {
+    console.log('chose place ' + placeId);
+  }
+
+  chooseDate(dateId: number) {
+    console.log('chose date ' + dateId);
+  }
+
 }

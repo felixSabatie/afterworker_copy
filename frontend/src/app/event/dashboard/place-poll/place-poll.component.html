@@ -2,7 +2,7 @@
   <app-voting *ngIf="event.chosen_place === undefined" itemType="place"
               pollTitle="Place poll" [votingItems]="placePollVotingItems" [isAdmin]="isAdmin"
               [nbParticipants]="event.participants.length" [currentUser]="currentUser"
-              (changedVote)="changeVote($event)">
+              (changedVote)="changeVote($event)" (choseItem)="choosePlace($event)">
     <form (ngSubmit)="createPlace()" class="inline-form" *ngIf="isAdmin">
       <div class="input">
         <div class="input-with-icon">

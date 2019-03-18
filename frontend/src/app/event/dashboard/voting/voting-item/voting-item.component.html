@@ -21,6 +21,6 @@
   </div>
 
   <div class="action-buttons" *ngIf="isAdmin">
-    <button class="btn btn-thin">Choose this {{ itemType }}</button>
+    <button class="btn btn-thin" (click)="chooseItem($event)">Choose this {{ itemType }}</button>
   </div>
 </div>

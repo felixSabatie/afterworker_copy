@@ -3,7 +3,7 @@
   <app-voting *ngIf="event.chosen_date === undefined" itemType="date"
               pollTitle="Date poll" [votingItems]="datePollVotingItems" [isAdmin]="isAdmin"
               [nbParticipants]="event.participants.length" [currentUser]="currentUser"
-              (changedVote)="changeVote($event)">
+              (changedVote)="changeVote($event)" (choseItem)="chooseDate($event)">
     <form (ngSubmit)="createDate()" class="inline-form" *ngIf="isAdmin">
       <div class="input">
         <div class="input-with-icon">

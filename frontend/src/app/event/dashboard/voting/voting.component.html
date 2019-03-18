@@ -4,7 +4,8 @@
     <div class="voting-items" #votingItemsScrollable>
       <app-voting-item *ngFor="let votingItem of votingItems" [nbParticipants]="nbParticipants" 
                        [currentUser]="currentUser" [isAdmin]="isAdmin" [itemType]="itemType"
-                       [votingItem]="votingItem" (changedVote)="changeVote($event, votingItem.id)"></app-voting-item>
+                       [votingItem]="votingItem" (changedVote)="changeVote($event, votingItem.id)"
+                       (choseItem)="chooseItem(votingItem.id)"></app-voting-item>
     </div>
   </div>
   <div class="form">
