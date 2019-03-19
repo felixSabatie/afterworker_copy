@@ -27,6 +27,10 @@ export class PlacePollService {
   choosePlace(event: Event, placePollOptionId: number): Observable<any> {
     return this.http.put(`${environment.baseUrl}/events/${event.event_hash}/place-poll/${placePollOptionId}/choose-place`, {});
   }
+
+  deleteChosenPlace(event: Event): Observable<any> {
+    return this.http.delete(`${environment.baseUrl}/events/${event.event_hash}/place-poll/chosen-place`, {});
+  }
 }
 
 

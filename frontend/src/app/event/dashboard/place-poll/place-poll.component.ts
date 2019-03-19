@@ -17,6 +17,7 @@ export class PlacePollComponent implements OnInit {
   @Input() isAdmin: boolean;
 
   @Output() chosePlace = new EventEmitter<number>();
+  @Output() deletedChosenPlace = new EventEmitter();
 
   placeName = '';
   placePollVotingItems: VotingItem[] = [];
@@ -73,6 +74,10 @@ export class PlacePollComponent implements OnInit {
 
   choosePlace(placeId: number) {
     this.chosePlace.emit(placeId);
+  }
+
+  deleteChosenPlace() {
+    this.deletedChosenPlace.emit();
   }
 
 }

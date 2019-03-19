@@ -62,6 +62,14 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  deleteChosenPlace() {
+    this.placePollService.deleteChosenPlace(this.event).subscribe(() => {
+      this.event.chosen_place = undefined;
+    }, err => {
+      console.error(err);
+    });
+  }
+
   chooseDate(dateId: number) {
     this.datePollService.chooseDate(this.event, dateId).subscribe(() => {
       const chosenDate = this.event.date_poll_options.find(datePollOption => datePollOption.id === dateId);
