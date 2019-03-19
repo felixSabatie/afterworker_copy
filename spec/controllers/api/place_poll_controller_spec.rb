@@ -300,10 +300,91 @@ RSpec.describe Api::PlacePollController, type: :controller do
       end
 
       it 'should return 401 because the user is not admin' do
-        @event.participants << @user
+        @event.participants << @user2
         add_authenticated_header(request, @user2)
 
         put :choose_place, params: {hash: @event.event_hash, id: @place_poll_option.id}
+        expect(response).to have_http_status(401)
+      end
+    end
+  end
+
+  describe 'DELETE #detroy_chosen_place' do
+    context 'valid request' do
+      before do
+        user = create(:user)
+        @event = create(:event, creator: user)
+
+        @place_poll_option = create(:place_poll_option, event: @event)
+        @event.chosen_place = @place_poll_option
+        @event.save
+        
+        add_authenticated_header(request, user)
+      end
+
+      it 'should delete the event\'s chosen place' do
+        delete :destroy_chosen_place, params: {hash: @event.event_hash}
+
+        expect(response).to have_http_status(200)
+        @event.reload
+        expect(@event.chosen_place).to be_nil
+      end
+
+      it 'should refuse to delete the chosen place because event has no place poll' do
+        @event.has_place_poll = false
+        @event.save
+        delete :destroy_chosen_place, params: {hash: @event.event_hash}
+
+        expect(response).to have_http_status(403)
+      end
+    end
+
+    context 'bad request' do
+
+      it 'should return 404 when the event does not exist' do
+        user = create(:user)
+        user2 = create(:user)
+        event = create(:event, creator: user)
+        
+        place_poll_option = create(:place_poll_option, event: event)
+        event.chosen_place = place_poll_option
+        event.save
+
+        event.participants << user2
+
+        add_authenticated_header(request, user)
+
+        delete :destroy_chosen_place, params: {hash: 'wrong'}
+        expect(response).to have_http_status(404)
+      end
+    end
+
+    context 'unauthorized' do
+      before do
+        @user = create(:user)
+        @user2 = create(:user)
+        @event = create(:event, creator: @user)
+
+        @place_poll_option = create(:place_poll_option, event: @event)
+      end
+
+      it 'should return 401 because the user is not logged in' do
+        delete :destroy_chosen_place, params: {hash: @event.event_hash}
+        expect(response).to have_http_status(401)
+      end
+
+      it 'should return 401 because the user is not in the event' do
+        add_authenticated_header(request, @user2)
+
+        delete :destroy_chosen_place, params: {hash: @event.event_hash}
+        expect(response).to have_http_status(401)
+      end
+
+      it 'should return 401 because the user is not admin' do
+        @event.participants << @user2
+        add_authenticated_header(request, @user2)
+        
+        delete :destroy_chosen_place, params: {hash: @event.event_hash}
         expect(response).to have_http_status(401)
       end
     end
