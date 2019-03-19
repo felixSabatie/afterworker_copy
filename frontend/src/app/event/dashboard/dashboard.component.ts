@@ -8,6 +8,8 @@ import {User} from "../../models/user.model";
 import { faMapMarkerAlt, faCalendarAlt, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { PlacePollService } from './place-poll/place-poll.service';
 import { DatePollService } from './date-poll/date-poll.service';
+import { PlacePollOption } from 'src/app/models/place-poll-option.model';
+import { DatePollOption } from 'src/app/models/date-poll-option.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -62,6 +64,18 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  deleteChosenPlace() {
+    this.placePollService.deleteChosenPlace(this.event).subscribe(() => {
+      this.event.chosen_place = undefined;
+    }, err => {
+      console.error(err);
+    });
+  }
+
+  addPlace(place: PlacePollOption) {
+    this.event.place_poll_options.push(place);
+  }
+
   chooseDate(dateId: number) {
     this.datePollService.chooseDate(this.event, dateId).subscribe(() => {
       const chosenDate = this.event.date_poll_options.find(datePollOption => datePollOption.id === dateId);
@@ -69,6 +83,18 @@ export class DashboardComponent implements OnInit {
     }, err => {
       console.error(err);
     });
+  }
+
+  deleteChosenDate() {
+    this.datePollService.deleteChosenDate(this.event).subscribe(() => {
+      this.event.chosen_date = undefined;
+    }, err => {
+      console.error(err);
+    });
+  }
+
+  addDate(date: DatePollOption) {
+    this.event.date_poll_options.push(date);
   }
 
 }

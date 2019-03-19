@@ -17,9 +17,14 @@
     </form>
   </app-voting>
 
-  <div class="chosen-place" *ngIf="event.chosen_place !== undefined">
-    <fa-icon [icon]="faMapMarkerAlt" class="icon"></fa-icon>
-    <div class="place-name">{{ event.chosen_place.name }}</div>
+  <div class="chosen-place-container" *ngIf="event.chosen_place !== undefined">
+    <div class="chosen-place">
+      <fa-icon [icon]="faMapMarkerAlt" class="icon"></fa-icon>
+      <div class="place-name">{{ event.chosen_place.name }}</div>
+    </div>
+    <div class="actions" *ngIf="isAdmin && event.has_place_poll">
+      <button class="btn btn-thin" (click)="deleteChosenPlace()">Re-open the place poll</button>
+    </div>
   </div>
 </div>
 

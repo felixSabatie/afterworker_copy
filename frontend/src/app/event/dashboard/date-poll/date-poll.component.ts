@@ -18,6 +18,8 @@ export class DatePollComponent implements OnInit {
   @Input() isAdmin: boolean;
 
   @Output() choseDate = new EventEmitter<number>();
+  @Output() deletedChosenDate = new EventEmitter();
+  @Output() createdDate = new EventEmitter<DatePollOption>();
 
   date: Date;
   datePollVotingItems: VotingItem[] = [];
@@ -73,6 +75,8 @@ export class DatePollComponent implements OnInit {
           } as VotingItem];
           this.date = undefined;
           this.waitingForResponse = false;
+
+          this.createdDate.emit(datePollOption);
         });
     }
   }
@@ -83,6 +87,10 @@ export class DatePollComponent implements OnInit {
 
   chooseDate(dateId: number) {
     this.choseDate.emit(dateId);
+  }
+
+  deleteChosenDate() {
+    this.deletedChosenDate.emit();
   }
 
 }

@@ -27,4 +27,8 @@ export class DatePollService {
   chooseDate(event: Event, datePollOptionId: number): Observable<any> {
     return this.http.put(`${environment.baseUrl}/events/${event.event_hash}/date-poll/${datePollOptionId}/choose-date`, {});
   }
+
+  deleteChosenDate(event: Event): Observable<any> {
+    return this.http.delete(`${environment.baseUrl}/events/${event.event_hash}/date-poll/chosen-date`, {});
+  }
 }

@@ -20,9 +20,14 @@
     </form>
   </app-voting>
 
-  <div class="chosen-date" *ngIf="event.chosen_date !== undefined">
-    <fa-icon [icon]="faCalendarAlt" class="icon"></fa-icon>
-    <div class="date">{{ event.chosen_date.date | date: 'LLL dd yyyy, HH:mm' }}</div>
+  <div class="chosen-date-container" *ngIf="event.chosen_date !== undefined">
+    <div class="chosen-date">
+      <fa-icon [icon]="faCalendarAlt" class="icon"></fa-icon>
+      <div class="date">{{ event.chosen_date.date | date: 'LLL dd yyyy, HH:mm' }}</div>
+    </div>
+    <div class="actions" *ngIf="isAdmin && event.has_date_poll">
+      <button class="btn btn-thin" (click)="deleteChosenDate()">Re-open date poll</button>
+    </div>
   </div>
 
 </div>

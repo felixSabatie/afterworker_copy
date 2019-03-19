@@ -17,6 +17,8 @@ export class PlacePollComponent implements OnInit {
   @Input() isAdmin: boolean;
 
   @Output() chosePlace = new EventEmitter<number>();
+  @Output() deletedChosenPlace = new EventEmitter();
+  @Output() createdPlace = new EventEmitter<PlacePollOption>();
 
   placeName = '';
   placePollVotingItems: VotingItem[] = [];
@@ -67,12 +69,18 @@ export class PlacePollComponent implements OnInit {
           } as VotingItem];
           this.placeName = '';
           this.waitingForResponse = false;
+
+          this.createdPlace.emit(placePollOption);
         });
     }
   }
 
   choosePlace(placeId: number) {
     this.chosePlace.emit(placeId);
+  }
+
+  deleteChosenPlace() {
+    this.deletedChosenPlace.emit();
   }
 
 }
