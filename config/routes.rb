@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     post '/events/:hash/place-poll' => 'place_poll#create'
     post '/events/:hash/place-poll/:id/toggle' => 'place_poll#toggle'
     put '/events/:hash/place-poll/:id/choose-place' => 'place_poll#choose_place'
+    delete '/events/:hash/place-poll/chosen-place' => 'place_poll#destroy_chosen_place'
 
     post '/events/:hash/date-poll' => 'date_poll#create'
     post '/events/:hash/date-poll/:id/toggle' => 'date_poll#toggle'
