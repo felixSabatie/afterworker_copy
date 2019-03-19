@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     post '/events/:hash/date-poll' => 'date_poll#create'
     post '/events/:hash/date-poll/:id/toggle' => 'date_poll#toggle'
     put '/events/:hash/date-poll/:id/choose-date' => 'date_poll#choose_date'
+    delete '/events/:hash/date-poll/chosen-date' => 'date_poll#destroy_chosen_date'
   end
 
   root to: 'static_files#index'
