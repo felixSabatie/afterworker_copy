@@ -79,4 +79,12 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  deleteChosenDate() {
+    this.datePollService.deleteChosenDate(this.event).subscribe(() => {
+      this.event.chosen_date = undefined;
+    }, err => {
+      console.error(err);
+    });
+  }
+
 }
