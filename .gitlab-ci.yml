@@ -59,4 +59,5 @@ deploy-rt-service:
     - apt-get install -y heroku-toolbelt
     - gem install dpl
   script:
+    - cd rt-service
     - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_API_KEY
