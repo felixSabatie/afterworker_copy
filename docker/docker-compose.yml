@@ -10,6 +10,7 @@ services:
       - POSTGRES_DB=afterworker
       - POSTGRES_USER=afterworker
       - POSTGRES_PASSWORD=afterworker
+
   rails:
     build:
       context: ..
@@ -22,3 +23,27 @@ services:
       - "3000:3000"
     depends_on:
       - db
+  
+  mongodb:
+    image: mongo:4
+    volumes:
+      - ./mongodb:/data/db
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=afterworker
+      - MONGO_INITDB_ROOT_PASSWORD=afterworker
+    command: mongod
+
+  express:
+    image: node:11
+    volumes:
+      - ../rt-service:/app
+    environment:
+      - PORT=8080
+    command: bash -c "cd /app && npm i && npm run dev"
+    ports:
+      - 8080:8080
+    depends_on:
+      - rails
+      - mongodb
