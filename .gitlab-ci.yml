@@ -11,6 +11,7 @@ lint:
   script:
     - cd frontend
     - npm i
+    - npm i -g @angular/cli
     - ng lint
   allow_failure: true
 
