@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {EventService} from "../../shared-services/event.service";
-import {PlacePollOption} from "../../models/place-poll-option.model";
-import {DatePollOption} from "../../models/date-poll-option.model";
-import {Router} from "@angular/router";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {EventService} from '../../shared-services/event.service';
+import {PlacePollOption} from '../../models/place-poll-option.model';
+import {DatePollOption} from '../../models/date-poll-option.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-event-form',
@@ -17,7 +17,7 @@ export class EventFormComponent implements OnInit {
   errors: string[] = [];
   startAt = new Date();
 
-  constructor(private fb: FormBuilder, private eventService: EventService, private router: Router,) {
+  constructor(private fb: FormBuilder, private eventService: EventService, private router: Router, ) {
     this.startAt.setHours(this.startAt.getHours() + 1);
     this.startAt.setMinutes(0);
     this.startAt.setSeconds(0);
@@ -36,17 +36,17 @@ export class EventFormComponent implements OnInit {
   }
 
   submitForm() {
-    if(!this.waitingForResponse) {
+    if (!this.waitingForResponse) {
       this.errors = [];
       this.submitted = true;
 
-      if(this.eventInfos.valid) {
+      if (this.eventInfos.valid) {
         this.waitingForResponse = true;
         const eventInfosValue = this.eventInfos.value;
         const place = {name: this.eventInfos.value.place} as PlacePollOption;
         const date = {date: this.eventInfos.value.date} as DatePollOption;
         this.eventService.createEvent(eventInfosValue, place, date).subscribe(event => {
-          this.router.navigate(['events/' + event.event_hash])
+          this.router.navigate(['events/' + event.event_hash]);
         }, err => {
           this.errors.push('There has been a problem...');
           this.waitingForResponse = false;

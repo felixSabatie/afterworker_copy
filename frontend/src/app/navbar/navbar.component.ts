@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {Store} from "@ngrx/store";
-import {AppState} from "../ngrx/app.state";
-import {User} from "../models/user.model";
+import {Store} from '@ngrx/store';
+import {AppState} from '../ngrx/app.state';
+import {User} from '../models/user.model';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 import * as GlobalActions from '../ngrx/actions/global.actions';
 
 @Component({

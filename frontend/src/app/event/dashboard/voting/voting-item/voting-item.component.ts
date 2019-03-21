@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {VotingItem} from "../../../../models/voting-item.model";
-import {User} from "../../../../models/user.model";
+import {VotingItem} from '../../../../models/voting-item.model';
+import {User} from '../../../../models/user.model';
 
 @Component({
   selector: 'app-voting-item',

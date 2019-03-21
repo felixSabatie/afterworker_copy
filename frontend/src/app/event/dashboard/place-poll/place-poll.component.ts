@@ -1,10 +1,10 @@
 import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
-import {Event} from "../../../models/event.model";
-import {VotingItem} from "../../../models/voting-item.model";
-import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
-import {User} from "../../../models/user.model";
-import {PlacePollService} from "./place-poll.service";
-import {PlacePollOption} from "../../../models/place-poll-option.model";
+import {Event} from '../../../models/event.model';
+import {VotingItem} from '../../../models/voting-item.model';
+import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import {User} from '../../../models/user.model';
+import {PlacePollService} from './place-poll.service';
+import {PlacePollOption} from '../../../models/place-poll-option.model';
 
 @Component({
   selector: 'app-place-poll',
@@ -34,7 +34,7 @@ export class PlacePollComponent implements OnInit {
         id: placePollOption.id,
         name: placePollOption.name,
         voters: placePollOption.voters,
-      }
+      };
     });
     this.orderPlacePollVotingItems();
   }
@@ -44,7 +44,7 @@ export class PlacePollComponent implements OnInit {
   }
 
   changeVote(e: any) {
-    if(e.voted) {
+    if (e.voted) {
       this.placePollVotingItems.find(item => item.id === e.optionId).voters
         .push(this.currentUser);
     } else {
@@ -58,7 +58,7 @@ export class PlacePollComponent implements OnInit {
   }
 
   createPlace() {
-    if(this.placeName.length > 0) {
+    if (this.placeName.length > 0) {
       this.waitingForResponse = true;
       this.placePollService.createPlacePollOption(this.event, {name: this.placeName} as PlacePollOption)
         .subscribe(placePollOption => {

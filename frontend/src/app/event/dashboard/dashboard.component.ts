@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {EventService} from "../../shared-services/event.service";
-import {ActivatedRoute} from "@angular/router";
+import {EventService} from '../../shared-services/event.service';
+import {ActivatedRoute} from '@angular/router';
 import { Event } from '../../models/event.model';
-import {Store} from "@ngrx/store";
-import {AppState} from "../../ngrx/app.state";
-import {User} from "../../models/user.model";
+import {Store} from '@ngrx/store';
+import {AppState} from '../../ngrx/app.state';
+import {User} from '../../models/user.model';
 import { faMapMarkerAlt, faCalendarAlt, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { PlacePollService } from './place-poll/place-poll.service';
 import { DatePollService } from './date-poll/date-poll.service';
@@ -33,11 +33,11 @@ export class DashboardComponent implements OnInit {
       this.currentUser = user;
       this.fecthingUser = false;
     });
-    this.eventService.getEvent(this.route.snapshot.params['hash']).subscribe((event: Event) => {
+    this.eventService.getEvent(this.route.snapshot.params.hash).subscribe((event: Event) => {
       this.event = event;
       this.fetchingEvent = false;
     }, err => {
-      if(err.status && err.status === 404) {
+      if (err.status && err.status === 404) {
         this.notFound = true;
         this.fetchingEvent = false;
       }

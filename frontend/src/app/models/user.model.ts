@@ -1,5 +1,5 @@
-import {Event} from "./event.model";
-import {Invite} from "./invite.model";
+import {Event} from './event.model';
+import {Invite} from './invite.model';
 
 export interface User {
   id: number;

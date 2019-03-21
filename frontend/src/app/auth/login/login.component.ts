@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {faKey, faAt} from "@fortawesome/free-solid-svg-icons";
-import {AuthService} from "../auth.service";
-import {finalize} from "rxjs/operators";
-import {Router} from "@angular/router";
+import {faKey, faAt} from '@fortawesome/free-solid-svg-icons';
+import {AuthService} from '../auth.service';
+import {finalize} from 'rxjs/operators';
+import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
-import {AppState} from "../../ngrx/app.state";
+import {AppState} from '../../ngrx/app.state';
 import * as UserActions from '../../ngrx/actions/user.actions';
 import * as TokenActions from '../../ngrx/actions/token.actions';
-import {User} from "../../models/user.model";
-import {UserService} from "../../shared-services/user.service";
+import {User} from '../../models/user.model';
+import {UserService} from '../../shared-services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
               private userService: UserService
   ) {
     store.select('token').subscribe(token => {
-      if(token !== undefined) {
+      if (token !== undefined) {
         this.getUserAndRedirect();
       }
     });
@@ -50,12 +50,12 @@ export class LoginComponent implements OnInit {
   }
 
   submitForm() {
-    if(!this.waitingForResponse) {
+    if (!this.waitingForResponse) {
       this.submitted = true;
-      if(this.userInfos.valid) {
+      if (this.userInfos.valid) {
         this.errors = [];
         this.waitingForResponse = true;
-        if(!this.userInfos.invalid) {
+        if (!this.userInfos.invalid) {
           this.authService.getToken(this.userInfos.value)
             .pipe(finalize(() => {
               this.waitingForResponse = false;
@@ -64,9 +64,9 @@ export class LoginComponent implements OnInit {
               const token = response.jwt;
               this.storeTokenAndGetUser(token);
             }, err => {
-              if(err.status === 404) {
+              if (err.status === 404) {
                 this.errors.push('Your informations are incorrect, please try again');
-              } else if (err.status === 422){
+              } else if (err.status === 422) {
                 this.errors.push('Fill the required fields');
               }
             });

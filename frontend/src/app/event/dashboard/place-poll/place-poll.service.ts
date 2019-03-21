@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Event} from "../../../models/event.model";
-import {PlacePollOption} from "../../../models/place-poll-option.model";
-import {Observable} from "rxjs";
+import {HttpClient} from '@angular/common/http';
+import {Event} from '../../../models/event.model';
+import {PlacePollOption} from '../../../models/place-poll-option.model';
+import {Observable} from 'rxjs';
 import {environment} from 'src/environments/environment';
-import {map} from "rxjs/operators";
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'

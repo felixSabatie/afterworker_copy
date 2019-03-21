@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faCog } from "@fortawesome/free-solid-svg-icons";
+import { faCog } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-spinner',

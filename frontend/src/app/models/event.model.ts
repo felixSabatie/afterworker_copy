@@ -1,7 +1,7 @@
-import {User} from "./user.model";
-import {PlacePollOption} from "./place-poll-option.model";
-import {DatePollOption} from "./date-poll-option.model";
-import {Invite} from "./invite.model";
+import {User} from './user.model';
+import {PlacePollOption} from './place-poll-option.model';
+import {DatePollOption} from './date-poll-option.model';
+import {Invite} from './invite.model';
 
 export interface Event {
   id: number;

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {Event} from "../models/event.model";
-import {AppState} from "../ngrx/app.state";
+import {Event} from '../models/event.model';
+import {AppState} from '../ngrx/app.state';
 import {Store} from '@ngrx/store';
-import {Router} from "@angular/router";
-import {EventService} from "../shared-services/event.service";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import {Router} from '@angular/router';
+import {EventService} from '../shared-services/event.service';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-home',

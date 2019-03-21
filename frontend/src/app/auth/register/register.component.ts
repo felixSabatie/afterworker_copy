@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {faAt, faKey, faUser} from "@fortawesome/free-solid-svg-icons";
-import {AuthService} from "../auth.service";
-import {finalize} from "rxjs/operators";
-import {UserService} from "../../shared-services/user.service";
-import {User} from "../../models/user.model";
-import {Store} from "@ngrx/store";
-import {AppState} from "../../ngrx/app.state";
-import {Router} from "@angular/router";
-import * as TokenActions from "../../ngrx/actions/token.actions";
-import * as UserActions from "../../ngrx/actions/user.actions";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {faAt, faKey, faUser} from '@fortawesome/free-solid-svg-icons';
+import {AuthService} from '../auth.service';
+import {finalize} from 'rxjs/operators';
+import {UserService} from '../../shared-services/user.service';
+import {User} from '../../models/user.model';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../ngrx/app.state';
+import {Router} from '@angular/router';
+import * as TokenActions from '../../ngrx/actions/token.actions';
+import * as UserActions from '../../ngrx/actions/user.actions';
 
 @Component({
   selector: 'app-register',
@@ -17,6 +17,20 @@ import * as UserActions from "../../ngrx/actions/user.actions";
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
+
+  constructor(private fb: FormBuilder,
+              private authService: AuthService,
+              private userService: UserService,
+              private store: Store<AppState>,
+              private router: Router,
+  ) {
+    store.select('token').subscribe(token => {
+      if (token !== undefined) {
+        this.getUserAndRedirect();
+      }
+    });
+    this.buildForm();
+  }
   userInfos: FormGroup;
   submitted = false;
   errors: string[] = [];
@@ -26,18 +40,12 @@ export class RegisterComponent implements OnInit {
   waitingForResponse = false;
   alreadyTakenErrors = false;
 
-  constructor(private fb: FormBuilder,
-              private authService: AuthService,
-              private userService: UserService,
-              private store: Store<AppState>,
-              private router: Router,
-  ) {
-    store.select('token').subscribe(token => {
-      if(token !== undefined) {
-        this.getUserAndRedirect();
-      }
-    });
-    this.buildForm();
+  static checkPasswordConfirmation(formGroup: FormGroup) {
+    const valid = formGroup.value.password === formGroup.value.password_confirmation;
+    if (!valid) {
+      formGroup.controls.password_confirmation.setErrors({confirm: true});
+    }
+    return valid;
   }
 
   ngOnInit() {
@@ -52,7 +60,7 @@ export class RegisterComponent implements OnInit {
     }, { validator: RegisterComponent.checkPasswordConfirmation });
 
     this.userInfos.valueChanges.subscribe(data => {
-      if(this.alreadyTakenErrors) {
+      if (this.alreadyTakenErrors) {
         this.userInfos.controls.username.setErrors(null);
         this.userInfos.controls.email.setErrors(null);
         this.alreadyTakenErrors = false;
@@ -60,20 +68,12 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  static checkPasswordConfirmation(formGroup: FormGroup) {
-    const valid = formGroup.value.password === formGroup.value.password_confirmation;
-    if(!valid) {
-      formGroup.controls.password_confirmation.setErrors({confirm: true})
-    }
-    return valid;
-  }
-
   submitForm() {
-    if(!this.waitingForResponse) {
+    if (!this.waitingForResponse) {
       this.errors = [];
       this.submitted = true;
 
-      if(this.userInfos.valid) {
+      if (this.userInfos.valid) {
         this.waitingForResponse = true;
         const userInfosValue = this.userInfos.value;
         this.userService.register(userInfosValue)
@@ -85,15 +85,15 @@ export class RegisterComponent implements OnInit {
           }, err => {
             if (err.status === 409 && err.error.errors) {
               this.alreadyTakenErrors = true;
-              if(err.error.errors.email) {
+              if (err.error.errors.email) {
                 this.userInfos.controls.email.setErrors({taken: true});
               }
-              if(err.error.errors.username) {
+              if (err.error.errors.username) {
                 this.userInfos.controls.username.setErrors({taken: true});
               }
-            } else if (err.status === 422){
-              if(err.error.password_confirmation) {
-                this.errors.push("The passwords don't match");
+            } else if (err.status === 422) {
+              if (err.error.password_confirmation) {
+                this.errors.push('The passwords don\'t match');
               } else {
                 this.errors.push('Fill the required fields');
               }
@@ -103,7 +103,7 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  storeUserAndGetToken(user: User, userInfosValue: Object) {
+  storeUserAndGetToken(user: User, userInfosValue: object) {
     this.store.dispatch(new UserActions.SetUser(user));
 
     this.authService.getToken(userInfosValue)

@@ -1,9 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import {HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 
-import { AuthInterceptor } from "./http-interceptors/auth-interceptor";
+import { AuthInterceptor } from './http-interceptors/auth-interceptor';
 
 import { AppRoutingModule } from './app-routing.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -17,11 +17,11 @@ import { RegisterComponent } from './auth/register/register.component';
 import { AuthComponent } from './auth/auth.component';
 
 import {ActionReducer, MetaReducer, StoreModule} from '@ngrx/store';
-import {reducers} from "./ngrx/reducers";
+import {reducers} from './ngrx/reducers';
 import { HomeComponent } from './home/home.component';
-import {StoreDevtoolsModule} from "@ngrx/store-devtools";
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import { NavbarComponent } from './navbar/navbar.component';
-import {localStorageSync} from "ngrx-store-localstorage";
+import {localStorageSync} from 'ngrx-store-localstorage';
 import { EventComponent } from './home/event/event.component';
 import { UsersAvatarsComponent } from './shared-components/users-logos/users-avatars.component';
 import { ModalComponent } from './shared-components/modal/modal.component';
@@ -35,10 +35,10 @@ import { VotingItemComponent } from './event/dashboard/voting/voting-item/voting
 import { PlacePollComponent } from './event/dashboard/place-poll/place-poll.component';
 import { DatePollComponent } from './event/dashboard/date-poll/date-poll.component';
 import { ParticipantsListComponent } from './event/dashboard/users-list-module/participants-list.component';
-import {SWIPER_CONFIG, SwiperConfigInterface, SwiperModule} from "ngx-swiper-wrapper";
+import {SWIPER_CONFIG, SwiperConfigInterface, SwiperModule} from 'ngx-swiper-wrapper';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import {HttpErrorsInterceptor} from "./http-interceptors/http-errors-interceptor";
+import {HttpErrorsInterceptor} from './http-interceptors/http-errors-interceptor';
 import { NotFoundComponent } from './not-found/not-found.component';
 
 const STORE_KEYS_TO_PERSIST = ['token', 'user'];

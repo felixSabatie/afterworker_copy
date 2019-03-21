@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {faTimes} from "@fortawesome/free-solid-svg-icons";
+import {faTimes} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-modal',
@@ -8,7 +8,7 @@ import {faTimes} from "@fortawesome/free-solid-svg-icons";
 })
 export class ModalComponent implements OnInit {
   @Input() modalTitle: string;
-  @Input() show: boolean = false;
+  @Input() show = false;
   faTimes = faTimes;
 
   @Output() close = new EventEmitter();

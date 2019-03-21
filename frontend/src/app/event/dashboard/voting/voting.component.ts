@@ -1,13 +1,14 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild} from '@angular/core';
-import {VotingItem} from "../../../models/voting-item.model";
-import {User} from "../../../models/user.model";
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output,
+  SimpleChanges, ViewChild, OnChanges, AfterViewChecked} from '@angular/core';
+import {VotingItem} from '../../../models/voting-item.model';
+import {User} from '../../../models/user.model';
 
 @Component({
   selector: 'app-voting',
   templateUrl: './voting.component.html',
   styleUrls: ['./voting.component.scss']
 })
-export class VotingComponent implements OnInit {
+export class VotingComponent implements OnInit, OnChanges, AfterViewChecked {
   @Input() pollTitle: string;
   @Input() votingItems: VotingItem[];
   @Input() nbParticipants: number;
@@ -28,14 +29,14 @@ export class VotingComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     const votingItemsChange = changes.votingItems;
-    if(votingItemsChange.previousValue && votingItemsChange.currentValue
+    if (votingItemsChange.previousValue && votingItemsChange.currentValue
       && votingItemsChange.previousValue.length < votingItemsChange.currentValue.length) {
       this.scrollToBottomNext = true;
     }
   }
 
   ngAfterViewChecked() {
-    if(this.scrollToBottomNext) {
+    if (this.scrollToBottomNext) {
       this.scrollVotingItemsToBottom();
       this.scrollToBottomNext = false;
     }
@@ -46,7 +47,7 @@ export class VotingComponent implements OnInit {
   }
 
   changeVote(e: boolean, optionId: number) {
-    this.changedVote.emit({optionId: optionId, voted: e});
+    this.changedVote.emit({optionId, voted: e});
   }
 
   chooseItem(optionId: number) {

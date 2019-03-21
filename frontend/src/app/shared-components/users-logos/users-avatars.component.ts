@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {User} from "../../models/user.model";
+import {User} from '../../models/user.model';
 
 @Component({
   selector: 'app-users-logos',
@@ -19,7 +19,7 @@ export class UsersAvatarsComponent implements OnInit {
   }
 
   get usersLeft() {
-    if(this.users.length > this.maxAvatars) {
+    if (this.users.length > this.maxAvatars) {
       return this.users.length - this.maxAvatars;
     } else {
       return 0;

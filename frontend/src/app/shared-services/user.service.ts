@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {environment} from "../../environments/environment";
-import {User} from "../models/user.model";
-import {Observable} from "rxjs";
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../environments/environment';
+import {User} from '../models/user.model';
+import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 @Injectable({
@@ -17,7 +17,7 @@ export class UserService {
       .pipe(map(response => response.user));
   }
 
-  register(userInfos: Object): Observable<User> {
+  register(userInfos: object): Observable<User> {
     return this.http.post<any>(environment.baseUrl + '/users', {user: userInfos})
       .pipe(map(response => response.user));
   }
