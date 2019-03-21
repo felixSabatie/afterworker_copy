@@ -10,6 +10,7 @@ services:
       - POSTGRES_DB=afterworker
       - POSTGRES_USER=afterworker
       - POSTGRES_PASSWORD=afterworker
+
   rails:
     build:
       context: ..
@@ -22,3 +23,15 @@ services:
       - "3000:3000"
     depends_on:
       - db
+  
+  express:
+    image: node:11
+    volumes:
+      - ../rt-service:/app
+    environment:
+      - PORT=8080
+    command: bash -c "cd /app && npm i && npm start"
+    ports:
+      - 8080:8080
+    depends_on:
+      - rails
