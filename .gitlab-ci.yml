@@ -1,14 +1,22 @@
-image: docker
-
 services:
   - docker:dind
 
 stages:
   - test
   - deploy
-    
+
+lint:
+  stage: test
+  image: node:11
+  script:
+    - cd frontend
+    - npm i
+    - ng lint
+  allow_failure: true
+
 test:
   stage: test
+  image: docker
   before_script:
     - apk add --no-cache py-pip
     - pip install docker-compose
