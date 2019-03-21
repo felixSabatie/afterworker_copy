@@ -41,7 +41,7 @@ services:
       - ../rt-service:/app
     environment:
       - PORT=8080
-    command: bash -c "cd /app && npm i && npm start"
+    command: bash -c "cd /app && npm i && npm run dev"
     ports:
       - 8080:8080
     depends_on:

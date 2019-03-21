@@ -26,7 +26,7 @@ test:
     - docker-compose build
     - docker-compose run -e MASTER_KEY rails bash scripts/tests.sh
     
-deploy:
+deploy-rails:
   image: ruby:2.5.3
   stage: deploy
   only:
@@ -43,3 +43,20 @@ deploy:
   script:
     - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_API_KEY
     - heroku run rails db:migrate --exit-code --app afterworker
+
+deploy-rt-service:
+  image: ruby:2.5.3
+  stage: deploy
+  only:
+    refs:
+      - master
+  variables:
+    HEROKU_APP_NAME: afterworker-realtime
+  before_script:
+    - echo "deb http://toolbelt.heroku.com/ubuntu ./" > /etc/apt/sources.list.d/heroku.list
+    - wget -O- https://toolbelt.heroku.com/apt/release.key | apt-key add -
+    - apt-get update
+    - apt-get install -y heroku-toolbelt
+    - gem install dpl
+  script:
+    - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_API_KEY
