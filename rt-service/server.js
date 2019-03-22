@@ -8,7 +8,7 @@ const port = process.env.PORT || 8080;
 
 // CORS
 app.use(function (req, res, next) {
-    var allowedOrigins = ['http://localhost:4200', 'https://afterworker.herokuapp.com'];
+    var allowedOrigins = ['http://localhost:4200', 'http://localhost:3000', 'https://afterworker.herokuapp.com'];
     var origin = req.headers.origin;
     if (allowedOrigins.indexOf(origin) > -1) {
         res.setHeader('Access-Control-Allow-Origin', origin);
@@ -21,15 +21,6 @@ app.use(function (req, res, next) {
 
 DatabaseService.connect(db => {
     require('./handlers/messages.handler')(http, db);
-
-    app.get('/', (req, res) => {
-        // db.collection('messages').insert({userId: 2, message: 'Test message'}, (err, records) => {
-        //     if (err) return res.json({error: err});
-            db.collection('messages').find().toArray((err, result) => {
-                res.json({messages: result});
-            });
-        // });
-    })
 });
 
 http.listen(port);
