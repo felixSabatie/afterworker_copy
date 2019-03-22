@@ -46,7 +46,7 @@ export class ChatComponent implements OnInit {
     this.formMessage.createdAt = new Date();
     this.chatService.sendMessage(this.formMessage);
 
-    this.addMessageToList(this.formMessage);
+    this.addMessageToList({...this.formMessage});
 
     this.formMessage.message = '';
   }

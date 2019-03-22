@@ -1,4 +1,6 @@
-<div class="message">
-  <div class="author" *ngIf="!isCreator">{{ message.creator.username }}</div>
-  <div class="content">{{ message.message }}</div>
+<div class="message-wrapper" [class.is-creator]="isCreator">
+  <div class="message">
+    <div class="author" *ngIf="!isCreator">{{ message.creator.username }}</div>
+    <div class="content">{{ message.message }}</div>
+  </div>
 </div>

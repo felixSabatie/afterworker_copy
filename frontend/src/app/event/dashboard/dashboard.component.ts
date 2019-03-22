@@ -5,7 +5,7 @@ import { Event } from '../../models/event.model';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../ngrx/app.state';
 import {User} from '../../models/user.model';
-import { faMapMarkerAlt, faCalendarAlt, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faMapMarkerAlt, faCalendarAlt, faUsers, faComments } from '@fortawesome/free-solid-svg-icons';
 import { PlacePollService } from './place-poll/place-poll.service';
 import { DatePollService } from './date-poll/date-poll.service';
 import { PlacePollOption } from 'src/app/models/place-poll-option.model';
@@ -23,7 +23,7 @@ export class DashboardComponent implements OnInit {
   notFound = false;
   currentUser: User;
 
-  navItems = [faMapMarkerAlt, faCalendarAlt, faUsers];
+  navItems = [faComments, faMapMarkerAlt, faCalendarAlt, faUsers];
 
   currentSwiperIndex = 0;
 
