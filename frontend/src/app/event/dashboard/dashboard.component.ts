@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, HostListener} from '@angular/core';
 import {EventService} from '../../shared-services/event.service';
 import {ActivatedRoute} from '@angular/router';
 import { Event } from '../../models/event.model';
@@ -27,12 +27,17 @@ export class DashboardComponent implements OnInit {
 
   currentSwiperIndex = 0;
 
+  mobile = false;
+
   constructor(private eventService: EventService, private placePollService: PlacePollService, private datePollService: DatePollService,
-              private route: ActivatedRoute, private store: Store<AppState>, ) {
+              private route: ActivatedRoute, private store: Store<AppState>) {
+    this.checkIfMobile();
+
     this.store.select('user').subscribe(user => {
       this.currentUser = user;
       this.fecthingUser = false;
     });
+
     this.eventService.getEvent(this.route.snapshot.params.hash).subscribe((event: Event) => {
       this.event = event;
       this.fetchingEvent = false;
@@ -42,6 +47,11 @@ export class DashboardComponent implements OnInit {
         this.fetchingEvent = false;
       }
     });
+  }
+
+  @HostListener('window:resize', ['$event'])
+  checkIfMobile() {
+    this.mobile = window.innerWidth <= 768;
   }
 
   ngOnInit() {
