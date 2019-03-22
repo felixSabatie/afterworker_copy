@@ -42,6 +42,7 @@ import {HttpErrorsInterceptor} from './http-interceptors/http-errors-interceptor
 import { NotFoundComponent } from './not-found/not-found.component';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { ChatComponent } from './event/dashboard/chat/chat.component';
+import { MessageComponent } from './event/dashboard/chat/message/message.component';
 
 const socketioConfig: SocketIoConfig = { url: environment.rtUrl, options: {} }
 
@@ -84,6 +85,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     ParticipantsListComponent,
     NotFoundComponent,
     ChatComponent,
+    MessageComponent,
   ],
   imports: [
     BrowserModule,

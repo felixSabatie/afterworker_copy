@@ -1,12 +1,14 @@
-<div *ngFor="let message of messages">
-  {{ message.message }}
-</div>
-
-<form (ngSubmit)="sendMessage()" class="inline-form">
-  <div class="input">
-    <div class="input">
-      <input type="text" [(ngModel)]="formMessage.message" name="message" placeholder="type a message..." required>
-    </div>
+<div class="chat">
+  <div class="messages">
+      <app-message *ngFor="let message of messages" [message]="message"></app-message>
   </div>
-  <button class="btn">Send</button>
-</form>
+  
+  <form (ngSubmit)="sendMessage()" class="inline-form">
+    <div class="input">
+      <div class="input">
+        <input type="text" [(ngModel)]="formMessage.message" name="message" placeholder="type a message..." required>
+      </div>
+    </div>
+    <button class="btn">Send</button>
+  </form>
+</div>
