@@ -44,7 +44,7 @@ import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { ChatComponent } from './event/dashboard/chat/chat.component';
 import { MessageComponent } from './event/dashboard/chat/message/message.component';
 
-const socketioConfig: SocketIoConfig = { url: environment.rtUrl, options: {} }
+const socketioConfig: SocketIoConfig = { url: environment.rtUrl, options: {} };
 
 const STORE_KEYS_TO_PERSIST = ['token', 'user'];
 
