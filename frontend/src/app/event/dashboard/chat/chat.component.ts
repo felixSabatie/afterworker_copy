@@ -13,6 +13,9 @@ export class ChatComponent implements OnInit {
   @Input() event: Event;
   @Input() currentUser: User;
   messages: Message[];
+  formMessage: Message = {
+    message: ''
+  } as Message;
 
   constructor(private chatService: ChatService) {
   }
@@ -22,6 +25,14 @@ export class ChatComponent implements OnInit {
     this.chatService.getMessages().subscribe((messages: Message[]) => {
       this.messages = messages;
     });
+    this.chatService.getNewMessage().subscribe((message: Message) => {
+      this.messages.push(message);
+    });
+  }
+
+  sendMessage() {
+    this.chatService.sendMessage(this.formMessage);
+    this.formMessage.message = '';
   }
 
 }

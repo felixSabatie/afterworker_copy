@@ -18,8 +18,20 @@ export class ChatService {
 
   getMessages(): Observable<Message[]> {
     return Observable.create(observer => {
-      this.socket.on('messages', (messages: Message[]) => {
-        observer.next(messages);
+      this.socket.on('messages', payload => {
+        observer.next(payload.messages);
+      });
+    });
+  }
+
+  sendMessage(message: Message) {
+    this.socket.emit('newMessage', message);
+  }
+
+  getNewMessage(): Observable<Message> {
+    return Observable.create(observer => {
+      this.socket.on('newMessage', payload => {
+        observer.next(payload.message);
       });
     });
   }
