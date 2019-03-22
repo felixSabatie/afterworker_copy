@@ -30,6 +30,7 @@
     "core-js": "^2.5.4",
     "ng-pick-datetime": "^7.0.0",
     "ngrx-store-localstorage": "^7.0.0",
+    "ngx-socket-io": "^2.1.1",
     "ngx-swiper-wrapper": "^7.2.1",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
