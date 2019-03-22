@@ -1,6 +1,7 @@
 <div class="chat">
   <div class="messages">
-      <app-message *ngFor="let message of messages" [message]="message"></app-message>
+      <app-message *ngFor="let message of messages" [message]="message" 
+        [isCreator]="message.creator.id === currentUser.id"></app-message>
   </div>
   
   <form (ngSubmit)="sendMessage()" class="inline-form">

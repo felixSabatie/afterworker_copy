@@ -8,6 +8,7 @@ import { Message } from 'src/app/models/message.model';
 })
 export class MessageComponent implements OnInit {
   @Input() message: Message;
+  @Input() isCreator: boolean;
 
   constructor() { }
 
