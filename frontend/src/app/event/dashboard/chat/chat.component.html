@@ -2,7 +2,7 @@
   <h4 class="title">Discussion</h4>
 
   <div class="messages-container">
-    <div class="messages">
+    <div class="messages" #messagesScrollable>
       <app-message *ngFor="let message of messages" [message]="message" 
         [isCreator]="message.creator.id === currentUser.id"></app-message>
     </div>

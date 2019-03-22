@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { Event } from 'src/app/models/event.model';
 import { ChatService } from './chat.service';
@@ -9,14 +9,19 @@ import { Message } from 'src/app/models/message.model';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss']
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, AfterViewChecked {
   @Input() event: Event;
   @Input() currentUser: User;
+
+  @ViewChild('messagesScrollable') private messagesScrollable: ElementRef;
+
   messages: Message[] = [];
   formMessage: Message = {
     message: ''
   } as Message;
   participants: Map<number, User>;
+
+  scrollToBottomNext = false;
 
   constructor(private chatService: ChatService) {
   }
@@ -33,6 +38,7 @@ export class ChatComponent implements OnInit {
     });
 
     this.formMessage.creator = this.currentUser;
+    this.scrollToBottomNext = true;
   }
 
   addMessageToList(message: Message) {
@@ -40,6 +46,7 @@ export class ChatComponent implements OnInit {
       message.creator = this.participants.get(message.creator_id);
     }
     this.messages.push(message);
+    this.scrollToBottomNext = true;
   }
 
   sendMessage() {
@@ -49,6 +56,17 @@ export class ChatComponent implements OnInit {
     this.addMessageToList({...this.formMessage});
 
     this.formMessage.message = '';
+  }
+
+  ngAfterViewChecked() {
+    if (this.scrollToBottomNext) {
+      this.scrollMessagesToBottom();
+      this.scrollToBottomNext = false;
+    }
+  }
+
+  scrollMessagesToBottom() {
+    this.messagesScrollable.nativeElement.scrollTop = this.messagesScrollable.nativeElement.scrollHeight;
   }
 
 }
