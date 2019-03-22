@@ -40,6 +40,11 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import {HttpErrorsInterceptor} from './http-interceptors/http-errors-interceptor';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { ChatComponent } from './event/dashboard/chat/chat.component';
+import { MessageComponent } from './event/dashboard/chat/message/message.component';
+
+const socketioConfig: SocketIoConfig = { url: environment.rtUrl, options: {} };
 
 const STORE_KEYS_TO_PERSIST = ['token', 'user'];
 
@@ -79,6 +84,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     DatePollComponent,
     ParticipantsListComponent,
     NotFoundComponent,
+    ChatComponent,
+    MessageComponent,
   ],
   imports: [
     BrowserModule,
@@ -96,6 +103,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     FormsModule,
     SwiperModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    SocketIoModule.forRoot(socketioConfig),
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true

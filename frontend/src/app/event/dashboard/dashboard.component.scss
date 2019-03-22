@@ -58,8 +58,9 @@
         box-sizing: border-box;
         padding: 0 0 50px 50px;
         display: grid;
-        grid-template:  ". placepoll participantslist placeholder"
-        ". datepoll . placeholder";
+        grid-template:
+        "chat placepoll participantslist placeholder"
+        "chat datepoll . placeholder";
         grid-template-columns: 380px 380px 275px 10px;
         grid-template-rows: repeat(2, 1fr);
         grid-gap: 40px;
@@ -75,6 +76,10 @@
 
         .participants-list {
           grid-area: participantslist;
+        }
+
+        .chat {
+          grid-area: chat;
         }
 
         .place-holder {

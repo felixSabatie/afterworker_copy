@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, HostListener} from '@angular/core';
 import {EventService} from '../../shared-services/event.service';
 import {ActivatedRoute} from '@angular/router';
 import { Event } from '../../models/event.model';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../ngrx/app.state';
 import {User} from '../../models/user.model';
-import { faMapMarkerAlt, faCalendarAlt, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faMapMarkerAlt, faCalendarAlt, faUsers, faComments } from '@fortawesome/free-solid-svg-icons';
 import { PlacePollService } from './place-poll/place-poll.service';
 import { DatePollService } from './date-poll/date-poll.service';
 import { PlacePollOption } from 'src/app/models/place-poll-option.model';
@@ -20,19 +20,31 @@ export class DashboardComponent implements OnInit {
   event: Event;
   fetchingEvent = true;
   fecthingUser = true;
+  fecthingToken = true;
   notFound = false;
   currentUser: User;
+  userToken: string;
 
-  navItems = [faMapMarkerAlt, faCalendarAlt, faUsers];
+  navItems = [faComments, faMapMarkerAlt, faCalendarAlt, faUsers];
 
   currentSwiperIndex = 0;
 
+  mobile = false;
+
   constructor(private eventService: EventService, private placePollService: PlacePollService, private datePollService: DatePollService,
               private route: ActivatedRoute, private store: Store<AppState>) {
-    store.select('user').subscribe(user => {
+    this.checkIfMobile();
+
+    this.store.select('user').subscribe(user => {
       this.currentUser = user;
       this.fecthingUser = false;
     });
+
+    this.store.select('token').subscribe(token => {
+      this.userToken = token;
+      this.fecthingToken = false;
+    });
+
     this.eventService.getEvent(this.route.snapshot.params.hash).subscribe((event: Event) => {
       this.event = event;
       this.fetchingEvent = false;
@@ -42,6 +54,11 @@ export class DashboardComponent implements OnInit {
         this.fetchingEvent = false;
       }
     });
+  }
+
+  @HostListener('window:resize', ['$event'])
+  checkIfMobile() {
+    this.mobile = window.innerWidth <= 768;
   }
 
   ngOnInit() {
