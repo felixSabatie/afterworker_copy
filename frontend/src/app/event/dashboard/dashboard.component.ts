@@ -28,8 +28,8 @@ export class DashboardComponent implements OnInit {
   currentSwiperIndex = 0;
 
   constructor(private eventService: EventService, private placePollService: PlacePollService, private datePollService: DatePollService,
-              private route: ActivatedRoute, private store: Store<AppState>) {
-    store.select('user').subscribe(user => {
+              private route: ActivatedRoute, private store: Store<AppState>, ) {
+    this.store.select('user').subscribe(user => {
       this.currentUser = user;
       this.fecthingUser = false;
     });
