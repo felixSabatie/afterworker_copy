@@ -12,6 +12,7 @@ import { Message } from 'src/app/models/message.model';
 export class ChatComponent implements OnInit, AfterViewChecked {
   @Input() event: Event;
   @Input() currentUser: User;
+  @Input() userToken: string;
 
   @ViewChild('messagesScrollable') private messagesScrollable: ElementRef;
 
@@ -29,7 +30,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
   ngOnInit() {
     this.participants = new Map(this.event.participants.map((user): [number, User] => [user.id, user]));
 
-    this.chatService.connectToEvent(this.event, this.currentUser);
+    this.chatService.connectToEvent(this.event, this.currentUser, this.userToken);
     this.chatService.getMessages().subscribe((messages: Message[]) => {
       messages.forEach(message => this.addMessageToList(message));
     });

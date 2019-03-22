@@ -20,8 +20,10 @@ export class DashboardComponent implements OnInit {
   event: Event;
   fetchingEvent = true;
   fecthingUser = true;
+  fecthingToken = true;
   notFound = false;
   currentUser: User;
+  userToken: string;
 
   navItems = [faComments, faMapMarkerAlt, faCalendarAlt, faUsers];
 
@@ -36,6 +38,11 @@ export class DashboardComponent implements OnInit {
     this.store.select('user').subscribe(user => {
       this.currentUser = user;
       this.fecthingUser = false;
+    });
+
+    this.store.select('token').subscribe(token => {
+      this.userToken = token;
+      this.fecthingToken = false;
     });
 
     this.eventService.getEvent(this.route.snapshot.params.hash).subscribe((event: Event) => {

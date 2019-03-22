@@ -6,7 +6,7 @@
   <div *ngIf="!fetchingEvent && !fecthingUser && !notFound" class="dashboard-content">
     <h1 class="title">{{ event.name }}</h1>
     <div class="modules desktop-only" *ngIf="!mobile">
-      <app-chat class="module chat" [event]="event" [currentUser]="currentUser"></app-chat>
+      <app-chat class="module chat" [event]="event" [currentUser]="currentUser" [userToken]="userToken"></app-chat>
       <app-place-poll class="module place-poll" [event]="event" [currentUser]="currentUser" [isAdmin]="isAdmin"
         (chosePlace)="choosePlace($event)" (deletedChosenPlace)="deleteChosenPlace()" (createdPlace)="addPlace($event)"></app-place-poll>
       <app-date-poll class="module date-poll" [event]="event" [currentUser]="currentUser" [isAdmin]="isAdmin"
@@ -17,7 +17,7 @@
 
     <div class="modules mobile-only" *ngIf="mobile">
       <swiper [(index)]="currentSwiperIndex" (indexChange)="swiperIndexChanged($event)">
-        <app-chat class="module chat" [event]="event" [currentUser]="currentUser"></app-chat>
+        <app-chat class="module chat" [event]="event" [currentUser]="currentUser" [userToken]="userToken"></app-chat>
         <app-place-poll class="module place-poll" [event]="event" [currentUser]="currentUser" [isAdmin]="isAdmin"
           (chosePlace)="choosePlace($event)" (deletedChosenPlace)="deleteChosenPlace()" (createdPlace)="addPlace($event)"></app-place-poll>
         <app-date-poll class="module date-poll" [event]="event" [currentUser]="currentUser" [isAdmin]="isAdmin"

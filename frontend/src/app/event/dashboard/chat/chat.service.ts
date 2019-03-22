@@ -12,8 +12,8 @@ export class ChatService {
 
   constructor(private socket: Socket) { }
 
-  connectToEvent(event: Event, user: User) {
-    this.socket.emit('connectToEvent', {event: {hash: event.event_hash}, user: {id: user.id}});
+  connectToEvent(event: Event, user: User, token: string) {
+    this.socket.emit('connectToEvent', {event: {hash: event.event_hash}, user: {id: user.id}, token});
   }
 
   getMessages(): Observable<Message[]> {

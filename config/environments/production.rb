@@ -82,4 +82,12 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Allow cors for rt service
+  config.middleware.insert_before 0, Rack::Cors do
+    allow do
+      origins 'https://afterworker-realtime.herokuapp.com'
+      resource '*', :headers => :any, :methods => [:get]
+    end
+  end
 end
