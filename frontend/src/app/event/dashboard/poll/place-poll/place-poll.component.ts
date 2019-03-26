@@ -9,7 +9,7 @@ import {PlacePollOption} from '../../../../models/place-poll-option.model';
 @Component({
   selector: 'app-place-poll',
   templateUrl: './place-poll.component.html',
-  styleUrls: ['./place-poll.component.scss']
+  styleUrls: ['./place-poll.component.scss', '../poll.scss']
 })
 export class PlacePollComponent implements OnInit {
   @Input() event: Event;

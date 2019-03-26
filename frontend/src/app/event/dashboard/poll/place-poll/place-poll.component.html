@@ -1,4 +1,4 @@
-<div class="place-poll">
+<div class="place-poll poll">
   <app-voting *ngIf="event.chosen_place === undefined" itemType="place"
               pollTitle="Place poll" [votingItems]="placePollVotingItems" [isAdmin]="isAdmin"
               [nbParticipants]="event.participants.length" [currentUser]="currentUser"
@@ -17,8 +17,8 @@
     </form>
   </app-voting>
 
-  <div class="chosen-place-container" *ngIf="event.chosen_place !== undefined">
-    <div class="chosen-place">
+  <div class="chosen-item-container" *ngIf="event.chosen_place !== undefined">
+    <div class="chosen-item">
       <fa-icon [icon]="faMapMarkerAlt" class="icon"></fa-icon>
       <div class="place-name">{{ event.chosen_place.name }}</div>
     </div>

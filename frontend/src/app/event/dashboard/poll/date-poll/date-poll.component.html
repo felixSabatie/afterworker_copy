@@ -1,4 +1,4 @@
-<div class="date-poll">
+<div class="date-poll poll">
 
   <app-voting *ngIf="event.chosen_date === undefined" itemType="date"
               pollTitle="Date poll" [votingItems]="datePollVotingItems" [isAdmin]="isAdmin"
@@ -20,8 +20,8 @@
     </form>
   </app-voting>
 
-  <div class="chosen-date-container" *ngIf="event.chosen_date !== undefined">
-    <div class="chosen-date">
+  <div class="chosen-item-container" *ngIf="event.chosen_date !== undefined">
+    <div class="chosen-item">
       <fa-icon [icon]="faCalendarAlt" class="icon"></fa-icon>
       <div class="date">{{ event.chosen_date.date | date: 'LLL dd yyyy, HH:mm' }}</div>
     </div>

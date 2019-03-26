@@ -10,7 +10,7 @@ import {DatePollOption} from '../../../../models/date-poll-option.model';
 @Component({
   selector: 'app-date-poll',
   templateUrl: './date-poll.component.html',
-  styleUrls: ['./date-poll.component.scss']
+  styleUrls: ['./date-poll.component.scss', '../poll.scss']
 })
 export class DatePollComponent implements OnInit {
   @Input() event: Event;
