@@ -5,7 +5,7 @@
     display: flex;
     flex-direction: column;
 
-    .content {
+    .message-content {
         background-color: $darkerAppBackgroundColor;
     }
 
@@ -18,7 +18,7 @@
             margin-bottom: 5px;
             padding-left: 5px;
         }
-        .content {
+        .message-content {
             display: inline-block;
             padding: 7px 13px;
             border-radius: 10px;
@@ -28,7 +28,7 @@
     &.is-creator {
         align-items: flex-end;
 
-        .content {
+        .message-content {
             background-color: $accentColorLight;
             color: $accentContrastColor;
         }

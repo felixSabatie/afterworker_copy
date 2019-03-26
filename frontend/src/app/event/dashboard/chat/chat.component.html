@@ -1,8 +1,8 @@
-<div class="chat">
+<div class="chat module-content">
   <h4 class="title">Discussion</h4>
 
-  <div class="messages-container">
-    <div class="messages" #messagesScrollable>
+  <div class="messages-container content-container">
+    <div class="messages content" #messagesScrollable>
       <app-message *ngFor="let message of messages" [message]="message" 
         [isCreator]="message.creator.id === currentUser.id"></app-message>
     </div>

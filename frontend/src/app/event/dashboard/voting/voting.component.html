@@ -1,7 +1,7 @@
-<div class="voting">
+<div class="voting module-content">
   <h4 class="title">{{pollTitle}}</h4>
-  <div class="voting-items-container">
-    <div class="voting-items" #votingItemsScrollable>
+  <div class="voting-items-container content-container">
+    <div class="voting-items content" #votingItemsScrollable>
       <app-voting-item *ngFor="let votingItem of votingItems" [nbParticipants]="nbParticipants" 
                        [currentUser]="currentUser" [isAdmin]="isAdmin" [itemType]="itemType"
                        [votingItem]="votingItem" (changedVote)="changeVote($event, votingItem.id)"
