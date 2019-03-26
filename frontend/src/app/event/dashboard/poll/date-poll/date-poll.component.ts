@@ -1,11 +1,11 @@
 import {Component, Inject, Input, LOCALE_ID, OnInit, Output, EventEmitter} from '@angular/core';
-import {Event} from '../../../models/event.model';
-import {User} from '../../../models/user.model';
-import {VotingItem} from '../../../models/voting-item.model';
+import {Event} from '../../../../models/event.model';
+import {User} from '../../../../models/user.model';
+import {VotingItem} from '../../../../models/voting-item.model';
 import {faCalendarAlt} from '@fortawesome/free-solid-svg-icons';
 import {DatePollService} from './date-poll.service';
 import {formatDate} from '@angular/common';
-import {DatePollOption} from '../../../models/date-poll-option.model';
+import {DatePollOption} from '../../../../models/date-poll-option.model';
 
 @Component({
   selector: 'app-date-poll',

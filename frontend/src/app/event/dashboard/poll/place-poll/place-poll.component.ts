@@ -1,10 +1,10 @@
 import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
-import {Event} from '../../../models/event.model';
-import {VotingItem} from '../../../models/voting-item.model';
+import {Event} from '../../../../models/event.model';
+import {VotingItem} from '../../../../models/voting-item.model';
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
-import {User} from '../../../models/user.model';
+import {User} from '../../../../models/user.model';
 import {PlacePollService} from './place-poll.service';
-import {PlacePollOption} from '../../../models/place-poll-option.model';
+import {PlacePollOption} from '../../../../models/place-poll-option.model';
 
 @Component({
   selector: 'app-place-poll',

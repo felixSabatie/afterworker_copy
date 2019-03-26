@@ -6,8 +6,8 @@ import {Store} from '@ngrx/store';
 import {AppState} from '../../ngrx/app.state';
 import {User} from '../../models/user.model';
 import { faMapMarkerAlt, faCalendarAlt, faUsers, faComments } from '@fortawesome/free-solid-svg-icons';
-import { PlacePollService } from './place-poll/place-poll.service';
-import { DatePollService } from './date-poll/date-poll.service';
+import { PlacePollService } from './poll/place-poll/place-poll.service';
+import { DatePollService } from './poll/date-poll/date-poll.service';
 import { PlacePollOption } from 'src/app/models/place-poll-option.model';
 import { DatePollOption } from 'src/app/models/date-poll-option.model';
 
