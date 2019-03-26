@@ -7,7 +7,7 @@
       <div class="input">
         <div class="input-with-icon">
           <fa-icon class="icon" [icon]="faMapMarkerAlt"></fa-icon>
-          <input type="text" [(ngModel)]="placeName" name="place_name" placeholder="suggest a place" required>
+          <input type="text" [(ngModel)]="placeName" name="place_name" placeholder="suggest a place" autocomplete="off" required>
         </div>
       </div>
       <button class="btn" [disabled]="waitingForResponse">

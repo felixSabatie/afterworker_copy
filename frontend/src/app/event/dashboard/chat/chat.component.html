@@ -10,7 +10,7 @@
   
   <form (ngSubmit)="sendMessage()" class="inline-form">
     <div class="input">
-      <input type="text" [(ngModel)]="formMessage.message" name="message" placeholder="type a message..." required>
+      <input type="text" [(ngModel)]="formMessage.message" name="message" placeholder="type a message..." autocomplete="off" required>
     </div>
     <button class="btn">Send</button>
   </form>
