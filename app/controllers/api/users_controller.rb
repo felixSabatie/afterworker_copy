@@ -41,6 +41,15 @@ module Api
       render_json(current_user, true)
     end
 
+    def search
+      unless params[:username].blank?
+        users = User.where('username LIKE ? AND id <> ?', "#{params[:username]}%", current_user.id).limit(5)
+        render json: {users: users}, except: [:password_digest]
+      else
+        render status: 400, json: {error: 'bad request'}
+      end
+    end
+
     private
 
     def set_user

@@ -258,7 +258,7 @@ RSpec.describe Api::UsersController, type: :controller do
 
         add_authenticated_header(request, user)
 
-        get :search, params: {name: "test"}
+        get :search, params: {username: ""}
         expect(response).to have_http_status(400)
       end
     end

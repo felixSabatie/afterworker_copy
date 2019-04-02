@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   namespace :api do
     post 'user_token' => 'user_token#create'
     get '/users/current' => 'users#current'
+    get '/users/search/:username' => 'users#search'
     resources :users, only: [:create, :show]
 
     resources :events, only: [:index, :create]
