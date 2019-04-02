@@ -84,6 +84,15 @@ module Api
            }
        },
        {
+          invites: {
+            include: [{
+                user: {
+                    except: [:password_digest]
+                }
+            }]
+          }
+      },
+       {
            place_poll_options: {
                include: [{
                              voters: {
