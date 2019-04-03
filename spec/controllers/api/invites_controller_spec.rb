@@ -153,29 +153,151 @@ RSpec.describe Api::InvitesController, type: :controller do
   
   describe 'POST #accept' do
     context 'valid params' do
+      before do
+        user = create(:user)
+        @user2 = create(:user)
+        @event = create(:event, creator: user)
 
+        @invite = create(:invite, user: @user2, event: @event)
+
+        add_authenticated_header(request, @user2)
+
+        post :accept, params: {id: @invite.id}
+
+        @json = JSON.parse(response.body)
+      end
+
+      it 'should return 200' do
+        expect(response).to have_http_status(200)
+      end
+
+      it 'should add the user to the event' do
+        @event.reload
+        user_in_event = @event.participants.any? {|user| user.id === @user2.id }
+
+        expect(user_in_event).to eql(true)
+      end
+
+      it 'should delete the invite' do
+        expect(Invite.exists?(@invite)).to eql(false)
+      end
     end
 
     context 'invalid params' do
+      it 'should return 404 when the invite does not exist' do
+        user = create(:user)
+        user2 = create(:user)
+        event = create(:event, creator: user)
 
+        invite = create(:invite, user: user2, event: event)
+
+        add_authenticated_header(request, user2)
+
+        post :accept, params: {id: invite.id + 1}
+        expect(response).to have_http_status(404)
+      end
     end
 
     context 'unauthorized' do
+      it 'should return 404 when the user cannot access this invite' do
+        user = create(:user)
+        user2 = create(:user)
+        user3 = create(:user)
+        event = create(:event, creator: user)
 
+        invite = create(:invite, user: user2, event: event)
+
+        add_authenticated_header(request, user3)
+
+        post :accept, params: {id: invite.id}
+        expect(response).to have_http_status(404)
+      end
+
+      it 'should return 401 when the user is not logged in' do
+        user = create(:user)
+        user2 = create(:user)
+        event = create(:event, creator: user)
+
+        invite = create(:invite, user: user2, event: event)
+
+        post :accept, params: {id: invite.id}
+        expect(response).to have_http_status(401)
+      end
     end
   end
 
   describe 'POST #refuse' do
     context 'valid params' do
+      before do
+        user = create(:user)
+        @user2 = create(:user)
+        @event = create(:event, creator: user)
 
+        @invite = create(:invite, user: @user2, event: @event)
+
+        add_authenticated_header(request, @user2)
+
+        post :refuse, params: {id: @invite.id}
+
+        @json = JSON.parse(response.body)
+      end
+
+      it 'should return 200' do
+        expect(response).to have_http_status(200)
+      end
+
+      it 'should not add the user to the event' do
+        @event.reload
+        user_in_event = @event.participants.any? {|user| user.id === @user2.id }
+
+        expect(user_in_event).to eql(false)
+      end
+
+      it 'should delete the invite' do
+        expect(Invite.exists?(@invite)).to eql(false)
+      end
     end
 
     context 'invalid params' do
+      it 'should return 404 when the invite does not exist' do
+        user = create(:user)
+        user2 = create(:user)
+        event = create(:event, creator: user)
 
+        invite = create(:invite, user: user2, event: event)
+
+        add_authenticated_header(request, user2)
+
+        post :refuse, params: {id: invite.id + 1}
+        expect(response).to have_http_status(404)
+      end
     end
 
     context 'unauthorized' do
+      it 'should return 404 when the user cannot access this invite' do
+        user = create(:user)
+        user2 = create(:user)
+        user3 = create(:user)
+        event = create(:event, creator: user)
 
+        invite = create(:invite, user: user2, event: event)
+
+        add_authenticated_header(request, user3)
+
+        post :refuse, params: {id: invite.id}
+        expect(response).to have_http_status(404)
+      end
+
+      it 'should return 401 when the user is not logged in' do
+        user = create(:user)
+        user2 = create(:user)
+        event = create(:event, creator: user)
+
+        invite = create(:invite, user: user2, event: event)
+
+        post :refuse, params: {id: invite.id}
+        expect(response).to have_http_status(401)
+      end
     end
   end
 end
