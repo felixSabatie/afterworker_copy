@@ -33,6 +33,21 @@ RSpec.describe Api::InvitesController, type: :controller do
       end
     end
 
+    context 'already invited' do
+      it 'should refuse to create because invite already exists' do
+        user = create(:user)
+        @user2 = create(:user)
+        event = create(:event, creator: user)
+        invite = create(:invite, user: @user2, event: event)
+
+        add_authenticated_header(request, user)
+        post :create, params: {hash: event.event_hash, user_id: @user2.id}
+
+        expect(response).to have_http_status(400)
+        expect(Invite.count).to eql(1)
+      end
+    end
+
     context 'invalid params' do
       it 'should return 404 when the event does not exist' do
         user = create(:user)
@@ -87,11 +102,52 @@ RSpec.describe Api::InvitesController, type: :controller do
 
   describe 'GET #index' do
     context 'valid request' do
+      before do
+        user = create(:user)
+        user2 = create(:user)
+        user3 = create(:user)
+        event = create(:event, creator: user)
+        event2 = create(:event, creator: user)
 
+        invite = create(:invite, user: user2, event: event)
+        invite2 = create(:invite, user: user2, event: event2)
+        invite3 = create(:invite, user: user3, event: event)
+
+        add_authenticated_header(request, user2)
+
+        get :index
+
+        @json = JSON.parse(response.body)
+      end
+
+      it 'should return the two invites' do
+        expect(response).to have_http_status(200)
+        expect(json['invites'].length).to eql(2)
+      end
+
+      it 'should return the invite\'s event' do
+        expect(json['invites'][0]['event']['id']).to be_truthy
+      end
+
+      it 'shouldn\'t return the user' do
+        expect(json['invites'][0]['user']).not_to be_truthy
+      end
     end
 
     context 'unauthorized' do
+      it 'should return 401 unauthorized' do
+        user = create(:user)
+        user2 = create(:user)
+        event = create(:event, creator: user)
+        event2 = create(:event, creator: user)
 
+        invite = create(:invite, user: user2, event: event)
+        invite2 = create(:invite, user: user2, event: event)
+
+        get :index
+
+        expect(response).to have_http_status(401)
+      end
     end
   end
   
