@@ -12,6 +12,7 @@
       <app-date-poll class="module date-poll" [event]="event" [currentUser]="currentUser" [isAdmin]="isAdmin"
         (choseDate)="chooseDate($event)" (deletedChosenDate)="deleteChosenDate()" (createdDate)="addDate($event)"></app-date-poll>
       <app-participants-list class="module participants-list" [event]="event"></app-participants-list>
+      <app-invites class="module invites" [event]="event"></app-invites>
       <div class="place-holder"></div>
     </div>
 
@@ -23,6 +24,7 @@
         <app-date-poll class="module date-poll" [event]="event" [currentUser]="currentUser" [isAdmin]="isAdmin"
           (choseDate)="chooseDate($event)" (deletedChosenDate)="deleteChosenDate()" (createdDate)="addDate($event)"></app-date-poll>
         <app-participants-list class="module participants-list" [event]="event"></app-participants-list>
+        <app-invites class="module invites" [event]="event"></app-invites>
       </swiper>
     </div>
 
