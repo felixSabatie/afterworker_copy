@@ -135,15 +135,15 @@ RSpec.describe Api::InvitesController, type: :controller do
 
       it 'should return the two invites' do
         expect(response).to have_http_status(200)
-        expect(json['invites'].length).to eql(2)
+        expect(@json['invites'].length).to eql(2)
       end
 
       it 'should return the invite\'s event' do
-        expect(json['invites'][0]['event']['id']).to be_truthy
+        expect(@json['invites'][0]['event']['id']).to be_truthy
       end
 
       it 'shouldn\'t return the user' do
-        expect(json['invites'][0]['user']).not_to be_truthy
+        expect(@json['invites'][0]['user']).not_to be_truthy
       end
     end
 

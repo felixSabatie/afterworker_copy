@@ -27,6 +27,10 @@ class Api::InvitesController < ApplicationController
     end
   end
 
+  def index
+    render json: {invites: current_user.invites}, include: [:event]
+  end
+
   private
 
   def get_includes
