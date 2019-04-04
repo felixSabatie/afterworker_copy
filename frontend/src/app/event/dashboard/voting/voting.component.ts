@@ -29,7 +29,7 @@ export class VotingComponent implements OnInit, OnChanges, AfterViewChecked {
 
   ngOnChanges(changes: SimpleChanges) {
     const votingItemsChange = changes.votingItems;
-    if (votingItemsChange.previousValue && votingItemsChange.currentValue
+    if (votingItemsChange && votingItemsChange.previousValue && votingItemsChange.currentValue
       && votingItemsChange.previousValue.length < votingItemsChange.currentValue.length) {
       this.scrollToBottomNext = true;
     }
