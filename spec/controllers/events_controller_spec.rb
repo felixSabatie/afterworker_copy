@@ -206,14 +206,16 @@ RSpec.describe Api::EventsController, type: :controller do
     end
   end
 
-  describe 'GET #index' do
+  describe 'GET #show' do
     context 'valid authentication' do
       before do
         user = create(:user)
         user2 = create(:user)
+        user3 = create(:user)
         add_authenticated_header(request, user)
 
         @event = create(:event, creator: user)
+        invite = create(:invite, event: @event, user: user3)
         place_poll_option = create(:place_poll_option, event: @event)
         place_poll_option.voters << user2
         chosen_place = create(:place_poll_option, event: @event)
@@ -243,16 +245,23 @@ RSpec.describe Api::EventsController, type: :controller do
         expect(@json['event']['place_poll_options']).to be_truthy
         expect(@json['event']['place_poll_options'].length).to eql(2)
         expect(@json['event']['place_poll_options'][0]['voters'].length).to eql(1)
-        expect(@json['event']['place_poll_options'][0]['voters'][0]).not_to include('password_digest')
+
         expect(@json['event']['date_poll_options']).to be_truthy
         expect(@json['event']['date_poll_options'].length).to eql(2)
-        expect(@json['event']['date_poll_options'][0]['voters'][0]).not_to include('password_digest')
+        
         expect(@json['event']['participants']).to be_truthy
         expect(@json['event']['participants'].length).to eql(2)
+
+        expect(@json['event']['invites']).to be_truthy
+        expect(@json['event']['invites'].length).to eql(1)
+        expect(@json['event']['invites'][0]['user']).to be_truthy
       end
 
       it "shouldn't show the user's password hash" do
+        expect(@json['event']['date_poll_options'][0]['voters'][0]).not_to include('password_digest')
+        expect(@json['event']['place_poll_options'][0]['voters'][0]).not_to include('password_digest')
         expect(@json['event']['participants'][0]).not_to include('password_digest')
+        expect(@json['event']['invites'][0]['user']).not_to include('password_digest')
       end
     end
 

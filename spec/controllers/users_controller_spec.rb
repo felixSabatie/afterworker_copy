@@ -195,4 +195,83 @@ RSpec.describe Api::UsersController, type: :controller do
       end
     end
   end
+
+  describe 'GET #search' do
+    context 'valid params' do
+      before do
+        @user = create(:user, username: 'test_1')
+        create(:user, username: 'test_2')
+        create(:user, username: 'test_3')
+        create(:user, username: 'other_test_1')
+        create(:user, username: 'other_test_2')
+
+        add_authenticated_header(request, @user)
+
+        get :search, params: {username: "test"}
+        @json = JSON.parse(response.body)
+      end
+
+      it 'should return 2 users' do
+        expect(response).to have_http_status(200)
+        expect(@json['users']).to be_truthy
+        expect(@json['users'].length).to eql(2)
+      end
+
+      it 'shouldn\'t return the current user' do
+        user_in_array = @json['users'].any? {|user| user['id'] == @user.id }
+        expect(user_in_array).not_to eql(true)
+      end
+
+      it 'shouldn\'t return the user\'s password digests' do
+        expect(@json['users'][0]['password_digest']).not_to be_truthy
+      end
+    end
+
+    context 'limit number of returned users' do
+      it 'should return 5 users max' do
+        user = create(:user, username: 'test_1')
+        create(:user, username: 'test_2')
+        create(:user, username: 'test_3')
+        create(:user, username: 'test_4')
+        create(:user, username: 'test_5')
+        create(:user, username: 'test_6')
+        create(:user, username: 'test_7')
+        create(:user, username: 'test_8')
+        create(:user, username: 'test_9')
+        create(:user, username: 'test_10')
+
+        add_authenticated_header(request, user)
+
+        get :search, params: {username: "test"}
+        json = JSON.parse(response.body)
+
+        expect(json['users'].length).to eql(5)
+      end
+
+    end
+
+    context 'wrong params' do
+      it 'should return 400 when the request is malformed' do
+        user = create(:user, username: 'test_1')
+        create(:user, username: 'test_2')
+        create(:user, username: 'test_3')
+
+        add_authenticated_header(request, user)
+
+        get :search, params: {username: ""}
+        expect(response).to have_http_status(400)
+      end
+    end
+
+    context 'unauthorized' do
+      it 'should return 401 if the user is not connected' do
+        user = create(:user, username: 'test_1')
+        create(:user, username: 'test_2')
+        create(:user, username: 'test_3')
+
+        get :search, params: {username: "test"}
+        expect(response).to have_http_status(401)
+      end
+    end
+  end  
 end
