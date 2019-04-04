@@ -44,6 +44,7 @@ import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { ChatComponent } from './event/dashboard/chat/chat.component';
 import { MessageComponent } from './event/dashboard/chat/message/message.component';
 import { InvitesComponent } from './event/dashboard/invites/invites.component';
+import { InviteListItemComponent } from './navbar/invite-list-item/invite-list-item.component';
 
 const socketioConfig: SocketIoConfig = { url: environment.rtUrl, options: {} };
 
@@ -88,6 +89,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     ChatComponent,
     MessageComponent,
     InvitesComponent,
+    InviteListItemComponent,
   ],
   imports: [
     BrowserModule,
