@@ -2,7 +2,7 @@ class Api::InvitesController < ApplicationController
   before_action :authenticate_user
   before_action :set_event, only: [:create]
   before_action :set_user, only: [:create]
-  before_action :set_invite, only: [:accept]
+  before_action :set_invite, only: [:accept, :refuse]
 
   def create
     if @event === nil || @user === nil
@@ -37,6 +37,15 @@ class Api::InvitesController < ApplicationController
       render status: 404
     else
       @invite.event.participants << current_user
+      @invite.destroy
+      render json: {success: true}
+    end
+  end
+
+  def refuse
+    if @invite === nil || @invite.user_id != current_user.id
+      render status: 404
+    else
       @invite.destroy
       render json: {success: true}
     end

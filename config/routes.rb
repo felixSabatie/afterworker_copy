@@ -26,7 +26,8 @@ Rails.application.routes.draw do
     # invites controller
     post '/events/:hash/invite' => 'invites#create'
     get '/invites' => 'invites#index'
-    post '/invites/:id' => 'invites#accept'
+    post '/invites/:id/accept' => 'invites#accept'
+    post '/invites/:id/refuse' => 'invites#refuse'
   end
 
   root to: 'static_files#index'

@@ -267,7 +267,7 @@ RSpec.describe Api::InvitesController, type: :controller do
       end
 
       it 'should delete the invite' do
-        expect(Invite.exists?(@invite)).to eql(false)
+        expect(Invite.exists?(@invite.id)).to eql(false)
       end
     end
 
