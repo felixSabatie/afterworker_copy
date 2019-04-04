@@ -33,18 +33,31 @@ RSpec.describe Api::InvitesController, type: :controller do
       end
     end
 
-    context 'already invited' do
+    context 'user already in event' do
       it 'should refuse to create because invite already exists' do
         user = create(:user)
-        @user2 = create(:user)
+        user2 = create(:user)
         event = create(:event, creator: user)
-        invite = create(:invite, user: @user2, event: event)
+        invite = create(:invite, user: user2, event: event)
 
         add_authenticated_header(request, user)
-        post :create, params: {hash: event.event_hash, user_id: @user2.id}
+        post :create, params: {hash: event.event_hash, user_id: user2.id}
 
         expect(response).to have_http_status(400)
         expect(Invite.count).to eql(1)
+      end
+
+      it 'should refuse to create because the user is already in the event' do
+        user = create(:user)
+        user2 = create(:user)
+        event = create(:event, creator: user)
+        event.participants << user2
+
+        add_authenticated_header(request, user)
+        post :create, params: {hash: event.event_hash, user_id: user2.id}
+
+        expect(response).to have_http_status(400)
+        expect(Invite.count).to eql(0)
       end
     end
 
