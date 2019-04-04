@@ -27,7 +27,7 @@ export class InvitesService {
   }
 
   create(event: Event, userId: number): Observable<Invite> {
-    return this.http.post<any>(`${environment.baseUrl}/events/${event.event_hash}/invite`, {user_id: userId})
+    return this.http.post<any>(`${environment.baseUrl}/events/${event.event_hash}/invites`, {user_id: userId})
       .pipe(map(response => response.invite));
   }
 }
