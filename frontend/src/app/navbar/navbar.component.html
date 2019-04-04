@@ -10,7 +10,7 @@
       <a routerLink="/login" class="nav-item">Log in</a>
     </div>
 
-    <div *ngIf="user !== undefined">
+    <div *ngIf="user !== undefined && user.invites.length > 0">
         <div class="dropdown-trigger nav-item" (click)="toggleShowNotificationsDropdown()">
           <fa-icon class="notification-icon" [icon]="faBell"></fa-icon>
           <div class="dropdown-menu-wrapper" [class.show]="showNotificationsDropDown">
