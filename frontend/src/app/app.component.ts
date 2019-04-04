@@ -34,9 +34,11 @@ export class AppComponent implements OnInit {
     this.router.events.pipe(
       filter(e => e instanceof NavigationEnd)
     ).subscribe(e => {
-      this.invitesService.get().subscribe(invites => {
-        this.store.dispatch(new UserActions.SetUser({...this.user, invites}));
-      });
+      if (this.user) {
+        this.invitesService.get().subscribe(invites => {
+          this.store.dispatch(new UserActions.SetUser({...this.user, invites}));
+        });
+      }
     });
   }
 }
