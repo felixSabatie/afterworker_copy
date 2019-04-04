@@ -22,4 +22,9 @@ export class UserService {
       .pipe(map(response => response.user));
   }
 
+  search(username: string): Observable<User[]> {
+    return this.http.get<any>(`${environment.baseUrl}/users/search/${username}`, {})
+      .pipe(map(response => response.users));
+  }
+
 }

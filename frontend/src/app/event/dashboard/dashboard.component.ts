@@ -10,6 +10,7 @@ import { PlacePollService } from './poll/place-poll/place-poll.service';
 import { DatePollService } from './poll/date-poll/date-poll.service';
 import { PlacePollOption } from 'src/app/models/place-poll-option.model';
 import { DatePollOption } from 'src/app/models/date-poll-option.model';
+import { Invite } from 'src/app/models/invite.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -112,6 +113,10 @@ export class DashboardComponent implements OnInit {
 
   addDate(date: DatePollOption) {
     this.event.date_poll_options.push(date);
+  }
+
+  addInvite(invite: Invite) {
+    this.event.invites.push(invite);
   }
 
 }

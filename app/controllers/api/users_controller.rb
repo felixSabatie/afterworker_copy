@@ -43,7 +43,7 @@ module Api
 
     def search
       unless params[:username].blank?
-        users = User.where('username LIKE ? AND id <> ?', "#{params[:username]}%", current_user.id).limit(5)
+        users = User.where('LOWER(username) LIKE ? AND id <> ?', "#{params[:username].downcase}%", current_user.id).limit(5)
         render json: {users: users}, except: [:password_digest]
       else
         render status: 400, json: {error: 'bad request'}

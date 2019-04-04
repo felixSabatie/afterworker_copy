@@ -3,4 +3,13 @@
   <div class="invites content-container">
       <app-users-list [users]="invitedUsers" class="invited content"></app-users-list>
   </div>
+  <form (ngSubmit)="createInvite()" class="inline-form">
+      <div class="input">
+        <input type="text" [(ngModel)]="username" name="username" placeholder="invite a user" autocomplete="off" required>
+      </div>
+      <button class="btn" [disabled]="waitingForResponse">
+        <app-spinner *ngIf="waitingForResponse"></app-spinner>
+        <span *ngIf="!waitingForResponse">Ok</span>
+      </button>
+    </form>
 </div>
