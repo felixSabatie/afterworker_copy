@@ -29,6 +29,7 @@
     border: 1px solid $borderColor;
     border-radius: 100px;
     transition: $transitionsDuration;
+    background-color: $backgroundColor;
 
     &::placeholder {
       color: $greyTextColor;
