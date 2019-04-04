@@ -28,13 +28,26 @@ export class NavbarComponent implements OnInit {
   }
 
   private toggleShowAccountDropdown() {
-    this.showAccountDropDown = !this.showAccountDropDown;
+    const wasOpen = this.showAccountDropDown;
+    this.closeAllDropdowns();
+    if (!wasOpen) {
+      this.showAccountDropDown = true;
+    }
     // TODO click outside to close : https://github.com/ng-bootstrap/ng-bootstrap/issues/933#issuecomment-272656499
   }
 
   private toggleShowNotificationsDropdown() {
-    this.showNotificationsDropDown = !this.showNotificationsDropDown;
+    const wasOpen = this.showNotificationsDropDown;
+    this.closeAllDropdowns();
+    if (!wasOpen) {
+      this.showNotificationsDropDown = true;
+    }
     // TODO click outside to close : https://github.com/ng-bootstrap/ng-bootstrap/issues/933#issuecomment-272656499
+  }
+
+  private closeAllDropdowns() {
+    this.showAccountDropDown = false;
+    this.showNotificationsDropDown = false;
   }
 
   private logout() {
