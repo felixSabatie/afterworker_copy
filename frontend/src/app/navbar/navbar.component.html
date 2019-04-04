@@ -15,9 +15,8 @@
           <fa-icon class="notification-icon" [icon]="faBell"></fa-icon>
           <div class="dropdown-menu-wrapper" [class.show]="showNotificationsDropDown">
             <div class="dropdown-menu box-shadow">
-              <div class="dropdown-menu-item" (click)="logout()">
-                <fa-icon class="icon" [icon]="faSignOutAlt"></fa-icon>
-                Log out
+              <div *ngFor="let invite of user.invites" class="dropdown-menu-item" (click)="logout()">
+                <app-invite-list-item [invite]="invite"></app-invite-list-item>
               </div>
             </div>
           </div>

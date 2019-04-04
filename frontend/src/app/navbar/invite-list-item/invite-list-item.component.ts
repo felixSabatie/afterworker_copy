@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Invite } from 'src/app/models/invite.model';
 
 @Component({
   selector: 'app-invite-list-item',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./invite-list-item.component.scss']
 })
 export class InviteListItemComponent implements OnInit {
+  @Input() invite: Invite;
 
   constructor() { }
 
