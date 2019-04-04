@@ -3,7 +3,7 @@
     You have been invited to "{{ invite.event.name }}"
   </div>
   <div class="buttons">
-    <button class="btn btn-thin accept-button" >Accept</button>
-    <button class="btn btn-thin refuse-button" >Decline</button>
+    <button class="btn btn-thin accept-button" (click)="accept()">Accept</button>
+    <button class="btn btn-thin refuse-button" (click)="refuse()">Decline</button>
   </div>
 </div>

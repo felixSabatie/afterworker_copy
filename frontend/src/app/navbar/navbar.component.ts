@@ -5,6 +5,7 @@ import {User} from '../models/user.model';
 import { faSignOutAlt, faBell } from '@fortawesome/free-solid-svg-icons';
 import {Router} from '@angular/router';
 import * as GlobalActions from '../ngrx/actions/global.actions';
+import { Invite } from '../models/invite.model';
 
 @Component({
   selector: 'app-navbar',
@@ -54,6 +55,14 @@ export class NavbarComponent implements OnInit {
     this.store.dispatch(new GlobalActions.ResetAll());
     this.showAccountDropDown = false;
     this.router.navigate(['login']);
+  }
+
+  private accept(invite: Invite) {
+    console.log('accept ' + invite.id);
+  }
+
+  private refuse(invite: Invite) {
+    console.log('refuse ' + invite.id);
   }
 
 }

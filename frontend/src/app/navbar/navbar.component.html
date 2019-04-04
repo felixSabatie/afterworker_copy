@@ -16,7 +16,7 @@
           <div class="dropdown-menu-wrapper" [class.show]="showNotificationsDropDown">
             <div class="dropdown-menu box-shadow notifications-dropdown">
               <div *ngFor="let invite of user.invites" class="dropdown-menu-item">
-                <app-invite-list-item [invite]="invite"></app-invite-list-item>
+                <app-invite-list-item [invite]="invite" (accepted)="accept($event)" (refused)="refuse($event)"></app-invite-list-item>
               </div>
             </div>
           </div>
