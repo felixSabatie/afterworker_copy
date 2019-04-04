@@ -14,8 +14,8 @@
         <div class="dropdown-trigger nav-item" (click)="toggleShowNotificationsDropdown()">
           <fa-icon class="notification-icon" [icon]="faBell"></fa-icon>
           <div class="dropdown-menu-wrapper" [class.show]="showNotificationsDropDown">
-            <div class="dropdown-menu box-shadow">
-              <div *ngFor="let invite of user.invites" class="dropdown-menu-item" (click)="logout()">
+            <div class="dropdown-menu box-shadow notifications-dropdown">
+              <div *ngFor="let invite of user.invites" class="dropdown-menu-item">
                 <app-invite-list-item [invite]="invite"></app-invite-list-item>
               </div>
             </div>

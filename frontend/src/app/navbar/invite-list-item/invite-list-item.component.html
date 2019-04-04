@@ -1,3 +1,9 @@
 <div class="invite-list-item">
-  {{ invite.event.name }}
+  <div class="message">
+    You have been invited to "{{ invite.event.name }}"
+  </div>
+  <div class="buttons">
+    <button class="btn btn-thin accept-button" >Accept</button>
+    <button class="btn btn-thin refuse-button" >Decline</button>
+  </div>
 </div>

@@ -109,6 +109,14 @@
         border-color: transparent transparent $backgroundColor transparent;
         border-style: solid;
       }
+
+      &.notifications-dropdown {
+        width: 250px;
+        
+        .dropdown-menu-item:hover {
+          background-color: transparent;
+        }
+      }
     }
   }
 }
