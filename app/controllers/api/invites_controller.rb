@@ -2,6 +2,7 @@ class Api::InvitesController < ApplicationController
   before_action :authenticate_user
   before_action :set_event, only: [:create]
   before_action :set_user, only: [:create]
+  before_action :set_invite, only: [:accept]
 
   def create
     if @event === nil || @user === nil
@@ -31,6 +32,16 @@ class Api::InvitesController < ApplicationController
     render json: {invites: current_user.invites}, include: [:event]
   end
 
+  def accept
+    if @invite === nil || @invite.user_id != current_user.id
+      render status: 404
+    else
+      @invite.event.participants << current_user
+      @invite.destroy
+      render json: {success: true}
+    end
+  end
+
   private
 
   def get_includes
@@ -53,6 +64,10 @@ class Api::InvitesController < ApplicationController
 
   def set_user
     @user = User.find(params[:user_id])
+  end
+
+  def set_invite
+    @invite = Invite.find(params[:id])
   end
 
 end
