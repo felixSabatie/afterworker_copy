@@ -1,3 +1,4 @@
 <div class="users-list">
-  <app-users-list-item *ngFor="let user of users" [user]="user" [isCreator]="creatorId && creatorId === user.id"></app-users-list-item>
+  <app-users-list-item *ngFor="let user of users" [user]="user" (click)="userClick(user)"
+    [isCreator]="creatorId && creatorId === user.id" [clickable]="clickable"></app-users-list-item>
 </div>

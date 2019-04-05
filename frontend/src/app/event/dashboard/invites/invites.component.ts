@@ -34,7 +34,7 @@ export class InvitesComponent implements OnInit {
     this.usernameControl.valueChanges.pipe(debounceTime(500)).subscribe(newUsername => {
       if (newUsername.length > 0) {
         this.userService.search(newUsername).subscribe(users => {
-          this.searchUsers = users;
+          this.searchUsers = users.filter(user => !this.userInEvent(user));
           this.waitingForUsersSearchResponse = false;
         });
       } else {
@@ -47,10 +47,8 @@ export class InvitesComponent implements OnInit {
     return this.event.invites.map(invite => invite.user);
   }
 
-  createInvite() {
+  createInvite(user: User) {
     this.waitingForResponse = true;
-    const user = this.searchUsers[0];
-
     this.invitesService.create(this.event, user.id).subscribe(invite => {
       this.waitingForResponse = false;
       this.createdInvite.emit(invite);
@@ -58,4 +56,11 @@ export class InvitesComponent implements OnInit {
     });
   }
 
+  private userInEvent(user: User): boolean {
+    return this.userInArray(user, this.event.participants) || this.userInArray(user, this.event.invites.map(i => i.user));
+  }
+
+  private userInArray(user: User, array: User[]): boolean {
+    return array.some(u => u.id === user.id);
+  }
 }

@@ -1,4 +1,4 @@
-<div class="users-list-item">
+<div class="users-list-item" [class.clickable]="clickable">
   <img class="user-avatar" [src]="user.avatar_link" [alt]="user.username">
   <div class="user-name">{{ user.username }}</div>
   <div class="creator" *ngIf="isCreator" [title]="user.username + ' created this event'"><fa-icon [icon]="faCrown"></fa-icon></div>

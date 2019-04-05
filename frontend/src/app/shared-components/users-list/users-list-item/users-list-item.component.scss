@@ -1,10 +1,20 @@
 @import '../../../../styles/colors';
+@import '../../../../styles/variables';
 
 .users-list-item {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   padding: 10px 0;
+  background-color: $backgroundColor;
+
+  &.clickable {
+    cursor: pointer;
+    padding: 5px;
+    &:hover {
+      background-color: $appBackgroundColor;
+    }
+  }
 
   .user-avatar {
     width: 30px;
