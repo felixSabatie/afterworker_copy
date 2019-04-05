@@ -1,9 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { Event } from 'src/app/models/event.model';
 import { UserService } from 'src/app/shared-services/user.service';
 import { InvitesService } from 'src/app/shared-services/invites.service';
 import { Invite } from 'src/app/models/invite.model';
+import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-invites',
@@ -13,12 +15,26 @@ import { Invite } from 'src/app/models/invite.model';
 export class InvitesComponent implements OnInit {
   @Input() event: Event;
   @Output() createdInvite = new EventEmitter<Invite>();
-  username = '';
-  waitingForResonse = false;
 
-  constructor(private userService: UserService, private invitesService: InvitesService) { }
+  searchForm: FormGroup;
+  usernameControl = new FormControl();
+  waitingForResonse = false;
+  searchUsers: User[] = [];
+
+  constructor(private userService: UserService, private invitesService: InvitesService, private fb: FormBuilder) {
+    this.searchForm = this.fb.group({
+      username: this.usernameControl,
+    });
+  }
 
   ngOnInit() {
+    this.usernameControl.valueChanges.pipe(debounceTime(500)).subscribe(newUsername => {
+      if (newUsername.length > 0) {
+        this.userService.search(newUsername).subscribe(users => {
+          this.searchUsers = users;
+        });
+      }
+    });
   }
 
   get invitedUsers(): User[] {
@@ -27,17 +43,12 @@ export class InvitesComponent implements OnInit {
 
   createInvite() {
     this.waitingForResonse = true;
-    this.userService.search(this.username).subscribe(users => {
-      if (users.length > 0) {
-        const user = users[0];
-        this.invitesService.create(this.event, user.id).subscribe(invite => {
-          this.waitingForResonse = false;
-          this.createdInvite.emit(invite);
-          this.username = '';
-        });
-      } else {
-        this.waitingForResonse = false;
-      }
+    const user = this.searchUsers[0];
+
+    this.invitesService.create(this.event, user.id).subscribe(invite => {
+      this.waitingForResonse = false;
+      this.createdInvite.emit(invite);
+      this.usernameControl.setValue('');
     });
   }
 

@@ -3,9 +3,9 @@
   <div class="invites content-container">
       <app-users-list [users]="invitedUsers" class="invited content"></app-users-list>
   </div>
-  <form (ngSubmit)="createInvite()" class="inline-form">
+  <form (ngSubmit)="$event.preventDefault()" class="inline-form" [formGroup]="searchForm">
       <div class="input">
-        <input type="text" [(ngModel)]="username" name="username" placeholder="invite a user" autocomplete="off" required>
+        <input type="text" name="username" placeholder="invite a user" autocomplete="off" formControlName="username" required>
       </div>
       <button class="btn" [disabled]="waitingForResponse">
         <app-spinner *ngIf="waitingForResponse"></app-spinner>
