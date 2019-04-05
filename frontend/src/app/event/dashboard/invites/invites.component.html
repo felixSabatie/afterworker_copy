@@ -4,8 +4,13 @@
       <app-users-list [users]="invitedUsers" class="invited content"></app-users-list>
   </div>
   <form (ngSubmit)="$event.preventDefault()" class="inline-form" [formGroup]="searchForm">
-      <div class="input">
+      <div class="input input-autocomplete">
         <input type="text" name="username" placeholder="invite a user" autocomplete="off" formControlName="username" required>
+        <div class="autocomplete-list box-shadow" *ngIf="usernameControl.value.length > 0">
+          <app-users-list [users]="searchUsers" *ngIf="searchUsers.length > 0"></app-users-list>
+          <div *ngIf="!waitingForUsersSearchResponse && searchUsers.length === 0">No result</div>
+          <app-spinner *ngIf="waitingForUsersSearchResponse" class="users-search-spinner"></app-spinner>
+        </div>
       </div>
       <button class="btn" [disabled]="waitingForResponse">
         <app-spinner *ngIf="waitingForResponse"></app-spinner>

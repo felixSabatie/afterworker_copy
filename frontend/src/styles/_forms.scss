@@ -41,6 +41,25 @@
     }
   }
 
+  &.input-autocomplete {
+    position: relative;
+
+    .autocomplete-list {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      max-height: 200px;
+      overflow: auto;
+      
+      background-color: $backgroundColor;
+      border-radius: 5px;
+      padding: 5px;
+    }
+  }
+
   .switch-container {
     display: flex;
     align-items: center;

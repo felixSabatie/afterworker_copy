@@ -18,21 +18,27 @@ export class InvitesComponent implements OnInit {
 
   searchForm: FormGroup;
   usernameControl = new FormControl();
-  waitingForResonse = false;
+  waitingForResponse = false;
+  waitingForUsersSearchResponse = false;
   searchUsers: User[] = [];
 
   constructor(private userService: UserService, private invitesService: InvitesService, private fb: FormBuilder) {
+    this.usernameControl.setValue('');
     this.searchForm = this.fb.group({
       username: this.usernameControl,
     });
   }
 
   ngOnInit() {
+    this.usernameControl.valueChanges.subscribe(() => this.waitingForUsersSearchResponse = true);
     this.usernameControl.valueChanges.pipe(debounceTime(500)).subscribe(newUsername => {
       if (newUsername.length > 0) {
         this.userService.search(newUsername).subscribe(users => {
           this.searchUsers = users;
+          this.waitingForUsersSearchResponse = false;
         });
+      } else {
+        this.searchUsers = [];
       }
     });
   }
@@ -42,11 +48,11 @@ export class InvitesComponent implements OnInit {
   }
 
   createInvite() {
-    this.waitingForResonse = true;
+    this.waitingForResponse = true;
     const user = this.searchUsers[0];
 
     this.invitesService.create(this.event, user.id).subscribe(invite => {
-      this.waitingForResonse = false;
+      this.waitingForResponse = false;
       this.createdInvite.emit(invite);
       this.usernameControl.setValue('');
     });
