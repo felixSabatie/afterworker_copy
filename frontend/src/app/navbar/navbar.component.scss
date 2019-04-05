@@ -15,6 +15,7 @@
     height: $navbarHeight;
     display: flex;
     align-items: center;
+    cursor: pointer;
   }
 
   a {
@@ -36,17 +37,25 @@
     }
   }
 
-  .user-avatar-container {
-    position: relative;
+  .right {
+    display: flex;
+    flex-direction: row;
+  }
 
-    .user-avatar {
-      background-color: $accentContrastColor;
-      border-radius: 50%;
-      width: 35px;
-      height: 35px;
-      padding: 2px;
-      cursor: pointer;
-    }
+  .dropdown-trigger {
+    position: relative;
+  }
+
+  .user-avatar {
+    background-color: $accentContrastColor;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    padding: 2px;
+  }
+
+  .notification-icon {
+    font-size: 25px;
   }
 
   .dropdown-menu-wrapper {
@@ -99,6 +108,14 @@
         border-width: 7px;
         border-color: transparent transparent $backgroundColor transparent;
         border-style: solid;
+      }
+
+      &.notifications-dropdown {
+        width: 250px;
+        
+        .dropdown-menu-item:hover {
+          background-color: transparent;
+        }
       }
     }
   }

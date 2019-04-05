@@ -10,6 +10,7 @@ import { faCrown } from '@fortawesome/free-solid-svg-icons';
 export class UsersListItemComponent implements OnInit {
   @Input() user: User;
   @Input() isCreator = false;
+  @Input() clickable = false;
 
   faCrown = faCrown;
 

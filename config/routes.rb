@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     delete '/events/:hash/date-poll/chosen-date' => 'date_poll#destroy_chosen_date'
     
     # invites controller
-    post '/events/:hash/invite' => 'invites#create'
+    post '/events/:hash/invites' => 'invites#create'
     get '/invites' => 'invites#index'
     post '/invites/:id/accept' => 'invites#accept'
     post '/invites/:id/refuse' => 'invites#refuse'

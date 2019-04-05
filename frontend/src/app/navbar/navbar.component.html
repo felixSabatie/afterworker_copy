@@ -10,10 +10,23 @@
       <a routerLink="/login" class="nav-item">Log in</a>
     </div>
 
+    <div *ngIf="user !== undefined && user.invites.length > 0">
+        <div class="dropdown-trigger nav-item" (click)="toggleShowNotificationsDropdown()">
+          <fa-icon class="notification-icon" [icon]="faBell"></fa-icon>
+          <div class="dropdown-menu-wrapper" [class.show]="showNotificationsDropDown">
+            <div class="dropdown-menu box-shadow notifications-dropdown">
+              <div *ngFor="let invite of user.invites" class="dropdown-menu-item">
+                <app-invite-list-item [invite]="invite" (accepted)="accept($event)" (refused)="refuse($event)"></app-invite-list-item>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     <div *ngIf="user !== undefined">
-      <div class="user-avatar-container nav-item" (click)="toggleShowDropdown()">
+      <div class="dropdown-trigger nav-item" (click)="toggleShowAccountDropdown()">
         <img [src]="user.avatar_link" alt="user avatar" class="user-avatar">
-        <div class="dropdown-menu-wrapper" [class.show]="showDropDown">
+        <div class="dropdown-menu-wrapper" [class.show]="showAccountDropDown">
           <div class="dropdown-menu box-shadow">
             <div class="dropdown-menu-item" (click)="logout()">
               <fa-icon class="icon" [icon]="faSignOutAlt"></fa-icon>

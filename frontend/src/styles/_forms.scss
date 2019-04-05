@@ -29,6 +29,7 @@
     border: 1px solid $borderColor;
     border-radius: 100px;
     transition: $transitionsDuration;
+    background-color: $backgroundColor;
 
     &::placeholder {
       color: $greyTextColor;
@@ -37,6 +38,25 @@
     &:focus {
       border: 1px solid $accentColorLight;
       outline: none;
+    }
+  }
+
+  &.input-autocomplete {
+    position: relative;
+
+    .autocomplete-list {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      max-height: 200px;
+      overflow: auto;
+      
+      background-color: $backgroundColor;
+      border-radius: 5px;
+      padding: 5px;
     }
   }
 

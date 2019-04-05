@@ -1,0 +1,20 @@
+@import '../../../styles/colors';
+
+.invite-list-item {
+  margin-bottom: 10px;
+  
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+
+    .refuse-button {
+      background-color: transparent;
+      margin-left: 10px;
+      border: 1px solid $accentColor;
+      color: $textColor;
+    }
+  }
+}
