@@ -15,6 +15,16 @@ lint:
     - ng lint
   allow_failure: true
 
+e2e:
+  stage: test
+  image: node:11
+  script:
+    - cd frontend
+    - npm i
+    - npm i -g @angular/cli
+    - ng e2e
+  allow_failure: true
+
 test:
   stage: test
   image: docker:stable
